@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Framingham Pharma · Informe Ejecutivo · Junio 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --red:#E63946;--red-deep:#B92836;
+  --cyan:#1FAFE0;--cyan-deep:#0A7CA8;
+  --canvas:#F5F1EA;--canvas-2:#EBE4D8;
+  --paper:#FFFFFF;
+  --ink:#0B1B2E;--ink-2:#1A2F4A;--ink-3:#4D637D;--ink-4:#8A9AB0;
+  --line:#E0D9CB;--line-2:#EBE4D8;
+  --gold:#C9A85E;
+  --good:#1E8A5A;--warn:#C58A14;--bad:#B83A3A;
+  --sh:0 1px 3px rgba(11,27,46,.09);
+  --r:0.8vw;--r-sm:0.5vw;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--ink);font-family:'Inter',system-ui,sans-serif;font-size:1.02vw;color:var(--ink);-webkit-font-smoothing:antialiased;letter-spacing:-.004em}
+img{max-width:100%;display:block}
+
+/* ── 16:9 SLIDES ── */
+.slide{
+  width:100vw;height:56.25vw;overflow:hidden;position:relative;
+  box-sizing:border-box;display:flex;flex-direction:column;
+  padding:2.6vw 4.5vw 2.2vw;
+}
+.slide-canvas{background:var(--canvas)}
+.slide-paper{background:var(--paper)}
+.slide-dark{background:var(--ink);color:#fff}
+.slide-cream{background:linear-gradient(170deg,var(--canvas) 0%,var(--canvas-2) 100%)}
+
+/* ── HERO / COVER ── */
+.hero{
+  width:100vw;height:56.25vw;overflow:hidden;position:relative;
+  background:
+    radial-gradient(70vw 40vw at 85% 5%,rgba(31,175,224,.22),transparent 65%),
+    radial-gradient(65vw 35vw at 5% 95%,rgba(230,57,70,.20),transparent 65%),
+    linear-gradient(180deg,#0B1B2E 0%,#142C48 55%,#08172A 100%);
+  color:#fff;display:grid;grid-template-rows:auto 1fr;
+}
+.hero-grid-bg{position:absolute;inset:0;opacity:.04;pointer-events:none;
+  background-image:linear-gradient(rgba(255,255,255,.6) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(255,255,255,.6) 1px,transparent 1px);
+  background-size:6vw 6vw}
+.hero-top{padding:2vw 4vw;display:flex;align-items:center;justify-content:space-between;
+  position:relative;z-index:2;border-bottom:1px solid rgba(255,255,255,.1)}
+.hero-logo{display:flex;align-items:center;gap:0.9vw}
+.hero-logo img{height:2.4vw;width:auto;object-fit:contain}
+.hero-logo-text b{font-family:'Manrope';font-weight:800;font-size:0.82vw;letter-spacing:.04em;color:#fff;display:block}
+.hero-logo-text span{font-family:'Manrope';font-weight:500;font-size:0.62vw;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.hero-badge{font-family:'Manrope';font-weight:700;font-size:0.62vw;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.62);
+  padding:0.45vw 1.1vw;border:1px solid rgba(255,255,255,.2);border-radius:99vw;
+  display:flex;align-items:center;gap:0.5vw}
+.hero-badge::before{content:'';width:0.38vw;height:0.38vw;border-radius:50%;background:var(--cyan);box-shadow:0 0 0 0.22vw rgba(31,175,224,.22)}
+.hero-body{flex:1;display:grid;grid-template-columns:1.5fr 1fr;gap:4vw;align-items:center;padding:0 4vw 2.5vw;position:relative;z-index:2}
+.hero-eyebrow{font-family:'Manrope';font-weight:700;font-size:0.62vw;letter-spacing:.3em;text-transform:uppercase;color:var(--cyan);
+  margin-bottom:1.2vw;display:flex;align-items:center;gap:0.9vw}
+.hero-eyebrow::before{content:'';width:1.8vw;height:1px;background:var(--cyan)}
+.hero h1{font-family:'Fraunces',serif;font-weight:700;font-size:4.8vw;line-height:.95;letter-spacing:-.03em;color:#fff;margin-bottom:2vw}
+.hero h1 em{color:var(--cyan);font-style:italic;font-weight:600}
+.hero-foot{display:flex;gap:2.5vw;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.14);padding-top:1.2vw}
+.hero-foot-item{display:flex;flex-direction:column}
+.hero-foot-item .k{font-family:'Manrope';font-size:0.58vw;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.48);margin-bottom:0.25vw}
+.hero-foot-item .v{font-family:'Manrope';font-size:0.78vw;font-weight:600;color:#fff}
+.hero-card{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.14);border-radius:1.1vw;padding:1.6vw 1.8vw;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.hero-card h3{font-family:'Manrope';font-weight:800;font-size:0.62vw;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);text-align:center;margin-bottom:1vw}
+.hero-card-row{display:flex;justify-content:space-between;align-items:baseline;padding:0.75vw 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.hero-card-row:last-child{border-bottom:none;padding-bottom:0}
+.hero-card-row .k{font-family:'Manrope';font-size:0.72vw;color:rgba(255,255,255,.65);font-weight:500}
+.hero-card-row .v{font-family:'Manrope';font-size:1.35vw;font-weight:800;color:#fff;letter-spacing:-.02em}
+.hero-card-row .v.ac{color:var(--cyan)}
+.hero-card-row .v.warn{color:#FF8C95}
+
+/* ── SLIDE HEADER ── */
+.slide-head{display:flex;align-items:flex-end;justify-content:space-between;gap:2vw;
+  margin-bottom:1.4vw;padding-bottom:0.9vw;border-bottom:1px solid var(--line);flex-shrink:0}
+.slide-dark .slide-head{border-color:rgba(255,255,255,.12)}
+.slide-head .meta{display:flex;flex-direction:column;gap:0.25vw}
+.eyebrow{font-family:'Manrope';font-size:0.58vw;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan-deep)}
+.slide-dark .eyebrow{color:var(--cyan)}
+.slide-head h2{font-family:'Fraunces',serif;font-weight:700;font-size:2.1vw;letter-spacing:-.025em;line-height:1.05;color:var(--ink)}
+.slide-dark .slide-head h2{color:#fff}
+.slide-num{font-family:'Fraunces';font-size:2.4vw;color:var(--red);font-weight:700;letter-spacing:-.03em;line-height:1;flex-shrink:0;display:flex;align-items:flex-end;gap:0.5vw}
+.slide-dark .slide-num{color:var(--cyan)}
+.slide-num small{font-family:'Manrope';font-size:0.58vw;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-4);padding-bottom:0.28vw}
+.slide-dark .slide-num small{color:rgba(255,255,255,.42)}
+
+/* ── KPI STATS ── */
+.kpi-row{display:grid;gap:1.1vw}
+.kpi-row.c4{grid-template-columns:repeat(4,1fr)}
+.kpi-row.c3{grid-template-columns:repeat(3,1fr)}
+.kpi-row.c2{grid-template-columns:repeat(2,1fr)}
+.stat{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);
+  padding:1.1vw 0.9vw 0.9vw;text-align:center;position:relative;overflow:hidden;box-shadow:var(--sh)}
+.stat-bar{position:absolute;top:0;left:0;right:0;height:0.22vw;background:var(--cyan)}
+.stat.red .stat-bar{background:var(--red)} .stat.gold .stat-bar{background:var(--gold)}
+.stat.good .stat-bar{background:var(--good)} .stat.warn .stat-bar{background:var(--warn)}
+.stat.bad .stat-bar{background:var(--bad)} .stat.dark .stat-bar{background:rgba(255,255,255,.15)}
+.stat.dark{background:var(--ink);border-color:transparent}
+.stat-lbl{font-family:'Manrope';font-size:0.58vw;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);margin-bottom:0.45vw}
+.stat.dark .stat-lbl{color:rgba(255,255,255,.52)}
+.stat-val{font-family:'Manrope';font-weight:800;font-size:2.1vw;color:var(--ink);letter-spacing:-.025em;line-height:1;font-variant-numeric:tabular-nums}
+.stat.dark .stat-val{color:#fff}
+.stat-val .cur{font-size:1.25vw;font-weight:600;color:var(--ink-3);margin-right:0.18vw;vertical-align:0.38vw}
+.stat.dark .stat-val .cur{color:rgba(255,255,255,.58)}
+.stat-val .unit{font-size:0.95vw;font-weight:600;color:var(--ink-3);margin-left:0.18vw;vertical-align:0.3vw}
+.stat.dark .stat-val .unit{color:rgba(255,255,255,.58)}
+.stat-sub{font-size:0.62vw;color:var(--ink-3);margin-top:0.45vw;line-height:1.4}
+.stat.dark .stat-sub{color:rgba(255,255,255,.62)}
+
+/* ── CARDS ── */
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:1.1vw 1.3vw;box-shadow:var(--sh)}
+.card-dark{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.12)}
+.card-title{font-family:'Manrope';font-weight:800;font-size:0.78vw;color:var(--ink);margin-bottom:0.7vw;letter-spacing:-.006em}
+.card-dark .card-title{color:rgba(255,255,255,.9)}
+
+/* ── GRIDS ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:1.1vw}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1vw}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1vw}
+.g21{display:grid;grid-template-columns:2fr 1fr;gap:1.1vw}
+.g12{display:grid;grid-template-columns:1fr 2fr;gap:1.1vw}
+
+/* ── BIGNUM ── */
+.bignum{text-align:center;padding:1.3vw 1vw;border-radius:var(--r);background:linear-gradient(170deg,var(--canvas-2) 0%,var(--canvas) 100%);border:1px solid var(--line)}
+.bignum.dark{background:var(--ink);border-color:transparent}
+.bignum.accent{background:linear-gradient(170deg,rgba(31,175,224,.06) 0%,var(--paper) 100%);border-color:rgba(31,175,224,.2)}
+.bignum .lbl{font-family:'Manrope';font-size:0.58vw;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-3);margin-bottom:0.5vw}
+.bignum.dark .lbl{color:rgba(255,255,255,.52)} .bignum.accent .lbl{color:var(--cyan-deep)}
+.bignum .val{font-family:'Fraunces';font-weight:700;font-size:3.6vw;letter-spacing:-.04em;line-height:.95;color:var(--ink)}
+.bignum.dark .val{color:#fff} .bignum.accent .val{color:var(--cyan-deep)}
+.bignum .val .cur{font-size:1.9vw;color:var(--ink-3);font-weight:600;margin-right:0.25vw;vertical-align:0.65vw}
+.bignum.dark .val .cur{color:rgba(255,255,255,.52)} .bignum.accent .val .cur{color:var(--cyan-deep)}
+
+/* ── RANK ROWS ── */
+.rank-row{display:grid;grid-template-columns:1.6vw 1fr 5.5vw 4vw;gap:0.7vw;align-items:center;
+  padding:0.5vw 0.7vw;border-bottom:1px solid var(--line-2)}
+.rank-row:last-child{border-bottom:none}
+.rank-num{font-family:'Fraunces';font-weight:700;font-size:1vw;text-align:center;line-height:1}
+.rank-name{font-family:'Manrope';font-weight:700;font-size:0.68vw;color:var(--ink);line-height:1.3}
+.rank-cat{font-size:0.53vw;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-top:0.1vw}
+.rank-bar{height:0.42vw;background:var(--line-2);border-radius:0.22vw;overflow:hidden}
+.rank-bar span{display:block;height:100%;border-radius:0.22vw}
+.rank-val{font-family:'Manrope';font-weight:700;font-size:0.68vw;color:var(--ink-2);text-align:right;font-variant-numeric:tabular-nums;line-height:1.4}
+
+/* ── PRODUCT TILES ── */
+.prod-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0.7vw}
+.prod-tile{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-sm);overflow:hidden;position:relative;box-shadow:var(--sh)}
+.prod-tile .plogo{background:var(--pc,var(--cyan));padding:0.55vw 0.5vw;display:flex;align-items:center;justify-content:center;min-height:2.1vw}
+.prod-tile .plogo span{font-family:'Fraunces',serif;font-weight:700;font-size:1.2vw;color:rgba(255,255,255,.95);letter-spacing:-.04em;line-height:1;text-align:center}
+.prod-tile .ptname{font-family:'Manrope';font-weight:800;font-size:0.66vw;color:var(--ink);padding:0.45vw 0.6vw 0.15vw;line-height:1.2}
+.prod-tile .ptkpis{display:flex;justify-content:space-between;padding:0 0.6vw 0.5vw}
+.prod-tile .ptkpis span{font-family:'Manrope';font-size:0.58vw;font-weight:600;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.prod-tile .ptkpis span b{display:block;font-size:0.7vw;color:var(--ink);font-weight:800}
+/* ── DELTA PILL ── */
+.stat-delta{font-family:'Manrope';font-size:0.58vw;font-weight:700;margin-top:0.3vw;padding:0.12vw 0.5vw;border-radius:99vw;display:inline-block;letter-spacing:.02em}
+.stat-delta.up{background:rgba(30,138,90,.13);color:var(--good)}
+.stat-delta.dn{background:rgba(184,58,58,.13);color:var(--bad)}
+.stat.dark .stat-delta.up{background:rgba(30,138,90,.25)}
+.stat.dark .stat-delta.dn{background:rgba(184,58,58,.25)}
+
+/* ── DIAG CARDS ── */
+.diag{border-radius:var(--r);padding:0.9vw 1.1vw;background:var(--paper);border:1px solid var(--line);box-shadow:var(--sh)}
+.diag .dtag{font-family:'Manrope';font-size:0.58vw;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:0.4vw}
+.diag h4{font-family:'Manrope';font-weight:800;font-size:0.78vw;color:var(--ink);margin-bottom:0.45vw;letter-spacing:-.006em}
+.diag ul{padding-left:1em;font-size:0.68vw;color:var(--ink-2);line-height:1.65}
+
+/* ── GOAL CARDS ── */
+.goal{border-radius:var(--r);padding:0.9vw 1vw;background:var(--paper);border:1px solid var(--line);text-align:center;box-shadow:var(--sh)}
+.goal-star{background:linear-gradient(135deg,var(--ink) 0%,#16304e 100%);border:none;color:#fff;display:flex;align-items:center;gap:1.2vw}
+.goal-star .gs-icon{font-family:'Fraunces';font-weight:700;font-size:1.8vw;color:var(--cyan);flex-shrink:0}
+.goal-star h4{font-family:'Manrope';font-weight:800;font-size:0.78vw;color:#fff;text-align:left;line-height:1.35;letter-spacing:-.006em}
+.goal .gnum{font-family:'Fraunces';font-weight:700;font-size:1.8vw;letter-spacing:-.04em;line-height:.9;margin-bottom:0.35vw}
+.goal.r .gnum{color:var(--red)} .goal.g .gnum{color:var(--good)} .goal .gnum{color:var(--cyan)}
+.goal h4{font-family:'Manrope';font-weight:800;font-size:0.72vw;color:var(--ink);line-height:1.3}
+
+/* ── NAV ── */
+.nav-fab{position:fixed;bottom:1.4vw;right:1.4vw;z-index:50;display:flex;gap:0.55vw}
+.nav-fab button{background:var(--ink);color:#fff;border:none;cursor:pointer;font-family:'Manrope';font-weight:700;font-size:0.62vw;letter-spacing:.08em;text-transform:uppercase;padding:0.65vw 1.1vw;border-radius:99vw;display:inline-flex;align-items:center;gap:0.45vw;box-shadow:0 0.6vw 1.5vw -0.4vw rgba(11,27,46,.42);transition:transform .2s,background .2s}
+.nav-fab button:hover{transform:translateY(-0.12vw);background:var(--cyan-deep)}
+.nav-fab button.prev{background:var(--paper);color:var(--ink);border:1px solid var(--line)}
+.nav-fab button.prev:hover{background:var(--ink);color:#fff}
+.nav-ic{width:0.82vw;height:0.82vw;display:inline-block}
+.nav-progress{position:fixed;left:0;right:0;top:0;height:0.16vw;background:transparent;z-index:60}
+.nav-progress span{display:block;height:100%;background:linear-gradient(90deg,var(--cyan),var(--red));width:0%;transition:width .15s ease-out}
+@media print{.nav-fab,.nav-progress{display:none}}
+</style>
+</head>
+<body>
+
+<div class="nav-progress" aria-hidden="true"><span id="navProg"></span></div>
+<div class="nav-fab">
+  <button class="prev" onclick="changeFontMult(-0.2)" title="Reducir fuente gráficos">A−</button>
+  <span id="cfmult-disp" style="font-family:'Manrope';font-weight:700;font-size:0.72vw;color:#fff;padding:0 0.4vw;display:inline-flex;align-items:center;min-width:2.5vw;justify-content:center">2.0×</span>
+  <button onclick="changeFontMult(0.2)" title="Agrandar fuente gráficos">A+</button>
+  <button class="prev" onclick="goSlide(-1)">
+    <svg class="nav-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>Anterior
+  </button>
+  <button onclick="goSlide(1)">Próxima
+    <svg class="nav-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- S1 · COVER                                      -->
+<!-- ═══════════════════════════════════════════════ -->
+<header class="hero slide-anchor" id="s1">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-top">
+    <div class="hero-logo">
+      <img src="data:image/jpeg;base64,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" alt="Framingham Pharma">
+      <div class="hero-logo-text"><b>Framingham Pharma</b><span>Área de Marketing</span></div>
+    </div>
+    <div class="hero-badge" id="hero-badge"></div>
+  </div>
+  <div class="hero-body">
+    <div>
+      <div class="hero-eyebrow">Informe Ejecutivo de Marketing</div>
+      <h1>Marketing<br/><em>en cifras.</em></h1>
+      <div class="hero-foot">
+        <div class="hero-foot-item"><span class="k">Período</span><span class="v" id="hero-periodo"></span></div>
+        <div class="hero-foot-item"><span class="k">Presentado por</span><span class="v">Área de Marketing</span></div>
+        <div class="hero-foot-item"><span class="k">Para</span><span class="v">Gerencia General</span></div>
+      </div>
+    </div>
+    <aside class="hero-card">
+      <h3>El mes de un vistazo</h3>
+      <div class="hero-card-row"><span class="k">Inversión TV</span><span class="v" id="hc-tv"></span></div>
+      <div class="hero-card-row"><span class="k">Inversión Redes</span><span class="v ac" id="hc-meta"></span></div>
+      <div class="hero-card-row"><span class="k">Total marketing</span><span class="v" id="hc-total"></span></div>
+      <div class="hero-card-row"><span class="k">Salidas TV</span><span class="v" id="hc-salidas"></span></div>
+      <div class="hero-card-row"><span class="k">Videos editados</span><span class="v" id="hc-edit"></span></div>
+      <div class="hero-card-row"><span class="k">Videos publicados</span><span class="v warn" id="hc-pub"></span></div>
+    </aside>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- S2 · RESUMEN                                    -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="slide slide-cream slide-anchor" id="s2">
+  <div class="slide-head">
+    <div class="meta"><span class="eyebrow">02 · Resumen ejecutivo</span><h2>Los números<br/>de junio.</h2></div>
+    <div class="slide-num">02<small>Resumen</small></div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:1.1vw;flex:1">
+    <div class="kpi-row c4" id="kpi-r1"></div>
+    <div class="kpi-row c4" id="kpi-r2"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- S3 · TV                                         -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="slide slide-paper slide-anchor" id="s3">
+  <div class="slide-head">
+    <div class="meta"><span class="eyebrow">03 · Televisión</span><h2 id="s3-h2"></h2></div>
+    <div class="slide-num">03<small>TV</small></div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:1.1vw;flex:1">
+    <div class="kpi-row c4" id="kpi-tv"></div>
+    <div class="g2" style="flex:1;min-height:0">
+      <div class="card" style="display:flex;flex-direction:column">
+        <div class="card-title">Salidas por programa (top 8)</div>
+        <div style="flex:1;position:relative;min-height:0"><canvas id="cSalProg"></canvas></div>
+      </div>
+      <div class="card" style="display:flex;flex-direction:column">
+        <div class="card-title">Inversión por programa (top 8 con pauta)</div>
+        <div style="flex:1;position:relative;min-height:0"><canvas id="cInvProg"></canvas></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- S4 · REDES                                      -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="slide slide-cream slide-anchor" id="s4">
+  <div class="slide-head">
+    <div class="meta"><span class="eyebrow">04 · Redes sociales · Meta</span><h2 id="s4-h2"></h2></div>
+    <div class="slide-num">04<small>Redes</small></div>
+  </div>
+  <div class="g12" style="flex:1;align-items:start;min-height:0">
+    <div style="display:flex;flex-direction:column;gap:1vw">
+      <div class="bignum accent">
+        <div class="lbl">Pauta digital · últimos 30 días</div>
+        <div class="val" id="meta-bignum"></div>
+      </div>
+      <div class="kpi-row c2" id="kpi-meta"></div>
+      <div class="card" style="padding:0.8vw 1vw;border-left:0.22vw solid var(--cyan)">
+        <p id="meta-reflexion" style="font-size:0.72vw;color:var(--ink);font-family:'Manrope';font-weight:600;letter-spacing:-.004em;line-height:1.5"></p>
+      </div>
+    </div>
+    <div class="card" style="overflow:hidden;padding:0.8vw 0">
+      <div class="card-title" style="padding:0 1.1vw 0.5vw;border-bottom:1px solid var(--line-2)">Ranking de cuentas por inversión</div>
+      <div id="meta-rank"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- S5 · APROVECHAMIENTO                            -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="slide slide-dark slide-anchor" id="s5">
+  <div class="slide-head">
+    <div class="meta"><span class="eyebrow">05 · Aprovechamiento de contenido</span><h2>El problema<br/>más grande.</h2></div>
+    <div class="slide-num">05<small>Videos</small></div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:1.1vw;flex:1;min-height:0">
+    <div class="kpi-row c3" id="kpi-aprov"></div>
+    <div class="card card-dark" style="flex:1;min-height:0;display:flex;flex-direction:column">
+      <div class="card-title" style="color:rgba(255,255,255,.88)">Funnel · de TV a redes</div>
+      <div style="flex:1;position:relative;min-height:0"><canvas id="cFunnel"></canvas></div>
+    </div>
+    <div class="card card-dark" style="padding:0.7vw 1.1vw">
+      <p style="font-size:0.75vw;color:rgba(255,255,255,.9);font-family:'Manrope';font-weight:600;letter-spacing:-.004em;line-height:1.45;text-align:center">
+        La inversión fuerte está en TV. Las redes permiten que esas salidas <span style="color:var(--cyan)">escalen, se repitan y conviertan en ventas.</span> Sin capacidad de publicación, cada peso invertido en TV pierde retorno.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- S6 · PRODUCTOS                                  -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="slide slide-canvas slide-anchor" id="s6">
+  <div class="slide-head">
+    <div class="meta"><span class="eyebrow">06 · Productos</span><h2>Top productos<br/>por inversión TV.</h2></div>
+    <div class="slide-num">06<small>Productos</small></div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:1.1vw;flex:1;min-height:0">
+    <div class="card" style="flex:1;min-height:0;display:flex;flex-direction:column">
+      <div style="flex:1;position:relative;min-height:0"><canvas id="cProdInv"></canvas></div>
+    </div>
+    <div class="prod-grid" id="prod-tiles"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- S7 · PROFESIONALES                              -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="slide slide-paper slide-anchor" id="s7">
+  <div class="slide-head">
+    <div class="meta"><span class="eyebrow">07 · Profesionales en TV</span><h2>Quiénes están al aire<br/>y con qué intensidad.</h2></div>
+    <div class="slide-num">07<small>Profesionales</small></div>
+  </div>
+  <div class="g21" style="flex:1;align-items:stretch;min-height:0">
+    <div class="card" style="display:flex;flex-direction:column">
+      <div class="card-title">Apariciones por profesional</div>
+      <div style="flex:1;position:relative;min-height:0"><canvas id="cProf"></canvas></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1.1vw">
+      <div class="card" style="flex:1;display:flex;flex-direction:column">
+        <div class="card-title">Notas vs PNT · junio</div>
+        <div style="flex:1;position:relative;min-height:0"><canvas id="cNotaPnt"></canvas></div>
+      </div>
+      <div class="kpi-row c2" style="flex-shrink:0" id="kpi-prof"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- S8 · DIAGNÓSTICO + METAS                        -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="slide slide-cream slide-anchor" id="s8">
+  <div class="slide-head">
+    <div class="meta"><span class="eyebrow">08 · Diagnóstico y metas</span><h2>Qué funciona,<br/>qué resolver.</h2></div>
+    <div class="slide-num">08<small>Metas</small></div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:1.1vw;flex:1">
+    <div class="g3">
+      <div class="diag" style="border-top:0.24vw solid var(--good)">
+        <div class="dtag" style="color:var(--good)">Funciona</div>
+        <h4>Volumen y producción</h4>
+        <ul><li>107 salidas TV (26 días)</li><li>15 productos en aire</li><li>84 videos editados</li><li>Mix sano notas / PNT (83% / 17%)</li></ul>
+      </div>
+      <div class="diag" style="border-top:0.24vw solid var(--bad)">
+        <div class="dtag" style="color:var(--bad)">A corregir</div>
+        <h4>Gap edición → publicación</h4>
+        <ul><li>Videos editados sin publicar en redes</li><li>Sin trazabilidad por video</li><li>Pocas redes activas por producto</li><li>Sin liderazgo digital dedicado</li></ul>
+      </div>
+      <div class="diag" style="border-top:0.24vw solid var(--cyan)">
+        <div class="dtag" style="color:var(--cyan-deep)">Para escalar</div>
+        <h4>Multiplicar lo producido</h4>
+        <ul><li>Cerrar gap edición-publicación</li><li>Cada video en todas las redes</li><li>Alinear pauta digital con top TV</li><li>Tablero único de control mensual</li></ul>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1.4fr 0.85fr 0.85fr 0.85fr;gap:1.1vw">
+      <div class="goal goal-star">
+        <div class="gs-icon">★</div>
+        <h4>Meta crítica: resolver capacidad operativa del equipo digital</h4>
+      </div>
+      <div class="goal r"><div class="gnum">01</div><h4>Triplicar publicaciones mensuales</h4></div>
+      <div class="goal r"><div class="gnum">02</div><h4>Ningún video editado sin publicar</h4></div>
+      <div class="goal g"><div class="gnum">03</div><h4>Cada video en más de 3 redes</h4></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- S9 · COMPARATIVO MAYO VS JUNIO                  -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="slide slide-dark slide-anchor" id="s9">
+  <div class="slide-head">
+    <div class="meta"><span class="eyebrow">09 · Mayo vs Junio</span><h2>Evolución<br/>mes a mes.</h2></div>
+    <div class="slide-num">09<small>Comparativo</small></div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:1.1vw;flex:1;min-height:0">
+    <div class="kpi-row c4" id="kpi-comp"></div>
+    <div class="g2" style="flex:1;min-height:0">
+      <div class="card card-dark" style="display:flex;flex-direction:column">
+        <div class="card-title" style="color:rgba(255,255,255,.88)">Inversión TV · Mayo vs Junio (top 8 productos)</div>
+        <div style="flex:1;position:relative;min-height:0"><canvas id="cCompProd"></canvas></div>
+      </div>
+      <div class="card card-dark" style="display:flex;flex-direction:column">
+        <div class="card-title" style="color:rgba(255,255,255,.88)">Salidas por programa · Mayo vs Junio</div>
+        <div style="flex:1;position:relative;min-height:0"><canvas id="cCompProg"></canvas></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+//  DATOS DEL MES ─ ACTUALIZAR SOLO ESTE BLOQUE CADA MES
+// ═══════════════════════════════════════════════════════════════
+const DATA = {
+  mes:     "Junio",
+  anio:    2026,
+  periodo: "01 — 26 Junio, 2026",
+
+  // ── TV (fuente: Presupuesto TV - Comparativo.csv · sección Junio) ──
+  tv_programas:  85695340,   // suma Valor Programa donde Tomado=TRUE
+  tv_apoyo:       8890000,   // suma Valor Apoyo donde Tomado=TRUE
+  tv_adn:        30000000,   // ADN Buena Salud – programa local (gasto fijo)
+  tv_salidas:         108,
+  tv_notas:            90,
+  tv_pnt:              18,
+  tv_editados:         84,
+  tv_publicados:       47,
+  nota_inv:      91165340,
+  pnt_inv:        3420000,
+
+  // ── Meta (fuente: meta_por_cuenta_30_días.csv) ──
+  meta_total:    10221451,
+  meta_clicks:     230188,
+  meta_alcance:   3735333,
+  meta_ctr:           4.44,
+
+  // ── Productos ──
+  productos: [
+    { name:"Vitamet",      salidas: 8, inv:13870000, color:"#1B2A6F" },
+    { name:"Menacor",      salidas:12, inv:13785900, color:"#5C1018" },
+    { name:"Daozima",      salidas:10, inv:12278440, color:"#0F4A2A" },
+    { name:"Creatina HCL", salidas: 9, inv: 9484430, color:"#0F88C2" },
+    { name:"Telomerina",   salidas:12, inv: 7637440, color:"#9E2A8C" },
+    { name:"Serrapep",     salidas:13, inv: 7218100, color:"#C12127" },
+    { name:"Digecaps",     salidas:10, inv: 9114730, color:"#1F7AB4" },
+    { name:"Metasitol R1", salidas: 7, inv: 6608700, color:"#1565C0" },
+    { name:"Metasitol",    salidas: 4, inv: 4238100, color:"#185490" },
+    { name:"Goodskin",     salidas: 6, inv: 3643300, color:"#1B6E3E" },
+    { name:"Floragut",     salidas: 4, inv: 3131000, color:"#F47C2A" },
+    { name:"Satial Food",  salidas: 8, inv: 2795200, color:"#E45A0F" },
+    { name:"Capskrill",    salidas: 2, inv:  440000, color:"#C0392B" },
+    { name:"AMPK Protein", salidas: 2, inv:  270000, color:"#0F88C2" },
+    { name:"Sele200",      salidas: 1, inv:   70000, color:"#7C7C7C" },
+  ],
+
+  // ── Programas ──
+  programas: [
+    { name:"Iluminadas",             salidas:37, inv:        0 },
+    { name:"Desayuno Americano",     salidas:11, inv:19800000 },
+    { name:"Todo Cocinado",          salidas: 9, inv: 9000000 },
+    { name:"Lape Club Social",       salidas: 8, inv:14400000 },
+    { name:"Las mañanas con Andino", salidas: 7, inv: 1750000 },
+    { name:"Los prof. con Flor",     salidas: 5, inv: 6426000 },
+    { name:"TL 9 al Mediodía",       salidas: 4, inv: 6274800 },
+    { name:"TL 9 al Amanecer",       salidas: 4, inv: 3084480 },
+    { name:"Con Carmen",             salidas: 4, inv: 4712400 },
+    { name:"La mañana de Moria",     salidas: 4, inv: 6800000 },
+    { name:"Que mañana!",            salidas: 3, inv: 3213000 },
+    { name:"La Cocina Rebelde",      salidas: 3, inv: 4050000 },
+    { name:"SQP",                    salidas: 2, inv: 1600000 },
+    { name:"Implacables",            salidas: 2, inv: 1499400 },
+    { name:"Nara que ver",           salidas: 2, inv: 1135260 },
+    { name:"BTV",                    salidas: 1, inv: 1000000 },
+    { name:"DDM",                    salidas: 1, inv:  700000 },
+    { name:"Mediodía bien arriba",   salidas: 1, inv:  250000 },
+  ],
+
+  // ── Profesionales ──
+  profesionales: [
+    { name:"Gabriel Lapman",   salidas:45, apoyo:5400000 },
+    { name:"Micaela Olivares", salidas:10, apoyo: 700000 },
+    { name:"Evangelina Cueto", salidas: 9, apoyo: 630000 },
+    { name:"Andrea Purita",    salidas: 6, apoyo:1020000 },
+    { name:"Karina Ramírez",   salidas: 6, apoyo: 420000 },
+    { name:"Delfina Zimerman", salidas: 6, apoyo: 600000 },
+    { name:"Mercedes Fiuza",   salidas: 2, apoyo:       0 },
+    { name:"Yanina Latorre",   salidas: 1, apoyo:       0 },
+  ],
+
+  // ── Cuentas Meta ──
+  cuentas_meta: [
+    { name:"ADN Buena Salud",   cat:"Institucional",  gasto:1598370, clicks:14589, ctr:2.66 },
+    { name:"Endocrinólogo",     cat:"Profesionales",  gasto:1162039, clicks:42966, ctr:5.57 },
+    { name:"Ampkok",            cat:"Producto",       gasto: 837319, clicks:28104, ctr:5.50 },
+    { name:"Sacle",             cat:"Profesionales",  gasto: 819939, clicks:29125, ctr:7.21 },
+    { name:"Dr. Milton Dan",    cat:"Profesionales",  gasto: 775237, clicks: 5876, ctr:2.53 },
+    { name:"Sin asignar",       cat:"Sin asignar",    gasto: 738937, clicks: 9846, ctr:3.74 },
+    { name:"Floragut",          cat:"Producto",       gasto: 682124, clicks:11854, ctr:3.24 },
+    { name:"Nutri 100",         cat:"Producto",       gasto: 624355, clicks:10503, ctr:3.81 },
+    { name:"Telomerina NAD+",   cat:"Producto",       gasto: 623525, clicks:10869, ctr:3.54 },
+    { name:"Satial",            cat:"Producto",       gasto: 603050, clicks: 5793, ctr:3.45 },
+    { name:"Metasitol",         cat:"Producto",       gasto: 582713, clicks:14601, ctr:3.57 },
+    { name:"Farmaland",         cat:"Institucional",  gasto: 543158, clicks:34291, ctr:5.49 },
+    { name:"Vitamet",           cat:"Producto",       gasto: 340846, clicks: 6721, ctr:4.80 },
+    { name:"Framingham Pharma", cat:"Institucional",  gasto: 101370, clicks: 1703, ctr:3.57 },
+    { name:"Goodskin",          cat:"Producto",       gasto:  85278, clicks: 1002, ctr:2.70 },
+    { name:"Delfizi Nutrición", cat:"Profesionales",  gasto:  85264, clicks: 2197, ctr:3.08 },
+    { name:"Digecaps",          cat:"Producto",       gasto:  17928, clicks:  148, ctr:1.64 },
+  ],
+
+  // ── Mes anterior (Mayo 2026 · Presupuesto TV - Comparativo.csv) ──
+  prev: {
+    mes:         "Mayo",
+    tv_programas: 111789570,
+    tv_apoyo:      10800000,
+    tv_adn:        30000000,
+    tv_salidas:          98,
+    tv_notas:            89,
+    tv_pnt:               9,
+    productos: [
+      { name:"Vitamet",      salidas:10, inv:15003000 },
+      { name:"Metasitol R1", salidas: 9, inv:14015200 },
+      { name:"Daozima",      salidas: 9, inv:12794720 },
+      { name:"Telomerina",   salidas:10, inv:10976800 },
+      { name:"Serrapep",     salidas:10, inv:10831630 },
+      { name:"Goodskin",     salidas: 8, inv: 9135200 },
+      { name:"Menacor",      salidas: 7, inv: 8796320 },
+      { name:"Digecaps",     salidas: 7, inv: 8428450 },
+      { name:"Creatina HCL", salidas: 5, inv: 8351000 },
+      { name:"Satial Food",  salidas: 6, inv: 4515200 },
+      { name:"Floragut",     salidas: 3, inv: 4318100 },
+      { name:"Metasitol",    salidas: 3, inv: 4181120 },
+      { name:"Capskrill",    salidas: 3, inv: 3992830 },
+      { name:"AMPK Protein", salidas: 5, inv: 3610000 },
+    ],
+  },
+};
+// ═══════════════════════════════════════════════════════════════
+
+DATA.tv_total = DATA.tv_programas + DATA.tv_apoyo + DATA.tv_adn;
+DATA.prev.tv_total = DATA.prev.tv_programas + DATA.prev.tv_apoyo + DATA.prev.tv_adn;
+DATA.total    = DATA.tv_total + DATA.meta_total;
+
+// ── helpers ──
+const $  = id => document.getElementById(id);
+const M  = v => { const a=Math.abs(v=Math.round(v)); if(a>=1e6) return '$'+(v/1e6).toFixed(1).replace('.',',')+' M'; if(a>=1e3) return '$'+(v/1e3).toFixed(0)+' K'; return '$'+v; };
+const Mk = v => (v/1e6).toFixed(1).replace('.',',');
+const pct= (a,b) => (a/b*100).toFixed(1)+'%';
+const delta = (cur,prev) => { const d=cur-prev; const cls=d>=0?'up':'dn'; const sign=d>=0?'▲':'▼'; const abs=Math.abs(d); const txt=abs>=1e6?sign+' $'+(abs/1e6).toFixed(1).replace('.',',')+' M vs mayo':sign+' '+abs+' vs mayo'; return `<div class="stat-delta ${cls}">${txt}</div>`; };
+const mkStat = (lbl,val,sub,cls='',delt=null) =>
+  `<div class="stat ${cls}"><div class="stat-bar"></div><div class="stat-lbl">${lbl}</div><div class="stat-val">${val}</div><div class="stat-sub">${sub}</div>${delt||''}</div>`;
+
+// ── chart font scale ──
+const INK='#0B1B2E',INK3='#4D637D',LINE2='#EBE4D8',CYAN='#1FAFE0',RED='#E63946';
+let CFMULT = 2.0;
+const CF = n => Math.round(n * CFMULT);
+
+function changeFontMult(delta) {
+  CFMULT = Math.max(0.8, Math.min(3.0, +(CFMULT + delta).toFixed(1)));
+  $('cfmult-disp').textContent = CFMULT.toFixed(1) + '×';
+  buildCharts();
+}
+
+// ── S1 COVER ──
+$('hero-badge').textContent = 'Informe Ejecutivo · '+DATA.mes+' · '+DATA.anio;
+$('hero-periodo').textContent = DATA.periodo;
+$('hc-tv').textContent  = M(DATA.tv_total);
+$('hc-meta').textContent= M(DATA.meta_total);
+$('hc-total').textContent=M(DATA.total);
+$('hc-salidas').textContent=DATA.tv_salidas;
+$('hc-edit').textContent=DATA.tv_editados;
+$('hc-pub').textContent =DATA.tv_publicados;
+
+// ── S2 RESUMEN ──
+$('kpi-r1').innerHTML=
+  mkStat('Inversión TV',    `<span class="cur">$</span>${Mk(DATA.tv_total)}<span class="unit">M</span>`, pct(DATA.tv_total,DATA.total)+' del total marketing','',delta(DATA.tv_total,DATA.prev.tv_total))+
+  mkStat('Inversión Redes', `<span class="cur">$</span>${Mk(DATA.meta_total)}<span class="unit">M</span>`, pct(DATA.meta_total,DATA.total)+' del total marketing','red')+
+  mkStat('Total marketing', `<span class="cur">$</span>${Mk(DATA.total)}<span class="unit">M</span>`, 'TV + Redes consolidados','dark')+
+  mkStat('Salidas en TV',   DATA.tv_salidas, DATA.tv_notas+' notas · '+DATA.tv_pnt+' PNT','gold',delta(DATA.tv_salidas,DATA.prev.tv_salidas));
+$('kpi-r2').innerHTML=
+  mkStat('Videos editados',   DATA.tv_editados,  'producidos por el equipo')+
+  mkStat('Videos publicados', DATA.tv_publicados, pct(DATA.tv_publicados,DATA.tv_editados)+' de aprovechamiento','warn')+
+  mkStat('Sin publicar',      DATA.tv_editados-DATA.tv_publicados, pct(DATA.tv_editados-DATA.tv_publicados,DATA.tv_editados)+' sin aprovechar','bad')+
+  mkStat('Programas activos', DATA.programas.length, DATA.productos.length+' prods · '+DATA.profesionales.length+' prof.');
+
+// ── S3 TV ──
+$('s3-h2').innerHTML = M(DATA.tv_total)+' en TV.<br/>'+DATA.tv_salidas+' salidas al aire.';
+$('kpi-tv').innerHTML=
+  mkStat('Programas nacionales', M(DATA.tv_programas), pct(DATA.tv_programas,DATA.tv_total)+' de la inversión TV')+
+  mkStat('ADN Buena Salud', M(DATA.tv_adn), 'Programa local · gasto fijo','gold')+
+  mkStat('Apoyo profesionales', M(DATA.tv_apoyo), pct(DATA.tv_apoyo,DATA.tv_total)+' de la inversión TV','red')+
+  mkStat('Total TV', M(DATA.tv_total), 'Programas + ADN + apoyo profesional','dark');
+
+// ── S4 REDES ──
+$('s4-h2').innerHTML = M(DATA.meta_total)+' en pauta<br/>digital, '+DATA.cuentas_meta.length+' cuentas.';
+$('meta-bignum').innerHTML='<span class="cur">$</span>'+Mk(DATA.meta_total)+'<span style="font-size:1.9vw;color:var(--cyan-deep);font-weight:600;margin-left:0.3vw"> M</span>';
+$('kpi-meta').innerHTML=
+  mkStat('Clicks totales', DATA.meta_clicks.toLocaleString('es-AR'), 'últimos 30 días')+
+  mkStat('Alcance', (DATA.meta_alcance/1e6).toFixed(2).replace('.',',')+' M', 'personas únicas alcanzadas');
+$('meta-reflexion').textContent='CTR promedio: '+DATA.meta_ctr.toFixed(2)+'% — Aumentar el alcance digital sin aumentar el peso del presupuesto en pauta.';
+
+{
+  const maxG=Math.max(...DATA.cuentas_meta.map(c=>c.gasto));
+  const CC={'Profesionales':RED,'Producto':CYAN,'Institucional':'#C9A85E','Sin asignar':INK3};
+  const CL={'Profesionales':'Prof.','Producto':'Prod.','Institucional':'Inst.','Sin asignar':'—'};
+  const wrap=$('meta-rank');
+  DATA.cuentas_meta.slice(0,13).forEach((c,i)=>{
+    const col=CC[c.cat]||INK3;
+    const d=document.createElement('div'); d.className='rank-row';
+    d.innerHTML=`<div class="rank-num" style="color:${col}">${String(i+1).padStart(2,'0')}</div>
+      <div class="rank-name">${c.name}<div class="rank-cat" style="color:${col}">${CL[c.cat]}</div></div>
+      <div class="rank-bar"><span style="width:${(c.gasto/maxG*100).toFixed(0)}%;background:${col}"></span></div>
+      <div class="rank-val">${M(c.gasto)}<br/><span style="font-size:0.58vw;color:var(--ink-4)">${c.ctr.toFixed(2)}% CTR</span></div>`;
+    wrap.appendChild(d);
+  });
+}
+
+// ── S5 APROVECHAMIENTO ──
+$('kpi-aprov').innerHTML=
+  mkStat('Salidas en TV',     DATA.tv_salidas,     'tomadas y editadas por el equipo')+
+  mkStat('Videos editados',   DATA.tv_editados,    pct(DATA.tv_editados,DATA.tv_salidas)+' de las salidas','warn')+
+  mkStat('Videos publicados', DATA.tv_publicados,  pct(DATA.tv_publicados,DATA.tv_editados)+' de los editados','bad');
+
+// ── S6 PRODUCTOS (tiles estáticos con logo) ──
+{
+  const all=[...DATA.productos].sort((a,b)=>b.inv-a.inv);
+  const grid=$('prod-tiles');
+  all.slice(0,10).forEach(p=>{
+    const abbr=p.name.slice(0,3).toUpperCase();
+    const d=document.createElement('div'); d.className='prod-tile'; d.style.setProperty('--pc',p.color);
+    d.innerHTML=`<div class="plogo"><span>${abbr}</span></div><div class="ptname">${p.name}</div><div class="ptkpis"><span><b>${p.salidas}</b>salidas</span><span><b>${M(p.inv)}</b></span></div>`;
+    grid.appendChild(d);
+  });
+}
+
+// ── S9 COMPARATIVO (estático) ──
+{
+  const P=DATA.prev;
+  $('kpi-comp').innerHTML=
+    mkStat('TV Mayo',    `<span class="cur">$</span>${Mk(P.tv_total)}<span class="unit">M</span>`,   P.tv_salidas+' salidas · '+P.mes+' 2026','dark')+
+    mkStat('TV Junio',   `<span class="cur">$</span>${Mk(DATA.tv_total)}<span class="unit">M</span>`, DATA.tv_salidas+' salidas · Jun 2026')+
+    mkStat('Variación',  `<span class="cur">$</span>${Mk(Math.abs(DATA.tv_total-P.tv_total))}<span class="unit">M</span>`, DATA.tv_total>P.tv_total?'↑ más inversión este mes':'↓ menos inversión este mes', DATA.tv_total>P.tv_total?'good':'bad')+
+    mkStat('Salidas',    DATA.tv_salidas+' vs '+P.tv_salidas, (DATA.tv_salidas-P.tv_salidas>0?'▲ +':'▼ ')+(DATA.tv_salidas-P.tv_salidas)+' salidas este mes','gold');
+}
+
+// ── S7 PROFESIONALES (KPIs estáticos) ──
+$('kpi-prof').innerHTML=
+  mkStat('Gabriel Lapman', '45 sal.', M(5400000)+' apoyo','red')+
+  mkStat('Programas activos', DATA.programas.length, DATA.tv_salidas+' salidas totales');
+
+// ── GRÁFICOS (recreables con multiplicador de fuente) ──
+function buildCharts() {
+  ['cSalProg','cInvProg','cFunnel','cProdInv','cProf','cNotaPnt','cCompProd','cCompProg'].forEach(id=>{
+    const c=Chart.getChart(id); if(c) c.destroy();
+  });
+
+  Chart.defaults.font.family="'Manrope','Inter',system-ui";
+  Chart.defaults.font.size=CF(10);
+  Chart.defaults.font.weight='600';
+  Chart.defaults.color=INK3;
+  Chart.defaults.plugins.legend.labels={color:INK,boxWidth:9,boxHeight:9,padding:12,font:{family:"'Manrope',system-ui",size:CF(10),weight:'600'}};
+  Chart.defaults.plugins.tooltip={backgroundColor:'rgba(11,27,46,.94)',padding:9,cornerRadius:7,displayColors:false,titleFont:{family:"'Manrope',system-ui",weight:'700',size:CF(11)},bodyFont:{family:"'Manrope',system-ui",weight:'500',size:CF(11)}};
+  Chart.defaults.layout.padding=2;
+
+  // S3: salidas por programa
+  {
+    const top=[...DATA.programas].sort((a,b)=>b.salidas-a.salidas).slice(0,8);
+    new Chart($('cSalProg'),{type:'bar',data:{labels:top.map(p=>p.name),datasets:[{data:top.map(p=>p.salidas),backgroundColor:CYAN,borderRadius:4,barThickness:14}]},
+      options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.x+' salidas'}}},
+        scales:{x:{beginAtZero:true,grid:{color:LINE2},ticks:{stepSize:4,font:{size:CF(9)}}},y:{grid:{display:false},ticks:{font:{family:"'Manrope'",weight:'700',size:CF(9)}}}}}});
+    const topI=[...DATA.programas].filter(p=>p.inv>0).sort((a,b)=>b.inv-a.inv).slice(0,8);
+    new Chart($('cInvProg'),{type:'bar',data:{labels:topI.map(p=>p.name),datasets:[{data:topI.map(p=>p.inv),backgroundColor:INK,borderRadius:4,barThickness:14}]},
+      options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>M(c.parsed.x)}}},
+        scales:{x:{beginAtZero:true,grid:{color:LINE2},ticks:{callback:v=>M(v),font:{size:CF(9)}}},y:{grid:{display:false},ticks:{font:{family:"'Manrope'",weight:'700',size:CF(9)}}}}}});
+  }
+
+  // S5: funnel
+  new Chart($('cFunnel'),{type:'bar',data:{labels:['Salidas TV','Videos editados','Videos publicados'],datasets:[{data:[DATA.tv_salidas,DATA.tv_editados,DATA.tv_publicados],backgroundColor:[CYAN,'#7E57C2',RED],borderRadius:6,barThickness:80}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y+' · '+(c.parsed.y/DATA.tv_salidas*100).toFixed(0)+'% del total'}}},
+      scales:{x:{grid:{display:false},ticks:{color:'rgba(255,255,255,.82)',font:{family:"'Manrope'",weight:'700',size:CF(11)}}},y:{beginAtZero:true,max:Math.ceil(DATA.tv_salidas*1.15/10)*10,grid:{color:'rgba(255,255,255,.08)'},ticks:{color:'rgba(255,255,255,.6)',stepSize:10,font:{size:CF(9)}}}}}});
+
+  // S6: productos
+  {
+    const all=[...DATA.productos].sort((a,b)=>b.inv-a.inv);
+    new Chart($('cProdInv'),{type:'bar',data:{labels:all.map(p=>p.name),datasets:[{data:all.map(p=>p.inv),backgroundColor:all.map(p=>p.color),borderRadius:4,barThickness:18}]},
+      options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>M(c.parsed.x)+' · '+all[c.dataIndex].salidas+' salidas'}}},
+        scales:{x:{beginAtZero:true,grid:{color:LINE2},ticks:{callback:v=>M(v),font:{size:CF(9)}}},y:{grid:{display:false},ticks:{font:{family:"'Manrope'",weight:'700',size:CF(9)}}}}}});
+  }
+
+  // S9: comparativo Mayo vs Junio
+  {
+    // Productos comunes top 8 (ordenados por inversión Jun)
+    const junProd=[...DATA.productos].sort((a,b)=>b.inv-a.inv).slice(0,8);
+    const mayMap={}; DATA.prev.productos.forEach(p=>{ mayMap[p.name]=p; });
+    const labels=junProd.map(p=>p.name);
+    const dsMay=junProd.map(p=>mayMap[p.name]?mayMap[p.name].inv:0);
+    const dsJun=junProd.map(p=>p.inv);
+    new Chart($('cCompProd'),{type:'bar',data:{labels,datasets:[
+      {label:'Mayo',  data:dsMay, backgroundColor:'rgba(255,255,255,.25)', borderRadius:4, barThickness:16},
+      {label:'Junio', data:dsJun, backgroundColor:CYAN,                    borderRadius:4, barThickness:16}
+    ]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'top',labels:{color:'rgba(255,255,255,.8)',font:{size:CF(9)}}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+M(c.parsed.x)}}},
+      scales:{x:{beginAtZero:true,grid:{color:'rgba(255,255,255,.08)'},ticks:{callback:v=>M(v),color:'rgba(255,255,255,.6)',font:{size:CF(9)}}},
+              y:{grid:{display:false},ticks:{color:'rgba(255,255,255,.8)',font:{family:"'Manrope'",weight:'700',size:CF(9)}}}}}});
+    // Programas comunes (May salidas from Comparativo.csv)
+    const progMay={
+      'Desayuno Americano':11,'Lape Club Social':10,'Todo Cocinado':11,
+      'Las mañanas con Andino':13,'La mañana de Moria':4,'La Cocina Rebelde':9,
+      'Los prof. con Flor':8,'Los profesionales con Flor':8,
+      'Con Carmen':4,'TL 9 al Mediodía':4,'TL 9 al Mediodia':4,
+      'TL 9 al Amanecer':4,'Que mañana!':4,'SQP':2,'Implacables':2,'Nara que ver':3
+    };
+    const topProg=[...DATA.programas].filter(p=>p.salidas>1&&p.inv>0).sort((a,b)=>b.salidas-a.salidas).slice(0,8);
+    new Chart($('cCompProg'),{type:'bar',data:{labels:topProg.map(p=>p.name),datasets:[
+      {label:'Mayo', data:topProg.map(p=>progMay[p.name]||0), backgroundColor:'rgba(255,255,255,.25)',borderRadius:4,barThickness:16},
+      {label:'Junio',data:topProg.map(p=>p.salidas),           backgroundColor:RED,                   borderRadius:4,barThickness:16}
+    ]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'top',labels:{color:'rgba(255,255,255,.8)',font:{size:CF(9)}}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.x+' salidas'}}},
+      scales:{x:{beginAtZero:true,grid:{color:'rgba(255,255,255,.08)'},ticks:{color:'rgba(255,255,255,.6)',font:{size:CF(9)}}},
+              y:{grid:{display:false},ticks:{color:'rgba(255,255,255,.8)',font:{family:"'Manrope'",weight:'700',size:CF(9)}}}}}});
+  }
+
+  // S7: profesionales
+  {
+    const data=[...DATA.profesionales].sort((a,b)=>b.salidas-a.salidas);
+    new Chart($('cProf'),{type:'bar',data:{labels:data.map(p=>p.name),datasets:[{data:data.map(p=>p.salidas),backgroundColor:RED,borderRadius:4,barThickness:20}]},
+      options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.x+' salidas'}}},
+        scales:{x:{beginAtZero:true,grid:{color:LINE2},ticks:{stepSize:5,font:{size:CF(9)}}},y:{grid:{display:false},ticks:{font:{family:"'Manrope'",weight:'700',size:CF(9)}}}}}});
+    new Chart($('cNotaPnt'),{type:'bar',data:{labels:['Cantidad','Inversión ($M)'],datasets:[
+      {label:'Notas',data:[DATA.tv_notas,+(DATA.nota_inv/1e6).toFixed(1)],backgroundColor:CYAN,borderRadius:4,barThickness:28},
+      {label:'PNT', data:[DATA.tv_pnt,  +(DATA.pnt_inv/1e6).toFixed(1)], backgroundColor:RED, borderRadius:4,barThickness:28}
+    ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:CF(10)}}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y+(c.dataIndex===1?' M':' salidas')}}},
+      scales:{x:{grid:{display:false},ticks:{font:{family:"'Manrope'",weight:'700',size:CF(10)}}},y:{beginAtZero:true,grid:{color:LINE2},ticks:{font:{size:CF(9)}}}}}});
+  }
+}
+
+buildCharts();
+
+// ── NAV ──
+const SLIDES=Array.from(document.querySelectorAll('.slide-anchor'));
+function curSlide(){const y=window.scrollY+window.innerHeight*.35;let i=0;SLIDES.forEach((s,j)=>{if(s.offsetTop<=y)i=j;});return i;}
+function goSlide(dir){const n=Math.max(0,Math.min(SLIDES.length-1,curSlide()+dir));SLIDES[n].scrollIntoView({behavior:'smooth',block:'start'});}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();goSlide(1);}
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();goSlide(-1);}
+  else if(e.key==='Home'){e.preventDefault();SLIDES[0].scrollIntoView({behavior:'smooth'});}
+  else if(e.key==='End'){e.preventDefault();SLIDES[SLIDES.length-1].scrollIntoView({behavior:'smooth'});}
+});
+const PROG=$('navProg');
+window.addEventListener('scroll',()=>{const max=document.documentElement.scrollHeight-window.innerHeight;PROG.style.width=(max>0?window.scrollY/max*100:0)+'%';},{passive:true});
+</script>
+</body>
+</html>

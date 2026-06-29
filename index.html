@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html data-theme="dark" lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>DashTV — Framingham</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"
+  integrity="sha512-SIMGYRUjwY8+gKg7nn9EItdD8LCADSDfJNutF9TPrvEo86sQmFMh6MyralfIyhADlajSxqc7G0gs7+MwWF/ogQ=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<style>
+/* ── Theme Variables ── */
+:root {
+  --bg:        #0F1117;
+  --surface:   #1A1D27;
+  --surface2:  #252836;
+  --border:    #2A2D3A;
+  --text:      #E8EAF0;
+  --muted:     #8890AA;
+  --blue:      #5BBFD6;
+  --red:       #E8302A;
+  --green:     #4ADE80;
+  --yellow:    #FBBF24;
+  --purple:    #A78BFA;
+  --shadow:    0 4px 20px rgba(0,0,0,0.45);
+  --radius:    12px;
+}
+[data-theme="light"] {
+  --bg:       #F0F4F8;
+  --surface:  #FFFFFF;
+  --surface2: #F8FAFC;
+  --border:   #E2E8F0;
+  --text:     #1A1D27;
+  --muted:    #64748B;
+  --shadow:   0 4px 20px rgba(0,0,0,0.08);
+}
+
+/* ── Reset & Base ── */
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:14px;min-height:100vh;transition:background .25s,color .25s}
+
+/* ── Header ── */
+header{background:var(--surface);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100;flex-wrap:wrap}
+.header-brand{display:flex;align-items:center;gap:10px;flex:1;min-width:160px}
+.brand-text h1{font-size:17px;font-weight:800;letter-spacing:-.3px}
+.brand-text p{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.header-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+select{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:6px 10px;border-radius:8px;font-size:12px;max-width:200px;cursor:pointer}
+.icon-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text);width:36px;height:36px;border-radius:8px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.icon-btn:hover{background:var(--border)}
+.month-label{font-size:11px;color:var(--muted);font-weight:600}
+
+/* ── Loading ── */
+#loading{display:flex;flex-direction:column;align-items:center;justify-content:center;height:70vh;gap:16px;color:var(--muted)}
+.spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#error-msg{display:none;text-align:center;padding:40px;color:var(--red)}
+
+/* ── Main Layout ── */
+main{padding:14px;display:none}
+.section-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:20px 0 10px}
+
+/* ── KPI Cards ── */
+.kpi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:6px}
+@media(min-width:600px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:1100px){.kpi-grid{grid-template-columns:repeat(6,1fr)}}
+.kpi-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 14px 12px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent,var(--blue))}
+.kpi-label{font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.kpi-value{font-size:26px;font-weight:900;line-height:1;letter-spacing:-.5px}
+.kpi-delta{font-size:12px;margin-top:5px;font-weight:600}
+.delta-up{color:var(--green)}
+.delta-dn{color:var(--red)}
+.kpi-sub{font-size:11px;color:var(--muted);margin-top:3px}
+@media(max-width:380px){.kpi-value{font-size:22px}}
+
+/* ── Charts ── */
+.charts-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:6px}
+@media(min-width:700px){.charts-grid{grid-template-columns:repeat(2,1fr)}}
+.charts-grid.trio{grid-template-columns:1fr}
+@media(min-width:700px){.charts-grid.trio{grid-template-columns:repeat(3,1fr)}}
+.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+.chart-card.full{grid-column:1/-1}
+.chart-card h3{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px}
+.chart-wrap{position:relative}
+.chart-wrap.h240{height:240px}
+.chart-wrap.h280{height:280px}
+.chart-wrap.h320{height:320px}
+.chart-wrap.h360{height:360px}
+.chart-wrap.h200{height:200px}
+.chart-wrap.scrollable{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch}
+.chart-scroll-outer{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch}
+#budgetWrap{min-width:640px;height:360px}
+
+/* ── Tables ── */
+.table-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);margin-bottom:12px}
+.table-card h3{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;padding:14px 16px 10px;border-bottom:1px solid var(--border)}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{background:var(--surface2);color:var(--muted);font-weight:700;padding:8px 12px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
+td{padding:8px 12px;border-top:1px solid var(--border);white-space:nowrap}
+tr:hover td{background:var(--surface2)}
+.pct-bar{background:var(--border);border-radius:4px;height:5px;overflow:hidden;margin-top:4px;min-width:60px}
+.pct-fill{height:100%;border-radius:4px;transition:width .6s ease}
+.pill{display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700}
+.pill-nota{background:rgba(91,191,214,.15);color:var(--blue)}
+.pill-pnt{background:rgba(167,139,250,.15);color:var(--purple)}
+.text-green{color:var(--green)}
+.text-red{color:var(--red)}
+.text-muted{color:var(--muted)}
+
+/* ── Divider ── */
+.divider{height:1px;background:var(--border);margin:8px 0}
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══════════════════════════════════════════════ -->
+<header>
+  <div class="header-brand">
+    <!-- Framingham Logo -->
+    <svg width="72" height="34" viewBox="0 0 72 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="34" height="34" rx="5" fill="#5BBFD6"/>
+      <text x="17" y="25" fill="white" font-size="21" font-weight="900" text-anchor="middle" font-family="Arial Black,Arial,sans-serif">F</text>
+      <rect x="38" width="34" height="34" rx="5" fill="#E8302A"/>
+      <text x="55" y="25" fill="white" font-size="21" font-weight="900" text-anchor="middle" font-family="Arial Black,Arial,sans-serif">P</text>
+    </svg>
+    <div class="brand-text">
+      <h1>DashTV</h1>
+      <p>Framingham Pharma</p>
+    </div>
+  </div>
+
+  <div class="header-controls">
+    <span class="month-label">Mes</span>
+    <select id="mainMonth" onchange="loadData()"></select>
+    <span class="month-label">vs</span>
+    <select id="cmpMonth" onchange="loadData()">
+      <option value="">Sin comparar</option>
+    </select>
+    <button class="icon-btn" id="refreshBtn" onclick="loadData(true)" title="Actualizar">↺</button>
+    <button class="icon-btn" id="themeBtn"   onclick="toggleTheme()" title="Cambiar tema">☀</button>
+  </div>
+</header>
+
+<!-- ══ LOADING ══════════════════════════════════════════════ -->
+<div id="loading">
+  <div class="spinner"></div>
+  <p>Cargando datos…</p>
+</div>
+<div id="error-msg">
+  <p>⚠ No se pudieron cargar los datos.<br><small id="error-detail"></small></p>
+</div>
+
+<!-- ══ MAIN ════════════════════════════════════════════════ -->
+<main id="dash">
+
+  <!-- KPIs -->
+  <div class="section-label">Resumen del mes</div>
+  <div class="kpi-grid" id="kpiGrid"></div>
+
+  <!-- Charts Row 1: Producto + Profesional -->
+  <div class="section-label">Inversión</div>
+  <div class="charts-grid">
+    <div class="chart-card">
+      <h3>Por Producto</h3>
+      <div class="chart-wrap h280"><canvas id="chartProducto"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h3>Por Profesional</h3>
+      <div class="chart-wrap h280"><canvas id="chartProf"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Charts Row 2: Budget vs Real (full width) -->
+  <div class="section-label">Presupuesto vs Ejecutado</div>
+  <div class="charts-grid">
+    <div class="chart-card full">
+      <h3>Por Programa</h3>
+      <div id="budgetWrap" class="chart-wrap"><canvas id="chartBudget"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Charts Row 3: Timeline (full width) -->
+  <div class="section-label">Actividad diaria</div>
+  <div class="charts-grid">
+    <div class="chart-card full">
+      <h3>Salidas por fecha</h3>
+      <div class="chart-wrap h240"><canvas id="chartTimeline"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Charts Row 4: 3 Doughnuts -->
+  <div class="section-label">Distribución</div>
+  <div class="charts-grid trio">
+    <div class="chart-card">
+      <h3>Editores</h3>
+      <div class="chart-wrap h200"><canvas id="chartEditores"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h3>Estado de salidas</h3>
+      <div class="chart-wrap h200"><canvas id="chartTomado"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h3>Tipo de salida</h3>
+      <div class="chart-wrap h200"><canvas id="chartTipo"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Table: Budget vs Actual -->
+  <div class="section-label">Detalle por programa</div>
+  <div class="table-card">
+    <h3>Presupuesto vs Real</h3>
+    <div class="table-wrap"><table id="tblBudget"><thead></thead><tbody></tbody></table></div>
+  </div>
+
+  <!-- Table: Not taken -->
+  <div id="pendienteSection">
+    <div class="section-label">Salidas pendientes / no tomadas</div>
+    <div class="table-card">
+      <h3>Requieren atención</h3>
+      <div class="table-wrap"><table id="tblPendiente"><thead></thead><tbody></tbody></table></div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ══ SCRIPT ══════════════════════════════════════════════ -->
+<script>
+// ── State ──────────────────────────────────────────────────
+const charts = {};
+let currentData = null;
+
+// ── Format helpers ─────────────────────────────────────────
+function fmtM(n) {
+  n = +n || 0;
+  if (Math.abs(n) >= 1e6) return '$' + (n / 1e6).toFixed(1).replace(/\.0$/, '') + 'M';
+  if (Math.abs(n) >= 1e3) return '$' + Math.round(n / 1e3) + 'K';
+  return '$' + Math.round(n).toLocaleString('es-AR');
+}
+function fmtFull(n) {
+  return '$' + Math.round(+n || 0).toLocaleString('es-AR');
+}
+function fmtPct(a, b) {
+  if (!b) return 0;
+  return Math.round(a / b * 100);
+}
+function delta(main, cmp) {
+  if (cmp == null || cmp === 0) return '';
+  const d   = main - cmp;
+  const p   = Math.round(d / cmp * 100);
+  const cls = d >= 0 ? 'delta-up' : 'delta-dn';
+  const sgn = d >= 0 ? '▲' : '▼';
+  return `<span class="${cls}">${sgn} ${Math.abs(p)}%</span>`;
+}
+
+// ── Theme ──────────────────────────────────────────────────
+function isDark() { return document.documentElement.getAttribute('data-theme') === 'dark'; }
+function gridColor()  { return isDark() ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.06)'; }
+function tickColor()  { return isDark() ? '#8890AA' : '#64748B'; }
+
+function toggleTheme() {
+  const dark = isDark();
+  document.documentElement.setAttribute('data-theme', dark ? 'light' : 'dark');
+  document.getElementById('themeBtn').textContent = dark ? '🌙' : '☀';
+  localStorage.setItem('dashtvTheme', dark ? 'light' : 'dark');
+  if (currentData) renderAllCharts(currentData);
+}
+
+// ── Init ───────────────────────────────────────────────────
+function init() {
+  const saved = localStorage.getItem('dashtvTheme') || 'dark';
+  document.documentElement.setAttribute('data-theme', saved);
+  document.getElementById('themeBtn').textContent = saved === 'dark' ? '☀' : '🌙';
+
+  if (typeof Chart === 'undefined') {
+    showError('No se pudo cargar Chart.js. Verificá tu conexión a internet y recargá la página.');
+    return;
+  }
+
+  google.script.run
+    .withSuccessHandler(populateMonths)
+    .withFailureHandler(showError)
+    .getAvailableMonths();
+}
+
+function populateMonths(months) {
+  const main = document.getElementById('mainMonth');
+  const cmp  = document.getElementById('cmpMonth');
+  if (!months || !months.length) {
+    showError('No se encontraron meses en el spreadsheet fuente.');
+    return;
+  }
+  months.forEach((m, i) => {
+    main.add(new Option(m, m, false, i === Math.max(0, months.length - 2)));
+    cmp.add(new Option(m, m));
+  });
+  loadData();
+}
+
+function loadData(force) {
+  if (force) {
+    // Clear selection so server re-reads
+  }
+  const m  = document.getElementById('mainMonth').value;
+  const cm = document.getElementById('cmpMonth').value || null;
+  showLoading(true);
+
+  google.script.run
+    .withSuccessHandler(render)
+    .withFailureHandler(showError)
+    .getDashboardData(m, cm);
+}
+
+// ── Render ─────────────────────────────────────────────────
+function render(data) {
+  if (data.dataError) {
+    showError(data.dataError);
+    return;
+  }
+  currentData = data;
+  renderKPIs(data);
+  renderAllCharts(data);
+  renderBudgetTable(data);
+  renderPendingTable(data);
+  showLoading(false);
+}
+
+// ── KPI Cards ──────────────────────────────────────────────
+function renderKPIs(d) {
+  const m   = d.main;
+  const cm  = d.cmp;
+  const hasCmp = !!cm;
+
+  const editadas = m.editJuli + m.editLukas;
+  const cmpEdit  = hasCmp ? cm.editJuli + cm.editLukas : null;
+  const ejec = fmtPct(m.totalInvProg, d.totalSinADN);
+
+  const cards = [
+    {
+      label : 'Presupuesto sin ADN',
+      value : fmtM(d.totalSinADN),
+      sub   : 'Con ADN: ' + fmtM(d.totalConADN),
+      accent: 'var(--blue)',
+    },
+    {
+      label : 'Invertido Programas',
+      value : fmtM(m.totalInvProg),
+      delta : hasCmp ? delta(m.totalInvProg, cm.totalInvProg) : '',
+      sub   : '+ Apoyo: ' + fmtM(m.totalInvApoyo) + '  |  Total: ' + fmtM(m.totalInv),
+      accent: 'var(--red)',
+    },
+    {
+      label : '% Ejecutado',
+      value : ejec + '%',
+      sub   : fmtFull(m.totalInvProg) + ' de ' + fmtFull(d.totalSinADN),
+      accent: ejec >= 80 ? 'var(--green)' : ejec >= 50 ? 'var(--yellow)' : 'var(--red)',
+    },
+    {
+      label : 'Total Salidas',
+      value : m.total,
+      delta : hasCmp ? delta(m.total, cm.total) : '',
+      sub   : 'NOTA: ' + m.nota + '  |  PNT: ' + m.pnt,
+      accent: 'var(--purple)',
+    },
+    {
+      label : 'Salidas Tomadas',
+      value : m.tomadas,
+      delta : hasCmp ? delta(m.tomadas, cm.tomadas) : '',
+      sub   : fmtPct(m.tomadas, m.total) + '% del total',
+      accent: 'var(--green)',
+    },
+    {
+      label : 'Salidas Editadas',
+      value : editadas,
+      delta : hasCmp ? delta(editadas, cmpEdit) : '',
+      sub   : 'Juli: ' + m.editJuli + '  |  Lukas: ' + m.editLukas,
+      accent: 'var(--yellow)',
+    },
+  ];
+
+  document.getElementById('kpiGrid').innerHTML = cards.map(c => `
+    <div class="kpi-card" style="--accent:${c.accent}">
+      <div class="kpi-label">${c.label}</div>
+      <div class="kpi-value">${c.value}</div>
+      ${c.delta ? '<div class="kpi-delta">' + c.delta + '</div>' : ''}
+      ${c.sub   ? '<div class="kpi-sub">' + c.sub + '</div>' : ''}
+    </div>
+  `).join('');
+}
+
+// ── Chart factory ──────────────────────────────────────────
+function mkChart(id, cfg) {
+  if (charts[id]) charts[id].destroy();
+  const ctx = document.getElementById(id);
+  if (!ctx) return;
+  charts[id] = new Chart(ctx, cfg);
+}
+
+const PALETTE = ['#5BBFD6','#E8302A','#FBBF24','#4ADE80','#A78BFA','#F97316','#EC4899','#06B6D4','#84CC16','#F59E0B','#38BDF8','#FB7185'];
+
+
+function barDefaults() {
+  return {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: { label: ctx => '  ' + fmtFull(ctx.raw) }
+      }
+    },
+    scales: {
+      x: { grid: { color: gridColor() }, ticks: { color: tickColor(), font: { size: 11 } } },
+      y: { grid: { display: false },     ticks: { color: tickColor(), font: { size: 11 } } }
+    }
+  };
+}
+
+function hBarDefaults() {
+  const d = barDefaults();
+  d.indexAxis = 'y';
+  d.scales.x.grid.display = true;
+  d.scales.y.grid.display = false;
+  return d;
+}
+
+function donutDefaults(position) {
+  return {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '65%',
+    plugins: {
+      legend: {
+        position: position || 'bottom',
+        labels: { color: tickColor(), boxWidth: 10, padding: 12, font: { size: 11 } }
+      },
+      tooltip: {
+        callbacks: { label: ctx => '  ' + ctx.label + ': ' + ctx.raw }
+      }
+    }
+  };
+}
+
+// ── All Charts ─────────────────────────────────────────────
+function renderAllCharts(d) {
+  const m   = d.main;
+  const cm  = d.cmp;
+  const hasCmp = !!cm;
+
+  // 1 — By Producto (horizontal bar, top 10)
+  const topProd = m.byProducto.slice(0, 10);
+  const cmpProd = hasCmp
+    ? topProd.map(p => { const f = cm.byProducto.find(x => x.name === p.name); return f ? f.inversion : 0; })
+    : [];
+
+  mkChart('chartProducto', {
+    type: 'bar',
+    data: {
+      labels: topProd.map(p => p.name),
+      datasets: [
+        { label: d.selectedMonth, data: topProd.map(p => p.inversion), backgroundColor: '#5BBFD6', borderRadius: 4 },
+        ...(hasCmp ? [{ label: d.cmpMonth, data: cmpProd, backgroundColor: '#E8302A44', borderRadius: 4 }] : [])
+      ]
+    },
+    options: { ...hBarDefaults(),
+      plugins: {
+        ...hBarDefaults().plugins,
+        legend: { display: hasCmp, labels: { color: tickColor(), boxWidth: 10, font: { size: 11 } } },
+        tooltip: { callbacks: { label: ctx => '  ' + fmtFull(ctx.raw) } },
+      }
+    }
+  });
+
+  // 2 — By Profesional (horizontal bar, top 10)
+  const topProf = m.byProf.slice(0, 10);
+  const cmpProf = hasCmp
+    ? topProf.map(p => { const f = cm.byProf.find(x => x.name === p.name); return f ? f.inversion : 0; })
+    : [];
+
+  mkChart('chartProf', {
+    type: 'bar',
+    data: {
+      labels: topProf.map(p => p.name),
+      datasets: [
+        { label: d.selectedMonth, data: topProf.map(p => p.inversion), backgroundColor: '#A78BFA', borderRadius: 4 },
+        ...(hasCmp ? [{ label: d.cmpMonth, data: cmpProf, backgroundColor: '#E8302A44', borderRadius: 4 }] : [])
+      ]
+    },
+    options: { ...hBarDefaults(),
+      plugins: {
+        ...hBarDefaults().plugins,
+        legend: { display: hasCmp, labels: { color: tickColor(), boxWidth: 10, font: { size: 11 } } },
+        tooltip: { callbacks: { label: ctx => '  ' + fmtFull(ctx.raw) } },
+      }
+    }
+  });
+
+  // 3 — Budget vs Actual (grouped bar, full width)
+  // Budget vs Actual — horizontal % bars, one per program, sorted by % ejecutado
+  const bva    = d.budgetVsActual.filter(b => b.presupuesto > 0);
+  const sorted = [...bva].sort((a, b) => b.pct - a.pct);
+  const barColors = sorted.map(b =>
+    b.pct >= 100 ? '#4ADE80' :
+    b.pct >= 60  ? '#5BBFD6' :
+    b.pct >= 30  ? '#FBBF24' : '#E8302A'
+  );
+  const bvaH = Math.max(380, sorted.length * 34);
+  document.getElementById('budgetWrap').style.height = bvaH + 'px';
+
+  mkChart('chartBudget', {
+    type: 'bar',
+    data: {
+      labels: sorted.map(b => b.programa),
+      datasets: [
+        {
+          label: '% Ejecutado',
+          data: sorted.map(b => Math.min(b.pct, 130)),
+          backgroundColor: barColors,
+          borderRadius: 4
+        },
+        ...(hasCmp ? [{
+          label: 'Anterior %',
+          data: sorted.map(b => b.cmpInvertido != null && b.presupuesto > 0
+            ? Math.min(Math.round(b.cmpInvertido / b.presupuesto * 100), 130) : 0),
+          backgroundColor: 'rgba(232,48,42,0.3)',
+          borderRadius: 4
+        }] : [])
+      ]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: hasCmp, labels: { color: tickColor(), boxWidth: 10, font: { size: 11 } } },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => {
+              const b = sorted[ctx.dataIndex];
+              if (ctx.datasetIndex > 0) {
+                const cp = b.cmpInvertido != null ? Math.round(b.cmpInvertido / b.presupuesto * 100) : 0;
+                return `  Anterior: ${fmtFull(b.cmpInvertido || 0)} (${cp}%)`;
+              }
+              return `  ${fmtFull(b.invertido)} de ${fmtFull(b.presupuesto)} — ${b.pct}% ejecutado`;
+            }
+          }
+        },
+      },
+      scales: {
+        x: {
+          max: 130,
+          grid: { color: gridColor() },
+          ticks: { color: tickColor(), font: { size: 11 }, callback: v => v + '%' }
+        },
+        y: {
+          grid: { display: false },
+          ticks: { color: tickColor(), font: { size: 12 } }
+        }
+      }
+    }
+  });
+
+  // 4 — Timeline (line)
+  const dates  = m.byFecha.map(f => f.fecha);
+  const counts = m.byFecha.map(f => f.count);
+  const cmpDates  = hasCmp ? cm.byFecha.map(f => f.fecha)  : [];
+  const cmpCounts = hasCmp ? cm.byFecha.map(f => f.count)  : [];
+
+  // Merge all dates for x axis
+  const allDates = [...new Set([...dates, ...cmpDates])].sort((a,b) => {
+    const [da,ma,ya] = a.split('/'); const [db,mb,yb] = b.split('/');
+    return new Date(+ya,+ma-1,+da) - new Date(+yb,+mb-1,+db);
+  });
+  const mainLine = allDates.map(d2 => { const f = m.byFecha.find(x => x.fecha === d2); return f ? f.count : 0; });
+  const cmpLine  = hasCmp ? allDates.map(d2 => { const f = cm.byFecha.find(x => x.fecha === d2); return f ? f.count : 0; }) : [];
+
+  mkChart('chartTimeline', {
+    type: 'line',
+    data: {
+      labels: allDates,
+      datasets: [
+        { label: d.selectedMonth, data: mainLine, borderColor: '#5BBFD6', backgroundColor: '#5BBFD620', fill: true, tension: .3, pointRadius: 4, pointHoverRadius: 6 },
+        ...(hasCmp ? [{ label: d.cmpMonth, data: cmpLine, borderColor: '#E8302A', backgroundColor: '#E8302A10', fill: false, tension: .3, pointRadius: 3, borderDash: [4,3] }] : [])
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: hasCmp, labels: { color: tickColor(), boxWidth: 10, font: { size: 11 } } },
+        tooltip: { callbacks: { label: ctx => '  ' + ctx.dataset.label + ': ' + ctx.raw + ' salidas' } }
+      },
+      scales: {
+        x: { grid: { color: gridColor() }, ticks: { color: tickColor(), font: { size: 10 }, maxRotation: 45 } },
+        y: { grid: { color: gridColor() }, ticks: { color: tickColor(), font: { size: 11 }, stepSize: 1 }, beginAtZero: true }
+      }
+    }
+  });
+
+  // 5 — Editores (doughnut)
+  const noEditLabel = m.editOther + m.editNoSub > 0
+    ? ['Juli', 'Lukas', 'Sin editar / No subieron']
+    : ['Juli', 'Lukas'];
+  const noEditData = m.editOther + m.editNoSub > 0
+    ? [m.editJuli, m.editLukas, m.editOther + m.editNoSub]
+    : [m.editJuli, m.editLukas];
+
+  mkChart('chartEditores', {
+    type: 'doughnut',
+    data: {
+      labels: noEditLabel,
+      datasets: [{ data: noEditData, backgroundColor: ['#5BBFD6','#FBBF24','#8890AA'], borderWidth: 2, borderColor: 'transparent' }]
+    },
+    options: donutDefaults('bottom')
+  });
+
+  // 6 — Tomado (doughnut)
+  mkChart('chartTomado', {
+    type: 'doughnut',
+    data: {
+      labels: ['Tomadas','No tomadas','No subieron a YT'],
+      datasets: [{ data: [m.tomadas, m.notTaken.filter(r=>!r.editado.toLowerCase().includes('no sub')).length, m.editNoSub],
+        backgroundColor: ['#4ADE80','#E8302A','#FBBF24'], borderWidth: 2, borderColor: 'transparent' }]
+    },
+    options: donutDefaults('bottom')
+  });
+
+  // 7 — Tipo (doughnut)
+  mkChart('chartTipo', {
+    type: 'doughnut',
+    data: {
+      labels: ['NOTA','PNT','Otros'],
+      datasets: [{ data: [m.nota, m.pnt, m.total - m.nota - m.pnt],
+        backgroundColor: ['#5BBFD6','#A78BFA','#8890AA'], borderWidth: 2, borderColor: 'transparent' }]
+    },
+    options: donutDefaults('bottom')
+  });
+}
+
+// ── Budget Table ───────────────────────────────────────────
+function renderBudgetTable(d) {
+  const hasCmp = !!d.cmp;
+  const t      = document.getElementById('tblBudget');
+
+  t.querySelector('thead').innerHTML = `<tr>
+    <th>Programa</th><th>Tipo</th><th>Presupuesto</th><th>Est.</th>
+    <th>Invertido</th><th>Salidas</th><th>%</th>
+    ${hasCmp ? '<th>Ant. Inv.</th><th>Ant. Sal.</th>' : ''}
+  </tr>`;
+
+  t.querySelector('tbody').innerHTML = d.budgetVsActual.map(b => {
+    const pct    = b.pct;
+    const fillCls = pct >= 100 ? 'var(--green)' : pct >= 60 ? 'var(--blue)' : pct >= 30 ? 'var(--yellow)' : 'var(--red)';
+    const typePill = b.tipo.toUpperCase() === 'PNT'
+      ? '<span class="pill pill-pnt">PNT</span>'
+      : '<span class="pill pill-nota">NOTA</span>';
+    return `<tr>
+      <td>${b.programa}</td>
+      <td>${typePill}</td>
+      <td>${fmtFull(b.presupuesto)}</td>
+      <td class="text-muted">${b.estipulada || '-'}</td>
+      <td>${fmtFull(b.invertido)}</td>
+      <td>${b.salidas}</td>
+      <td>
+        <span style="font-weight:700;color:${fillCls}">${pct}%</span>
+        <div class="pct-bar"><div class="pct-fill" style="width:${Math.min(pct,100)}%;background:${fillCls}"></div></div>
+      </td>
+      ${hasCmp ? `<td class="text-muted">${b.cmpInvertido != null ? fmtFull(b.cmpInvertido) : '-'}</td><td class="text-muted">${b.cmpSalidas != null ? b.cmpSalidas : '-'}</td>` : ''}
+    </tr>`;
+  }).join('');
+}
+
+// ── Pending Table ──────────────────────────────────────────
+function renderPendingTable(d) {
+  const rows = d.main.notTaken;
+  const sec  = document.getElementById('pendienteSection');
+  if (!rows || !rows.length) { sec.style.display = 'none'; return; }
+  sec.style.display = 'block';
+
+  const t = document.getElementById('tblPendiente');
+  t.querySelector('thead').innerHTML = `<tr>
+    <th>Fecha</th><th>Producto</th><th>Profesional</th><th>Programa</th><th>Editado</th><th>Tipo</th>
+  </tr>`;
+
+  t.querySelector('tbody').innerHTML = rows.map(r => {
+    const noSub   = r.editado.toLowerCase().includes('no sub');
+    const editCls = noSub ? 'text-red' : 'text-muted';
+    return `<tr>
+      <td>${r.fecha}</td>
+      <td>${r.producto}</td>
+      <td>${r.profesional || '<span class="text-muted">—</span>'}</td>
+      <td>${r.programa}</td>
+      <td class="${editCls}">${r.editado || '—'}</td>
+      <td>${r.tipoSalida ? '<span class="pill pill-' + r.tipoSalida.toLowerCase() + '">' + r.tipoSalida + '</span>' : '—'}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ── UI Helpers ─────────────────────────────────────────────
+function showLoading(on) {
+  document.getElementById('loading').style.display = on ? 'flex' : 'none';
+  document.getElementById('dash').style.display    = on ? 'none' : 'block';
+  document.getElementById('error-msg').style.display = 'none';
+}
+
+function showError(e) {
+  document.getElementById('loading').style.display   = 'none';
+  document.getElementById('dash').style.display      = 'none';
+  document.getElementById('error-msg').style.display = 'block';
+  document.getElementById('error-detail').textContent = typeof e === 'string' ? e : (e.message || 'Error desconocido');
+}
+
+// ── Boot ───────────────────────────────────────────────────
+window.addEventListener('load', init);
+</script>
+</body>
+</html>
