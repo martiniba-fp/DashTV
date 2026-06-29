@@ -3,701 +3,961 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Informe Ejecutivo · Junio 2026 · Framingham Pharma</title>
+<title>Informe Ejecutivo de Marketing · Junio 2026 · Framingham Pharma</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4" crossorigin="anonymous"></script>
 <style>
-/* ─── RESET ─────────────────────────────────────────────────── */
-*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
-:root {
-  --ink:    #0B1B2E;
-  --red:    #E63946;
-  --cyan:   #1FAFE0;
-  --white:  #FFFFFF;
-  --off:    #F7F9FC;
-  --slate:  #64748B;
-  --muted:  #94A3B8;
-  --border: rgba(255,255,255,0.10);
-  --borderl:#E2E8F0;
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --fp-red:#E63946;--fp-red-deep:#C23039;
+  --fp-cyan:#1FAFE0;--fp-cyan-deep:#0F88B8;
+  --canvas:#F5F1EA;--canvas-2:#EBE4D8;
+  --paper:#FFFFFF;--ink:#0B1B2E;--ink-2:#243E57;--ink-3:#4D637D;--ink-4:#8DA0B3;
+  --gold:#C9A227;--good:#1E8A5A;--warn:#B45309;--bad:#E63946;
+  --line:#E4DDD4;--line-2:#F0EAE0;
+  --r:18px;--r-sm:10px;
+  --sh:0 18px 40px -12px rgba(11,27,46,.18),0 6px 16px -6px rgba(11,27,46,.10);
+  --sh-sm:0 4px 14px -4px rgba(11,27,46,.10),0 1px 4px -1px rgba(11,27,46,.06);
 }
-html, body {
-  width:100vw; height:56.25vw;
-  overflow:hidden; background:var(--ink);
-  font-family:'DM Sans',sans-serif;
-  -webkit-font-smoothing:antialiased;
-}
+html,body{background:var(--canvas);color:var(--ink);font-family:'Inter',system-ui,sans-serif;font-size:max(18px,1.05vw);line-height:1.55;-webkit-font-smoothing:antialiased;scroll-behavior:smooth;overflow-x:hidden}
 
-/* ─── PROGRESS BAR ───────────────────────────────────────────── */
-#prog {
-  position:fixed; top:0; left:0; z-index:100;
-  height:2px; background:var(--red);
-  transition:width 0.4s ease;
-}
+/* ── 16:9 SLIDES ── */
+.slide{width:100vw;height:56.25vw;overflow:hidden;position:relative;max-width:none;padding:3.5vw 4vw 2vw;box-sizing:border-box}
+.slide-cream{background:var(--canvas)}
+.slide-paper{background:var(--paper)}
+.slide-dark{background:linear-gradient(180deg,#0B1B2E 0%,#142C48 100%);color:#fff}
+.slide-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2vw;flex-shrink:0}
+.slide-head .meta{flex:1}
+.eyebrow{font-family:'Manrope';font-weight:800;font-size:max(11px,.7vw);letter-spacing:.22em;text-transform:uppercase;color:var(--ink-4);display:block;margin-bottom:.5vw}
+h2.display{font-family:'Fraunces';font-weight:700;font-size:max(26px,2.7vw);line-height:1.08;letter-spacing:-.025em;color:var(--ink)}
+.slide-dark h2.display{color:#fff}
+.marker{display:flex;flex-direction:column;align-items:center;gap:4px;opacity:.2;flex-shrink:0;margin-left:24px}
+.marker .num{font-family:'Fraunces';font-weight:700;font-size:max(48px,4.5vw);line-height:1;letter-spacing:-.04em;color:var(--ink)}
+.marker span:last-child{font-family:'Manrope';font-weight:800;font-size:max(9px,.55vw);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3)}
+.slide-dark .marker .num{color:#fff}
 
-/* ─── DECK ───────────────────────────────────────────────────── */
-#deck { position:fixed; inset:0; width:100vw; height:56.25vw; }
-.slide {
-  position:absolute; inset:0;
-  width:100vw; height:56.25vw;
-  overflow:hidden;
-  transform:translateX(100%);
-  transition:transform 0.55s cubic-bezier(0.77,0,0.175,1);
-  padding:2.8vw 4vw 2.5vw;
-}
-.slide.active { transform:translateX(0); }
-.slide.prev   { transform:translateX(-100%); }
-.dark  { background:var(--ink);  color:var(--white); }
-.light { background:var(--white); color:var(--ink);  }
-.offbg { background:var(--off);  color:var(--ink);  }
+/* ── HERO ── */
+.hero{width:100vw;height:56.25vw;overflow:hidden;position:relative;
+  background:radial-gradient(1200px 600px at 20% -10%,rgba(31,175,224,.22),transparent 55%),
+             radial-gradient(900px 500px at 110% 80%,rgba(230,57,70,.18),transparent 60%),
+             linear-gradient(160deg,#0B1B2E 0%,#0D2236 50%,#142C48 100%);
+  color:#fff;display:flex;flex-direction:column;padding:3.5vw 4vw;box-sizing:border-box}
+.hero-bg-pattern{position:absolute;inset:0;background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.04) 1px,transparent 0);background-size:48px 48px;pointer-events:none}
+.hero-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:2.5vw;flex-shrink:0}
+.fp{display:flex;align-items:center;gap:1.2vw}
+.fp-mark{width:5.5vw;min-width:55px;max-width:110px;height:auto;border-radius:6px;object-fit:cover}
+.fp-text{display:flex;flex-direction:column;gap:2px}
+.fp-text b{font-family:'Manrope';font-weight:800;font-size:max(13px,.9vw);letter-spacing:-.005em;color:#fff}
+.fp-text span{font-family:'Manrope';font-weight:600;font-size:max(10px,.65vw);letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.month{font-family:'Manrope';font-weight:800;font-size:max(12px,.8vw);letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.hero-body{flex:1;display:flex;align-items:center}
+.hero-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:4vw;width:100%;align-items:center}
+.hero-eyebrow{font-family:'Manrope';font-weight:800;font-size:max(10px,.65vw);letter-spacing:.26em;text-transform:uppercase;color:var(--fp-cyan);margin-bottom:1.2vw;display:flex;align-items:center;gap:1vw}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';width:2.5vw;height:1px;background:var(--fp-cyan)}
+.hero h1{font-family:'Fraunces';font-weight:700;font-size:max(46px,5.5vw);line-height:1.04;letter-spacing:-.03em;color:#fff;margin-bottom:2.5vw}
+.hero h1 .ac{color:var(--fp-cyan);font-style:italic;font-weight:600}
+.hero-foot{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5vw;border-top:1px solid rgba(255,255,255,.12);padding-top:2vw}
+.hero-foot div{display:flex;flex-direction:column;gap:4px}
+.hero-foot .k{font-family:'Manrope';font-weight:800;font-size:max(9px,.6vw);letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+.hero-foot .v{font-family:'Manrope';font-weight:700;font-size:max(13px,.85vw);color:rgba(255,255,255,.9)}
+.hero-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:2vw;backdrop-filter:blur(12px)}
+.hero-card h3{font-family:'Manrope';font-weight:800;font-size:max(10px,.7vw);letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:1.2vw}
+.hero-card .row{display:flex;justify-content:space-between;align-items:center;padding:.65vw 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.hero-card .row:last-child{border-bottom:none}
+.hero-card .k{font-family:'Inter';font-size:max(12px,.78vw);color:rgba(255,255,255,.6)}
+.hero-card .v{font-family:'Manrope';font-weight:800;font-size:max(14px,.9vw);color:#fff;letter-spacing:-.01em}
+.hero-card .v.ac{color:var(--fp-cyan)}
+.hero-card .v.warn{color:#FFAB55}
+.mono{font-variant-numeric:tabular-nums}
 
-/* ─── GHOST WATERMARK ────────────────────────────────────────── */
-.ghost {
-  position:absolute; right:-1vw; bottom:-3vw;
-  font-family:'DM Serif Display',serif;
-  font-size:26vw; line-height:1;
-  pointer-events:none; user-select:none;
-  white-space:nowrap; overflow:hidden;
-}
-.dark  .ghost { color:var(--white); opacity:0.035; }
-.light .ghost { color:var(--ink);   opacity:0.04;  }
-.offbg .ghost { color:var(--ink);   opacity:0.04;  }
+/* ── KPI ROW ── */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2vw}
+.kpi-row.three{grid-template-columns:repeat(3,1fr)}
+.kpi-row.two{grid-template-columns:1fr 1fr}
+.stat{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-sm);padding:1.3vw 1.5vw 1.1vw;position:relative;overflow:hidden;box-shadow:var(--sh-sm)}
+.stat-tinted{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12)}
+.stat .stat-bar{position:absolute;top:0;left:0;right:0;height:4px;background:var(--fp-cyan)}
+.stat.red .stat-bar{background:var(--fp-red)}
+.stat.dark .stat-bar{background:rgba(255,255,255,.18)}
+.stat.gold .stat-bar{background:var(--gold)}
+.stat.warn .stat-bar{background:var(--warn)}
+.stat.good .stat-bar{background:var(--good)}
+.stat .stat-lbl{font-family:'Manrope';font-weight:700;font-size:max(9px,.58vw);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:.7vw}
+.stat.dark .stat-lbl{color:rgba(255,255,255,.55)}
+.stat .stat-val{font-family:'Manrope';font-weight:800;font-size:max(21px,2.2vw);color:var(--ink);line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.stat .stat-val .cur{font-size:max(13px,1.3vw);font-weight:600;color:var(--ink-3);letter-spacing:0}
+.stat .stat-val .unit{font-size:max(15px,1.4vw);font-weight:600;color:var(--ink-3);margin-left:2px}
+.stat.dark .stat-val,.stat.dark .stat-val .cur,.stat.dark .stat-val .unit{color:#fff}
+.stat .stat-sub{font-family:'Inter';font-size:max(10px,.65vw);color:var(--ink-4);margin-top:.4vw;line-height:1.35}
+.stat.dark .stat-sub{color:rgba(255,255,255,.5)}
 
-/* ─── TYPOGRAPHY ─────────────────────────────────────────────── */
-.eyebrow {
-  font-size:0.6vw; font-weight:500; letter-spacing:0.22em;
-  text-transform:uppercase; opacity:0.45;
-  display:flex; align-items:center; gap:0.5vw;
-}
-.eyebrow::before {
-  content:''; display:inline-block;
-  width:1.4vw; height:2px; background:var(--red); flex-shrink:0;
-}
-.kpi-num {
-  font-family:'Space Grotesk',monospace;
-  font-weight:700; line-height:1;
-}
-.accent  { color:var(--red);  }
-.accent-c{ color:var(--cyan); }
+/* ── CARDS ── */
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:1.4vw;box-shadow:var(--sh-sm)}
+.card.lg{padding:1.4vw 1.8vw}
+.card-title{font-family:'Manrope';font-weight:800;font-size:max(10px,.7vw);letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);text-align:center;margin-bottom:1vw}
+.card-title.left{text-align:left}
+.chart-wrap{height:20vw;min-height:150px;position:relative}
+.chart-wrap.tall{height:22vw}
+.chart-wrap.sm{height:16vw}
 
-/* ─── LAYOUT ─────────────────────────────────────────────────── */
-.row   { display:flex; gap:2vw; }
-.col   { display:flex; flex-direction:column; }
-.flex1 { flex:1; }
+/* ── BIGNUM ── */
+.bignum{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:1.8vw;box-shadow:var(--sh-sm)}
+.bignum.dark{background:var(--ink);border-color:var(--ink)}
+.bignum.accent{background:linear-gradient(180deg,rgba(31,175,224,.08) 0%,var(--paper) 100%);border-color:var(--fp-cyan)}
+.bignum .lbl{font-family:'Manrope';font-weight:800;font-size:max(10px,.65vw);letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);margin-bottom:.8vw}
+.bignum.dark .lbl{color:rgba(255,255,255,.6)}
+.bignum.accent .lbl{color:var(--fp-cyan-deep)}
+.bignum .val{font-family:'Fraunces';font-weight:700;font-size:max(56px,5.2vw);line-height:1;color:var(--ink);letter-spacing:-.035em;font-variant-numeric:tabular-nums}
+.bignum.dark .val{color:#fff}
+.bignum.accent .val{color:var(--fp-cyan-deep)}
 
-/* ─── CHART CONTAINER ────────────────────────────────────────── */
-.chart-wrap { position:relative; flex:1; min-height:0; }
-.chart-wrap canvas { display:block; width:100% !important; height:100% !important; }
+/* ── GRIDS ── */
+.grid-21{display:grid;grid-template-columns:2fr 1fr;gap:2vw;align-items:start}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.8vw}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5vw}
+.grid-12{display:grid;grid-template-columns:1fr 2fr;gap:2vw;align-items:start}
 
-/* ─── RANK LIST ──────────────────────────────────────────────── */
-.rank-list { display:flex; flex-direction:column; gap:0.55vw; }
-.rank-item {
-  display:grid; align-items:center;
-  grid-template-columns:10vw 1fr 3.5vw;
-  gap:0.5vw; font-size:0.68vw;
-}
-.rank-item .nm { opacity:0.85; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.rank-bar-wrap { background:rgba(255,255,255,0.08); border-radius:1px; height:0.35vw; }
-.light .rank-bar-wrap,.offbg .rank-bar-wrap { background:rgba(11,27,46,0.08); }
-.rank-bar { height:100%; border-radius:1px; background:var(--red); }
-.rank-val { text-align:right; opacity:0.7; font-family:'Space Grotesk',monospace; font-weight:500; font-size:0.65vw; }
+/* ── PILLS ── */
+.pill{display:inline-flex;align-items:center;padding:.3vw .8vw;border-radius:999px;font-family:'Manrope';font-weight:800;font-size:max(9px,.6vw);letter-spacing:.14em;text-transform:uppercase}
+.pill.cyan{background:rgba(31,175,224,.12);color:var(--fp-cyan-deep)}
+.pill.red{background:rgba(230,57,70,.12);color:var(--fp-red-deep)}
+.pill.gold{background:rgba(201,162,39,.14);color:#8C7434}
+.pill.good{background:rgba(30,138,90,.14);color:var(--good)}
 
-/* ─── NAV DOTS ───────────────────────────────────────────────── */
-#dots {
-  position:fixed; bottom:1.6vw; left:50%; transform:translateX(-50%);
-  display:flex; gap:0.5vw; z-index:50;
-}
-.dot {
-  width:0.5vw; height:0.5vw; border-radius:50%;
-  background:rgba(255,255,255,0.3); cursor:pointer; border:none;
-  transition:all 0.3s;
-}
-.dot.on { background:var(--red); transform:scale(1.35); }
+/* ── PRODUCTS ── */
+.prod-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:.7vw}
+.prod{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-sm);overflow:hidden;box-shadow:var(--sh-sm);display:flex;flex-direction:column;position:relative}
+.prod::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--pc)}
+.plogo{height:3.8vw;min-height:38px;display:flex;align-items:center;justify-content:center;padding:.5vw;border-bottom:1px solid var(--line-2)}
+.pmeta{padding:.5vw .7vw}
+.pname{font-family:'Manrope';font-weight:800;font-size:max(7px,.47vw);letter-spacing:.04em;color:var(--ink);margin-bottom:3px}
+.pkpis{display:flex;gap:8px}
+.pkpis .k{font-family:'Manrope';font-weight:600;font-size:max(6px,.4vw);color:var(--ink-4);letter-spacing:.1em}
+.pkpis .v{font-family:'Manrope';font-weight:800;font-size:max(7px,.48vw);color:var(--ink)}
 
-/* ─── ARROW FABs ─────────────────────────────────────────────── */
-#arrows {
-  position:fixed; bottom:1.1vw; right:3vw;
-  display:flex; gap:0.6vw; z-index:50;
-}
-.arr {
-  width:2.2vw; height:2.2vw; border-radius:50%;
-  border:1px solid rgba(255,255,255,0.2);
-  background:rgba(255,255,255,0.06);
-  color:rgba(255,255,255,0.6);
-  font-size:0.9vw; cursor:pointer;
-  display:flex; align-items:center; justify-content:center;
-  transition:all 0.2s;
-}
-.arr:hover { background:rgba(255,255,255,0.18); color:#fff; }
+/* ── LOGO CSS ── */
+.lg-base{font-family:'Manrope',sans-serif;font-weight:800;letter-spacing:-.02em;line-height:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.lg-menacor{background:#5C1018;color:#fff;font-size:max(11px,.85vw);letter-spacing:.06em;font-weight:800;padding:6px 10px;border-radius:4px}
+.lg-menacor span{color:#D7B26A}
+.lg-metasitol{background:linear-gradient(180deg,#E9F4FB 0%,#BEE0F2 100%);color:#1565C0;font-weight:900;font-size:max(11px,.85vw);padding:5px 8px;border-radius:6px;letter-spacing:.02em}
+.lg-metasitol-ri{background:linear-gradient(180deg,#E9F4FB 0%,#BEE0F2 100%);color:#1565C0;padding:4px 7px;border-radius:6px}
+.lg-metasitol-ri .name{font-weight:900;font-size:max(11px,.85vw);letter-spacing:.02em;display:inline-block}
+.lg-metasitol-ri .name .ri{color:#E63946;font-weight:900;margin-left:2px}
+.lg-metasitol-ri small{display:block;font-size:max(6px,.38vw);letter-spacing:.18em;color:#1565C0;margin-top:2px;font-weight:800;text-transform:uppercase}
+.lg-telomerina{font-family:'Manrope';font-weight:700;font-size:max(13px,.95vw);color:#9E2A8C;letter-spacing:-.02em}
+.lg-telomerina sup{font-size:max(7px,.5vw);font-weight:800;color:#0F95B3;margin-left:1px;vertical-align:super}
+.lg-vitamet{background:#1B2A6F;color:#fff;font-weight:800;font-size:max(11px,.85vw);padding:5px 9px;border-radius:6px;letter-spacing:.02em}
+.lg-vitamet b{color:#FF9B00}
+.lg-goodskin{font-family:'Manrope';font-weight:800;font-size:max(12px,.88vw);color:#1B6E3E;letter-spacing:-.018em;line-height:1}
+.lg-goodskin span{color:#E07B3A}
+.lg-goodskin small{display:block;font-family:'Manrope';font-weight:700;font-size:max(6px,.38vw);letter-spacing:.22em;color:#1B6E3E;margin-top:3px;text-transform:uppercase}
+.lg-daozima{background:#0F4A2A;color:#fff;font-weight:800;font-size:max(11px,.85vw);padding:5px 9px;border-radius:6px;letter-spacing:.08em}
+.lg-daozima small{display:block;font-size:max(6px,.38vw);letter-spacing:.18em;font-weight:800;color:#7FCB9E;margin-top:2px;text-transform:uppercase}
+.lg-floragut{font-family:'Manrope';font-weight:800;font-size:max(13px,.95vw);color:#7C7C7C;letter-spacing:-.025em;font-style:italic}
+.lg-floragut span{color:#F47C2A}
+.lg-digecaps{font-family:'Manrope';font-weight:800;font-size:max(13px,.95vw);background:linear-gradient(180deg,#5BC0DE 0%,#1F7AB4 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#1F7AB4;letter-spacing:-.025em}
+.lg-serrapep{font-family:'Manrope';font-weight:800;font-size:max(13px,.95vw);color:#C12127;font-style:italic;letter-spacing:-.02em}
+.lg-satial-food{font-family:'Manrope';font-weight:800;font-size:max(11px,.85vw);color:#E45A0F;letter-spacing:.04em}
+.lg-satial-food small{display:block;font-size:max(6px,.38vw);font-weight:800;letter-spacing:.18em;color:#0F88C2;margin-top:2px}
+.lg-capskrill{font-family:'Manrope';font-weight:800;font-size:max(10px,.75vw);color:#C0392B;letter-spacing:-.015em}
+.lg-ampk-bb{font-family:'Manrope';font-weight:800;color:#0F88C2;letter-spacing:-.025em;line-height:1}
+.lg-ampk-bb .nm{font-size:max(11px,.85vw);text-transform:lowercase}
+.lg-ampk-bb small{font-size:max(6px,.38vw);letter-spacing:.22em;color:#FF7F0F;font-weight:800;margin-top:2px;text-transform:uppercase;display:block}
+.lg-creatina{font-family:'Manrope';font-weight:800;font-size:max(10px,.75vw);color:#5C4033;letter-spacing:.04em}
+.lg-creatina small{display:block;font-size:max(6px,.38vw);letter-spacing:.2em;color:#A67C52;font-weight:800;margin-top:2px;text-transform:uppercase}
+.lg-sele200{font-family:'Manrope';font-weight:800;font-size:max(13px,.95vw);color:#E65100;letter-spacing:-.015em}
+.lg-sele200 span{color:#1FAFE0}
 
-/* ─── S1 PORTADA ─────────────────────────────────────────────── */
-#s1 { display:flex; flex-direction:column; justify-content:space-between; padding:3vw 5vw; }
-.s1-logo { height:3.5vw; object-fit:contain; object-position:left; }
-.s1-center { flex:1; display:flex; flex-direction:column; justify-content:center; }
-.s1-eyebrow { font-size:0.6vw; letter-spacing:0.3em; text-transform:uppercase; opacity:0.38; margin-bottom:0.6vw; }
-.s1-title {
-  font-family:'DM Serif Display',serif; font-size:6.2vw;
-  line-height:0.92; font-weight:400;
-}
-.s1-title em { font-style:italic; color:var(--red); display:block; }
-.s1-sub { margin-top:1.2vw; font-size:0.75vw; opacity:0.4; letter-spacing:0.06em; }
-.s1-kpis { display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid rgba(255,255,255,0.10); }
-.s1-kpi { padding:1.1vw 0; }
-.s1-kpi:not(:last-child) { border-right:1px solid rgba(255,255,255,0.08); padding-right:2vw; }
-.s1-kpi:not(:first-child) { padding-left:2vw; }
-.s1-kpi .n { font-family:'Space Grotesk',monospace; font-size:2.5vw; font-weight:700; line-height:1; }
-.s1-kpi .l { font-size:0.58vw; letter-spacing:0.18em; text-transform:uppercase; opacity:0.38; margin-top:0.3vw; }
+/* ── TABLE ── */
+.tbl{width:100%;border-collapse:collapse;font-family:'Inter';font-size:max(11px,.72vw)}
+.tbl thead th{background:var(--canvas);font-family:'Manrope';font-weight:800;font-size:max(9px,.58vw);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);padding:.6vw .8vw;text-align:left;border-bottom:2px solid var(--line)}
+.tbl th.num,.tbl td.num{text-align:right;font-variant-numeric:tabular-nums}
+.tbl tbody tr{border-bottom:1px solid var(--line-2)}
+.tbl tbody tr:last-child{border-bottom:none}
+.tbl tbody td{padding:.55vw .8vw;color:var(--ink-2);line-height:1.35}
+.rank-chip{width:26px;height:26px;border-radius:8px;background:var(--canvas);display:flex;align-items:center;justify-content:center;font-family:'Manrope';font-weight:800;font-size:max(10px,.65vw);color:var(--ink-3)}
+.rank-chip.t1{background:#C9A227;color:#fff}
+.rank-chip.t2{background:var(--ink-3);color:#fff}
+.rank-chip.t3{background:#BE9166;color:#fff}
 
-/* ─── S2 PANORAMA ────────────────────────────────────────────── */
-#s2 { display:flex; flex-direction:column; gap:1vw; }
-.s2-cols { display:grid; grid-template-columns:1fr 1fr; gap:2.5vw; flex:1; }
-.s2-panel { display:flex; flex-direction:column; }
-.s2-panel-hd {
-  font-size:0.58vw; letter-spacing:0.2em; text-transform:uppercase;
-  padding-bottom:0.7vw; border-bottom:2px solid;
-  display:flex; align-items:center; gap:0.5vw; margin-bottom:0.1vw;
-}
-.tv-c  { border-color:var(--red);  color:var(--red);  }
-.meta-c{ border-color:var(--cyan); color:var(--cyan); }
-.s2-grid { display:grid; grid-template-columns:1fr 1fr; flex:1; }
-.s2-kpi { padding:0.65vw 0.5vw; border-bottom:1px solid var(--borderl); }
-.s2-kpi .n { font-family:'Space Grotesk',monospace; font-size:2vw; font-weight:700; line-height:1; color:var(--ink); }
-.s2-kpi .l { font-size:0.54vw; letter-spacing:0.12em; text-transform:uppercase; color:var(--slate); margin-top:0.18vw; }
+/* ── PAUTA RANKING ── */
+.pauta-section{margin-bottom:.8vw}
+.pauta-section:last-child{margin-bottom:0}
+.ps-head{font-family:'Manrope';font-weight:800;font-size:max(9px,.58vw);letter-spacing:.22em;text-transform:uppercase;color:var(--ink-3);margin-bottom:.5vw;display:flex;align-items:center;gap:.6vw}
+.ps-dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex-shrink:0}
+.ps-dot.prof{background:var(--fp-red)}
+.ps-dot.prod{background:var(--fp-cyan)}
+.ps-dot.inst{background:var(--gold)}
+.pauta-rank{display:flex;flex-direction:column;gap:.4vw}
+.prk{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-sm);padding:.65vw 1vw;display:grid;grid-template-columns:2.2vw 1.3fr 1.1fr 6.5vw;gap:.8vw;align-items:center}
+.prk .px{font-family:'Fraunces';font-weight:700;font-size:max(14px,1.3vw);color:var(--ink-4);letter-spacing:-.03em;line-height:1;text-align:center}
+.prk .pname{font-family:'Manrope';font-weight:700;font-size:max(10px,.68vw);color:var(--ink);letter-spacing:-.008em}
+.prk .pbar{height:7px;background:var(--canvas-2);border-radius:6px;overflow:hidden}
+.prk .pbar>span{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--fp-cyan),var(--fp-cyan-deep));width:0%;transition:width 1.4s cubic-bezier(.2,.7,.2,1)}
+.prk.tier-1 .pbar>span{background:linear-gradient(90deg,var(--fp-red),var(--fp-red-deep))}
+.prk.tier-3 .pbar>span{background:linear-gradient(90deg,var(--gold),#8C7434)}
+.prk .pval{font-family:'Manrope';font-weight:700;font-size:max(10px,.65vw);color:var(--ink-3);font-variant-numeric:tabular-nums;text-align:right}
+.prk .pval small{display:block;font-size:max(7px,.42vw);letter-spacing:.16em;color:var(--ink-4);font-weight:700;text-transform:uppercase;margin-top:2px}
+.prk.tier-1 .px{color:var(--fp-red)}
+.prk.tier-2 .px{color:var(--fp-cyan-deep)}
+.prk.tier-3 .px{color:var(--gold)}
 
-/* ─── S3 TV PROGRAMAS ────────────────────────────────────────── */
-#s3 { display:flex; flex-direction:column; gap:0.6vw; }
-.s3-head { display:flex; justify-content:space-between; align-items:flex-end; }
-.s3-big { font-family:'Space Grotesk',monospace; font-size:3.6vw; font-weight:700; color:var(--red); line-height:1; }
-.s3-big-lbl { font-size:0.58vw; letter-spacing:0.1em; text-transform:uppercase; opacity:0.38; margin-top:0.3vw; }
-.s3-stats { display:flex; gap:2.5vw; }
-.s3-stat { text-align:right; }
-.s3-stat .n { font-family:'Space Grotesk',monospace; font-size:1.5vw; font-weight:700; }
-.s3-stat .l { font-size:0.52vw; letter-spacing:0.1em; text-transform:uppercase; opacity:0.4; margin-top:0.12vw; }
-.s3-stat .p { font-size:0.48vw; opacity:0.3; margin-top:0.08vw; }
+/* ── EXPAND ── */
+details.expand{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh-sm);margin-top:.8vw}
+details.expand summary{padding:.9vw 1.3vw;cursor:pointer;font-family:'Manrope';font-weight:700;font-size:max(11px,.72vw);letter-spacing:.08em;color:var(--ink-2);display:flex;justify-content:space-between;align-items:center;list-style:none}
+details.expand summary::-webkit-details-marker{display:none}
+.det-body{padding:0 1.3vw 1.3vw}
 
-/* ─── S4 TV PRODUCTOS ────────────────────────────────────────── */
-#s4 { display:flex; flex-direction:column; gap:0.8vw; }
-.s4-kpis { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5vw; }
-.s4-kpi { border-left:2px solid var(--red); padding-left:0.7vw; }
-.s4-kpi .n { font-family:'Space Grotesk',monospace; font-size:2.5vw; font-weight:700; color:var(--ink); line-height:1; }
-.s4-kpi .sub { font-size:0.9vw; font-weight:400; opacity:0.5; margin-left:0.3vw; }
-.s4-kpi .l { font-size:0.55vw; letter-spacing:0.1em; text-transform:uppercase; color:var(--slate); margin-top:0.2vw; }
+/* ── TEAM ── */
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1vw;margin-top:1vw}
+.tm{background:var(--canvas);border-radius:var(--r-sm);padding:1vw;display:flex;flex-direction:column;gap:.4vw}
+.tm-av{width:2.5vw;height:2.5vw;min-width:30px;min-height:30px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces';font-weight:700;font-size:max(16px,1.3vw);color:#fff}
+.tm h4{font-family:'Manrope';font-weight:800;font-size:max(12px,.82vw);color:var(--ink)}
+.tm p{font-family:'Inter';font-size:max(11px,.68vw);color:var(--ink-3);line-height:1.5}
+.tm p strong{font-weight:700;color:var(--ink)}
 
-/* ─── S5 META ────────────────────────────────────────────────── */
-#s5 { display:flex; flex-direction:column; gap:0.8vw; }
-.s5-body { display:grid; grid-template-columns:21vw 1fr; gap:2.5vw; flex:1; min-height:0; }
-.s5-kpis { display:flex; flex-direction:column; gap:0; border-right:1px solid var(--border); padding-right:2.5vw; }
-.s5-kpi { flex:1; display:flex; flex-direction:column; justify-content:center; border-top:1px solid var(--border); padding:0.4vw 0; }
-.s5-kpi:first-child { border-top:none; }
-.s5-kpi .n { font-family:'Space Grotesk',monospace; font-size:2.1vw; font-weight:700; }
-.s5-kpi .l { font-size:0.54vw; letter-spacing:0.12em; text-transform:uppercase; opacity:0.38; margin-top:0.18vw; }
-.s5-right { flex:1; min-height:0; display:flex; flex-direction:column; gap:0.4vw; overflow:hidden; }
+/* ── GOALS ── */
+.goals{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2vw}
+.goal{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:1.5vw 1.3vw;text-align:center;box-shadow:var(--sh-sm)}
+.goal-num{font-family:'Fraunces';font-weight:700;font-size:max(36px,3.2vw);color:var(--ink-4);line-height:1;margin-bottom:.6vw}
+.goal h4{font-family:'Manrope';font-weight:800;font-size:max(12px,.82vw);color:var(--ink);letter-spacing:-.012em;line-height:1.3}
+.goal.g{border-top:4px solid var(--good)}
+.goal.r{border-top:4px solid var(--fp-red)}
 
-/* ─── S6 CONTENIDO ───────────────────────────────────────────── */
-#s6 { display:flex; flex-direction:column; gap:0.6vw; }
-.s6-hero { display:flex; align-items:baseline; gap:1vw; }
-.s6-hero .big { font-family:'Space Grotesk',monospace; font-size:5vw; font-weight:700; color:var(--ink); }
-.s6-hero .lbl { font-size:0.72vw; opacity:0.45; letter-spacing:0.08em; text-transform:uppercase; line-height:1.4; }
-.s6-platforms { display:grid; grid-template-columns:1fr 1fr; gap:2.5vw; flex:1; min-height:0; }
-.s6-plat { border-top:2px solid; padding-top:0.7vw; display:flex; flex-direction:column; gap:0.4vw; overflow:hidden; }
-.s6-plat.ig { border-color:#E1306C; }
-.s6-plat.tt { border-color:#000000; }
-.s6-plat .pnm { font-size:0.58vw; letter-spacing:0.2em; text-transform:uppercase; opacity:0.45; }
-.s6-plat .pn  { font-family:'Space Grotesk',monospace; font-size:2.6vw; font-weight:700; margin:0.15vw 0 0.4vw; }
-.s6-plat.ig .pn { color:#E1306C; }
-.s6-plat.tt .pn { color:var(--ink); }
-.s6-items { display:flex; flex-direction:column; gap:0.28vw; overflow:hidden; }
-.s6-row { display:grid; grid-template-columns:9vw 2.5vw 1fr; gap:0.4vw; align-items:center; font-size:0.62vw; }
-.s6-row .sn  { opacity:0.7; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.s6-row .sv  { font-family:'Space Grotesk',monospace; font-weight:600; }
-.s6-row .svi { opacity:0.38; font-size:0.56vw; }
+/* ── CLOSING ── */
+.closing{background:radial-gradient(800px 400px at 10% 0%,rgba(31,175,224,.16),transparent 60%),radial-gradient(800px 400px at 100% 100%,rgba(230,57,70,.14),transparent 65%),linear-gradient(180deg,#0B1B2E 0%,#142C48 100%);color:#fff;border-radius:20px;padding:3.5vw 4vw;position:relative;overflow:hidden;height:100%}
+.closing .cline{font-family:'Manrope';font-weight:700;font-size:max(9px,.6vw);letter-spacing:.32em;text-transform:uppercase;color:var(--fp-cyan);margin-bottom:1.5vw;display:inline-flex;align-items:center;gap:1vw}
+.closing .cline::before,.closing .cline::after{content:'';width:2vw;height:1px;background:var(--fp-cyan)}
+.closing h2{font-family:'Fraunces';font-weight:700;font-size:max(34px,3.6vw);line-height:1.05;letter-spacing:-.025em;color:#fff;margin:0 0 2vw;max-width:900px}
+.closing h2 .ac{color:var(--fp-cyan);font-style:italic;font-weight:600}
+.cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1vw;margin:1.5vw 0}
+.cs{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:1.3vw;text-align:center}
+.cs .clbl{font-family:'Manrope';font-size:max(8px,.55vw);font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:.7vw}
+.cs .cval{font-family:'Manrope';font-weight:800;font-size:max(30px,2.8vw);color:#fff;letter-spacing:-.025em;line-height:1;font-variant-numeric:tabular-nums}
+.cs .cval .ac{color:var(--fp-cyan)}
+.cs .csub{font-family:'Inter';font-size:max(10px,.65vw);color:rgba(255,255,255,.65);margin-top:.6vw;line-height:1.45}
+.cbullets{display:grid;grid-template-columns:1fr 1fr;gap:.7vw 2vw;margin-top:1.5vw}
+.cbullets div{font-family:'Inter';font-size:max(12px,.78vw);color:rgba(255,255,255,.85);line-height:1.5;padding-left:1.5vw;position:relative}
+.cbullets div::before{content:'';position:absolute;left:0;top:8px;width:8px;height:8px;border-radius:50%;background:var(--fp-cyan)}
+.cbullets div.r::before{background:var(--fp-red)}
+.csig{margin-top:1.8vw;display:inline-flex;align-items:center;gap:1vw;color:rgba(255,255,255,.6);font-family:'Manrope';font-size:max(9px,.6vw);letter-spacing:.22em;text-transform:uppercase;font-weight:700}
 
-/* ─── S7 PROFESIONALES ───────────────────────────────────────── */
-#s7 { display:flex; flex-direction:column; gap:0.7vw; }
-.s7-body { display:grid; grid-template-columns:1fr 20vw; gap:3vw; flex:1; min-height:0; }
-.s7-left { display:flex; flex-direction:column; min-height:0; }
-.s7-hero { font-family:'DM Serif Display',serif; font-size:1.5vw; font-weight:400; line-height:1.2; margin-bottom:0.3vw; }
-.s7-hero strong { font-family:'Space Grotesk',monospace; font-size:3.5vw; color:var(--red); }
-.s7-sub { font-size:0.6vw; opacity:0.38; letter-spacing:0.05em; margin-bottom:0.7vw; }
+/* ── FOOTER ── */
+footer{background:var(--ink);color:rgba(255,255,255,.62);padding:1.5vw 3vw;text-align:center;font-family:'Manrope';font-size:max(10px,.65vw);letter-spacing:.12em}
+footer .fpsig{display:inline-flex;align-items:center;gap:1vw;margin-bottom:6px}
+footer b{font-family:'Manrope';font-weight:800;font-size:max(10px,.65vw);letter-spacing:.18em;color:#fff;text-transform:uppercase}
 
-/* ─── S8 CIERRE ──────────────────────────────────────────────── */
-#s8 { display:flex; flex-direction:column; justify-content:space-between; padding:3.5vw 5vw; }
-.s8-logo { height:3vw; object-fit:contain; object-position:left; }
-.s8-center { display:flex; flex-direction:column; justify-content:center; flex:1; }
-.s8-lbl { font-size:0.6vw; letter-spacing:0.3em; text-transform:uppercase; opacity:0.32; margin-bottom:0.8vw; }
-.s8-total { font-family:'Space Grotesk',monospace; font-size:5.8vw; font-weight:700; color:var(--red); line-height:1; }
-.s8-sub { font-size:0.68vw; letter-spacing:0.15em; text-transform:uppercase; opacity:0.35; margin-top:0.5vw; }
-.s8-bullets { display:flex; flex-direction:column; gap:0.55vw; margin-top:2vw; }
-.s8-bullet { font-size:0.82vw; opacity:0.6; display:flex; align-items:center; gap:0.6vw; }
-.s8-bullet::before { content:''; width:0.28vw; height:0.28vw; border-radius:50%; background:var(--red); flex-shrink:0; }
-.s8-footer { display:flex; justify-content:space-between; align-items:center; opacity:0.22; font-size:0.58vw; letter-spacing:0.1em; }
+/* ── FADE ── */
+.fade{opacity:0;transform:translateY(14px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.fade.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.fade{opacity:1;transform:none;transition:none}}
 
-@media (prefers-reduced-motion:reduce) { .slide { transition:none; } }
+/* ── NAV ── */
+.nav-fab{position:fixed;bottom:2vw;right:2vw;z-index:50;display:flex;gap:.7vw}
+.nav-fab button{background:var(--ink);color:#fff;border:none;cursor:pointer;font-family:'Manrope';font-weight:700;font-size:max(10px,.68vw);letter-spacing:.08em;text-transform:uppercase;padding:.75vw 1.3vw;border-radius:999px;display:inline-flex;align-items:center;gap:.6vw;box-shadow:0 14px 32px -10px rgba(11,27,46,.45);transition:transform .2s ease,background .2s ease}
+.nav-fab button:hover{transform:translateY(-2px);background:var(--fp-cyan-deep)}
+.nav-fab button.prev{background:var(--paper);color:var(--ink);border:1px solid var(--line)}
+.nav-fab button.prev:hover{background:var(--ink);color:#fff}
+.ic{width:1.1vw;height:1.1vw;min-width:13px;min-height:13px}
+.nav-progress{position:fixed;left:0;right:0;top:0;height:3px;z-index:60}
+.nav-progress>span{display:block;height:100%;background:linear-gradient(90deg,var(--fp-cyan),var(--fp-red));width:0%;transition:width .15s ease-out}
+@media print{.nav-fab,.nav-progress{display:none}}
 </style>
 </head>
 <body>
 
-<div id="prog"></div>
-<div id="deck">
-
-<!-- ═══════════════════════════════════════════════════════ S1 · PORTADA -->
-<section class="slide dark active" id="s1">
-  <span class="ghost">JUN</span>
-  <img class="s1-logo" src="data:image/jpeg;base64,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" alt="Framingham Pharma">
-  <div class="s1-center">
-    <div class="s1-eyebrow">Informe Ejecutivo de Marketing</div>
-    <div class="s1-title">
-      <em>Junio</em>
-      2026
-    </div>
-    <div class="s1-sub">01 — 29 Junio 2026 &nbsp;·&nbsp; TV + Meta Ads + Contenido Orgánico</div>
-  </div>
-  <div class="s1-kpis">
-    <div class="s1-kpi">
-      <div class="n accent">$111.6M</div>
-      <div class="l">Inversión Total ARS</div>
-    </div>
-    <div class="s1-kpi">
-      <div class="n">114</div>
-      <div class="l">Salidas en TV</div>
-    </div>
-    <div class="s1-kpi">
-      <div class="n">623</div>
-      <div class="l">Videos Publicados</div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════ S2 · PANORAMA -->
-<section class="slide offbg" id="s2">
-  <span class="ghost">2</span>
-  <div class="eyebrow" style="margin-bottom:1vw">Panorama General · Junio 2026</div>
-  <div class="s2-cols">
-    <div class="s2-panel">
-      <div class="s2-panel-hd tv-c">&#11044;&ensp;Televisión</div>
-      <div class="s2-grid">
-        <div class="s2-kpi"><div class="n" style="color:var(--red)">114</div><div class="l">Salidas totales</div></div>
-        <div class="s2-kpi"><div class="n">$101.2M</div><div class="l">Inversión ARS</div></div>
-        <div class="s2-kpi"><div class="n">96</div><div class="l">Notas médicas</div></div>
-        <div class="s2-kpi"><div class="n">18</div><div class="l">PNT</div></div>
-        <div class="s2-kpi"><div class="n">15</div><div class="l">Programas distintos</div></div>
-        <div class="s2-kpi"><div class="n">6</div><div class="l">Profesionales</div></div>
-      </div>
-    </div>
-    <div class="s2-panel">
-      <div class="s2-panel-hd meta-c">&#11044;&ensp;Meta Ads + Contenido</div>
-      <div class="s2-grid">
-        <div class="s2-kpi"><div class="n" style="color:var(--cyan)">$10.4M</div><div class="l">Gasto Meta ARS</div></div>
-        <div class="s2-kpi"><div class="n">3.6M</div><div class="l">Alcance único</div></div>
-        <div class="s2-kpi"><div class="n">211K</div><div class="l">Clicks totales</div></div>
-        <div class="s2-kpi"><div class="n">4.27%</div><div class="l">CTR promedio</div></div>
-        <div class="s2-kpi"><div class="n">345</div><div class="l">Videos Instagram</div></div>
-        <div class="s2-kpi"><div class="n">278</div><div class="l">Videos TikTok</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════ S3 · TV — INVERSIÓN PROGRAMAS -->
-<section class="slide dark" id="s3">
-  <span class="ghost">TV</span>
-  <div class="eyebrow" style="margin-bottom:0.6vw">Televisión · Inversión por Programa</div>
-  <div class="s3-head">
-    <div>
-      <div class="s3-big">ARS 101.2M</div>
-      <div class="s3-big-lbl">Inversión total en TV · Junio 2026</div>
-    </div>
-    <div class="s3-stats">
-      <div class="s3-stat">
-        <div class="n" style="color:var(--red)">11</div><div class="l">Salidas</div><div class="p">Desayuno Americano</div>
-      </div>
-      <div class="s3-stat">
-        <div class="n">10</div><div class="l">Salidas</div><div class="p">Todo Cocinado</div>
-      </div>
-      <div class="s3-stat">
-        <div class="n">9</div><div class="l">Salidas</div><div class="p">Lape Club Social</div>
-      </div>
-    </div>
-  </div>
-  <div class="chart-wrap" style="height:33vw;margin-top:0.3vw;">
-    <canvas id="chartProg"></canvas>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════ S4 · TV — SALIDAS PRODUCTOS -->
-<section class="slide light" id="s4">
-  <span class="ghost">114</span>
-  <div class="eyebrow" style="margin-bottom:0.9vw">Televisión · Salidas por Producto</div>
-  <div class="s4-kpis" style="margin-bottom:0.9vw">
-    <div class="s4-kpi">
-      <div class="n">114<span class="sub">salidas</span></div>
-      <div class="l">Total Tomado=TRUE</div>
-    </div>
-    <div class="s4-kpi">
-      <div class="n">96<span class="sub">NOTAS</span></div>
-      <div class="l">Notas médicas con profesional</div>
-    </div>
-    <div class="s4-kpi">
-      <div class="n accent">18<span class="sub">PNT</span></div>
-      <div class="l">Publicidad No Tradicional</div>
-    </div>
-  </div>
-  <div class="chart-wrap" style="height:33vw;">
-    <canvas id="chartProd"></canvas>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════ S5 · META ADS -->
-<section class="slide dark" id="s5">
-  <span class="ghost">21</span>
-  <div class="eyebrow" style="margin-bottom:0.8vw">Meta Ads · Performance Junio 2026</div>
-  <div class="s5-body">
-    <div class="s5-kpis">
-      <div class="s5-kpi"><div class="n accent-c">$10.4M</div><div class="l">Gasto total ARS</div></div>
-      <div class="s5-kpi"><div class="n">3,621,064</div><div class="l">Alcance único</div></div>
-      <div class="s5-kpi"><div class="n">211,173</div><div class="l">Clicks totales</div></div>
-      <div class="s5-kpi"><div class="n accent">4.27%</div><div class="l">CTR promedio</div></div>
-      <div class="s5-kpi"><div class="n">21</div><div class="l">Cuentas activas</div></div>
-    </div>
-    <div class="s5-right">
-      <div style="font-size:0.56vw;letter-spacing:0.18em;text-transform:uppercase;opacity:0.38;">Top cuentas por gasto</div>
-      <div id="metaList" class="rank-list" style="overflow:hidden;flex:1;"></div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════ S6 · CONTENIDO ORGÁNICO -->
-<section class="slide light" id="s6">
-  <span class="ghost">623</span>
-  <div class="eyebrow" style="margin-bottom:0.6vw">Contenido Orgánico · Mayo–Junio 2026</div>
-  <div class="s6-hero">
-    <div class="big">623</div>
-    <div class="lbl">videos publicados<br>en todas las plataformas</div>
-  </div>
-  <div class="s6-platforms">
-    <div class="s6-plat ig">
-      <div class="pnm">Instagram</div>
-      <div class="pn">345</div>
-      <div class="s6-items" id="igItems"></div>
-    </div>
-    <div class="s6-plat tt">
-      <div class="pnm">TikTok</div>
-      <div class="pn">278</div>
-      <div class="s6-items" id="ttItems"></div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════ S7 · PROFESIONALES -->
-<section class="slide dark" id="s7">
-  <span class="ghost">49</span>
-  <div class="eyebrow" style="margin-bottom:0.6vw">Profesionales · Apariciones en TV</div>
-  <div class="s7-body">
-    <div class="s7-left">
-      <div class="s7-hero"><strong>49</strong> apariciones<br>Gabriel Lapman</div>
-      <div class="s7-sub">Principal médico de la cartera · Junio 2026</div>
-      <div class="chart-wrap" style="height:26vw;">
-        <canvas id="chartProfs"></canvas>
-      </div>
-    </div>
-    <div class="col" style="gap:0.4vw;">
-      <div style="font-size:0.56vw;letter-spacing:0.18em;text-transform:uppercase;opacity:0.38;margin-bottom:0.4vw;">Inversión en apoyo</div>
-      <div id="profApoyo" class="rank-list"></div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════ S8 · CIERRE -->
-<section class="slide dark" id="s8">
-  <span class="ghost" style="font-size:18vw;opacity:0.025;">FP</span>
-  <img class="s8-logo" src="data:image/jpeg;base64,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" alt="Framingham Pharma">
-  <div class="s8-center">
-    <div class="s8-lbl">Inversión Total · Junio 2026</div>
-    <div class="s8-total">$111,566,146</div>
-    <div class="s8-sub">ARS invertidos en TV + Meta Ads</div>
-    <div class="s8-bullets">
-      <div class="s8-bullet">114 salidas en televisión nacional · 15 programas · 6 profesionales</div>
-      <div class="s8-bullet">21 cuentas activas en Meta Ads · 211K clicks · 4.27% CTR</div>
-      <div class="s8-bullet">623 videos publicados entre Instagram y TikTok</div>
-    </div>
-  </div>
-  <div class="s8-footer">
-    <span>Framingham Pharma · Marketing</span>
-    <span>Junio 2026</span>
-  </div>
-</section>
-
-</div><!-- /deck -->
-
-<nav id="dots"></nav>
-<div id="arrows">
-  <button class="arr" onclick="go(-1)">&#8592;</button>
-  <button class="arr" onclick="go(1)">&#8594;</button>
+<div class="nav-progress"><span id="navProg"></span></div>
+<div class="nav-fab">
+  <button class="prev" onclick="goSlide(-1)">
+    <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Anterior
+  </button>
+  <button onclick="goSlide(1)">
+    Próxima
+    <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
 </div>
 
+<!-- S1 · PORTADA -->
+<header class="hero slide-anchor" id="s1">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-top">
+    <div class="fp">
+      <img src="data:image/jpeg;base64,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" alt="Framingham Pharma" class="fp-mark">
+      <div class="fp-text"><b>Framingham Pharma</b><span>Área de Marketing</span></div>
+    </div>
+    <div class="month">Junio · 2026</div>
+  </div>
+  <div class="hero-body">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-eyebrow">Informe Ejecutivo</div>
+        <h1>Marketing<br/><span class="ac">en cifras.</span></h1>
+        <div class="hero-foot">
+          <div><span class="k">Período</span><span class="v">01 — 30 Junio, 2026</span></div>
+          <div><span class="k">Presentado por</span><span class="v">Área de Marketing</span></div>
+          <div><span class="k">Para</span><span class="v">Gerencia General</span></div>
+        </div>
+      </div>
+      <aside class="hero-card">
+        <h3>El mes de un vistazo</h3>
+        <div class="row"><span class="k">Inversión TV</span><span class="v mono">$101,2 M</span></div>
+        <div class="row"><span class="k">Inversión Redes</span><span class="v mono ac">$10,4 M</span></div>
+        <div class="row"><span class="k">Total marketing</span><span class="v mono">$111,6 M</span></div>
+        <div class="row"><span class="k">Salidas TV</span><span class="v mono">114</span></div>
+        <div class="row"><span class="k">Videos en IG</span><span class="v mono">345</span></div>
+        <div class="row"><span class="k">Videos en TikTok</span><span class="v mono warn">278</span></div>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<!-- S2 · RESUMEN -->
+<section class="slide slide-cream fade slide-anchor" id="s2">
+  <div class="slide-head">
+    <div class="meta">
+      <span class="eyebrow">02 · Resumen ejecutivo · Cifras sin programa ADN</span>
+      <h2 class="display">Los números que<br/>definen junio.</h2>
+    </div>
+    <div class="marker"><span class="num">02</span><span>Resumen</span></div>
+  </div>
+  <div class="kpi-row">
+    <div class="stat"><div class="stat-bar"></div><div class="stat-lbl">Inversión TV</div><div class="stat-val mono"><span class="cur">$</span>101,2<span class="unit">M</span></div><div class="stat-sub">90,7% del total marketing</div></div>
+    <div class="stat red"><div class="stat-bar"></div><div class="stat-lbl">Inversión Redes</div><div class="stat-val mono"><span class="cur">$</span>10,4<span class="unit">M</span></div><div class="stat-sub">9,3% del total marketing</div></div>
+    <div class="stat dark stat-tinted"><div class="stat-bar"></div><div class="stat-lbl">Total marketing</div><div class="stat-val mono"><span class="cur">$</span>111,6<span class="unit">M</span></div><div class="stat-sub">TV + Redes consolidados</div></div>
+    <div class="stat gold"><div class="stat-bar"></div><div class="stat-lbl">Salidas en TV</div><div class="stat-val mono">114</div><div class="stat-sub">18 programas · 6 profesionales</div></div>
+  </div>
+  <div class="kpi-row" style="margin-top:1.2vw">
+    <div class="stat"><div class="stat-bar"></div><div class="stat-lbl">Videos editados</div><div class="stat-val mono">97</div><div class="stat-sub">85% de las salidas TV</div></div>
+    <div class="stat good"><div class="stat-bar"></div><div class="stat-lbl">Videos en IG</div><div class="stat-val mono">345</div><div class="stat-sub">17 cuentas activas</div></div>
+    <div class="stat"><div class="stat-bar"></div><div class="stat-lbl">Videos en TikTok</div><div class="stat-val mono">278</div><div class="stat-sub">6 cuentas activas</div></div>
+    <div class="stat good"><div class="stat-bar"></div><div class="stat-lbl">Notas · PNT</div><div class="stat-val mono">96 / 18</div><div class="stat-sub">84% notas · 16% PNT</div></div>
+  </div>
+</section>
+
+<!-- S3 · INVERSIÓN -->
+<section class="slide slide-paper fade slide-anchor" id="s3">
+  <div class="slide-head">
+    <div class="meta">
+      <span class="eyebrow">03 · Inversión total</span>
+      <h2 class="display">$111,6 millones<br/>invertidos en junio.</h2>
+    </div>
+    <div class="marker"><span class="num">03</span><span>Inversión</span></div>
+  </div>
+  <div class="grid-21">
+    <div class="card lg">
+      <h3 class="card-title left">TV vs Redes</h3>
+      <div class="chart-wrap"><canvas id="cTVRedes"></canvas></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1.2vw">
+      <div class="bignum dark">
+        <div class="lbl">Total marketing</div>
+        <div class="val mono"><span style="font-size:2.3vw;color:rgba(255,255,255,.6);font-weight:600">$</span>111,6<span style="font-size:1.8vw;color:rgba(255,255,255,.6);font-weight:600;margin-left:6px">M</span></div>
+      </div>
+      <div class="kpi-row two" style="gap:1vw">
+        <div class="stat"><div class="stat-bar"></div><div class="stat-lbl">TV</div><div class="stat-val mono"><span class="cur">$</span>101,2<span class="unit">M</span></div><div class="stat-sub">90,7%</div></div>
+        <div class="stat red"><div class="stat-bar"></div><div class="stat-lbl">Redes</div><div class="stat-val mono"><span class="cur">$</span>10,4<span class="unit">M</span></div><div class="stat-sub">9,3%</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S4 · TV -->
+<section class="slide slide-cream fade slide-anchor" id="s4">
+  <div class="slide-head">
+    <div class="meta">
+      <span class="eyebrow">04 · Televisión</span>
+      <h2 class="display">$101,2 M en TV.<br/>114 salidas al aire.</h2>
+    </div>
+    <div class="marker"><span class="num">04</span><span>TV</span></div>
+  </div>
+  <div class="kpi-row three">
+    <div class="stat"><div class="stat-bar"></div><div class="stat-lbl">Inversión en programas</div><div class="stat-val mono"><span class="cur">$</span>92,0<span class="unit">M</span></div><div class="stat-sub">90,9% de la inversión TV</div></div>
+    <div class="stat red"><div class="stat-bar"></div><div class="stat-lbl">Apoyo profesionales</div><div class="stat-val mono"><span class="cur">$</span>9,25<span class="unit">M</span></div><div class="stat-sub">9,1% de la inversión TV</div></div>
+    <div class="stat dark stat-tinted"><div class="stat-bar"></div><div class="stat-lbl">Total TV</div><div class="stat-val mono"><span class="cur">$</span>101,2<span class="unit">M</span></div><div class="stat-sub">Programas + apoyo</div></div>
+  </div>
+  <div class="grid-2" style="margin-top:1.3vw">
+    <div class="card">
+      <h3 class="card-title">Salidas por programa (top 10)</h3>
+      <div class="chart-wrap"><canvas id="cSalProg"></canvas></div>
+    </div>
+    <div class="card">
+      <h3 class="card-title">Inversión por programa (top 10)</h3>
+      <div class="chart-wrap"><canvas id="cInvProg"></canvas></div>
+    </div>
+  </div>
+</section>
+
+<!-- S5 · NOTAS vs PNT -->
+<section class="slide slide-paper fade slide-anchor" id="s5">
+  <div class="slide-head">
+    <div class="meta">
+      <span class="eyebrow">05 · Notas vs PNT</span>
+      <h2 class="display">Cómo se reparte<br/>el contenido en TV.</h2>
+    </div>
+    <div class="marker"><span class="num">05</span><span>Formato</span></div>
+  </div>
+  <div class="grid-2" style="align-items:center">
+    <div class="card">
+      <h3 class="card-title">Cantidad e inversión</h3>
+      <div class="chart-wrap"><canvas id="cNotaPnt"></canvas></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1.5vw">
+      <div class="stat">
+        <div class="stat-bar"></div>
+        <div class="stat-lbl">Notas</div>
+        <div class="stat-val mono">96</div>
+        <div class="stat-sub"><strong style="color:var(--ink)">$97,8 M</strong> · 97% del TV</div>
+      </div>
+      <div class="stat red">
+        <div class="stat-bar"></div>
+        <div class="stat-lbl">PNT</div>
+        <div class="stat-val mono">18</div>
+        <div class="stat-sub"><strong style="color:var(--ink)">$3,4 M</strong> · 3% del TV</div>
+      </div>
+      <div class="card" style="border-left:4px solid var(--fp-cyan)">
+        <p style="margin:0;font-size:max(12px,.78vw);color:var(--ink);font-family:'Manrope';font-weight:600;letter-spacing:-.005em">Las notas dominan: <strong>84%</strong> de las salidas y <strong>97%</strong> de la inversión TV.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S6 · REDES -->
+<section class="slide slide-cream fade slide-anchor" id="s6">
+  <div class="slide-head">
+    <div class="meta">
+      <span class="eyebrow">06 · Redes</span>
+      <h2 class="display">$10,4 M en pauta<br/>digital, 21 cuentas.</h2>
+    </div>
+    <div class="marker"><span class="num">06</span><span>Redes</span></div>
+  </div>
+  <div class="grid-12" style="align-items:start">
+    <div style="display:flex;flex-direction:column;gap:1vw">
+      <div class="bignum accent">
+        <div class="lbl">Pauta digital</div>
+        <div class="val mono" style="font-size:max(40px,3.8vw)"><span style="font-size:2vw;color:var(--ink-3);font-weight:600">$</span>10,4<span style="font-size:1.8vw;color:var(--ink-3);font-weight:600;margin-left:5px">M</span></div>
+      </div>
+      <div class="stat"><div class="stat-bar"></div><div class="stat-lbl">Alcance total</div><div class="stat-val mono" style="font-size:max(19px,1.9vw)">3,6 M</div><div class="stat-sub">personas alcanzadas</div></div>
+      <div class="stat red"><div class="stat-bar"></div><div class="stat-lbl">Clicks totales</div><div class="stat-val mono" style="font-size:max(19px,1.9vw)">211 K</div><div class="stat-sub">CTR promedio 4,27%</div></div>
+    </div>
+    <div class="card">
+      <h3 class="card-title left">Ranking de cuentas por inversión</h3>
+      <div class="pauta-section">
+        <div class="ps-head"><span class="ps-dot inst"></span>Redes institucionales</div>
+        <div class="pauta-rank" id="pautaInst"></div>
+      </div>
+      <div class="pauta-section">
+        <div class="ps-head"><span class="ps-dot prof"></span>Profesionales · médicos</div>
+        <div class="pauta-rank" id="pautaProf"></div>
+      </div>
+      <div class="pauta-section">
+        <div class="ps-head"><span class="ps-dot prod"></span>Redes de producto</div>
+        <div class="pauta-rank" id="pautaProd"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S7 · APROVECHAMIENTO -->
+<section class="slide slide-dark fade slide-anchor" id="s7">
+  <div class="slide-head">
+    <div class="meta">
+      <span class="eyebrow">07 · Aprovechamiento</span>
+      <h2 class="display">Junio: mejor mes<br/>de aprovechamiento del año.</h2>
+    </div>
+    <div class="marker"><span class="num">07</span><span>Aprove.</span></div>
+  </div>
+  <div class="kpi-row three">
+    <div class="stat stat-tinted dark good"><div class="stat-bar"></div><div class="stat-lbl">Salidas TV</div><div class="stat-val mono">114</div><div class="stat-sub">tomadas al aire</div></div>
+    <div class="stat stat-tinted dark good"><div class="stat-bar"></div><div class="stat-lbl">Videos editados</div><div class="stat-val mono">97</div><div class="stat-sub">85% de aprovechamiento</div></div>
+    <div class="stat stat-tinted dark warn"><div class="stat-bar"></div><div class="stat-lbl">Sin procesar</div><div class="stat-val mono">17</div><div class="stat-sub">15% sin editor asignado</div></div>
+  </div>
+  <div class="card" style="margin-top:1.2vw;background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.12)">
+    <h3 class="card-title" style="color:#fff">Funnel · de la TV a las redes</h3>
+    <div class="chart-wrap sm"><canvas id="cFunnel"></canvas></div>
+  </div>
+  <div class="card" style="margin-top:.8vw;background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.12)">
+    <div style="display:flex;align-items:center;gap:1.5vw;justify-content:center">
+      <div class="pill cyan" style="background:rgba(31,175,224,.16)">Logro del mes</div>
+      <p style="margin:0;font-size:max(13px,.85vw);color:rgba(255,255,255,.95);font-family:'Manrope';font-weight:600;letter-spacing:-.005em">El 100% de los videos editados fue publicado. 623 videos en redes (345 IG + 278 TikTok).</p>
+    </div>
+  </div>
+</section>
+
+<!-- S8 · PRODUCTOS -->
+<section class="slide slide-cream fade slide-anchor" id="s8">
+  <div class="slide-head">
+    <div class="meta">
+      <span class="eyebrow">08 · Productos</span>
+      <h2 class="display">Top productos<br/>por inversión.</h2>
+    </div>
+    <div class="marker"><span class="num">08</span><span>Productos</span></div>
+  </div>
+  <div class="card lg" style="margin-bottom:1vw">
+    <div class="chart-wrap tall"><canvas id="cProdInv"></canvas></div>
+  </div>
+  <div class="prod-grid" id="prodGrid"></div>
+</section>
+
+<!-- S9 · PROFESIONALES -->
+<section class="slide slide-paper fade slide-anchor" id="s9">
+  <div class="slide-head">
+    <div class="meta">
+      <span class="eyebrow">09 · Profesionales</span>
+      <h2 class="display">Quiénes están al aire<br/>y con qué intensidad.</h2>
+    </div>
+    <div class="marker"><span class="num">09</span><span>Profes.</span></div>
+  </div>
+  <div class="card lg">
+    <h3 class="card-title">Apariciones por profesional</h3>
+    <div class="chart-wrap" style="height:24vw"><canvas id="cProfCnt"></canvas></div>
+  </div>
+  <details class="expand">
+    <summary><span>Ver detalle completo</span><span>▾</span></summary>
+    <div class="det-body">
+      <table class="tbl">
+        <thead><tr><th style="width:50px">#</th><th>Profesional</th><th class="num">Salidas</th><th class="num">Apoyo</th><th class="num">Inversión total</th></tr></thead>
+        <tbody id="tblProf"></tbody>
+      </table>
+    </div>
+  </details>
+</section>
+
+<!-- S10 · DIAGNÓSTICO -->
+<section class="slide slide-cream fade slide-anchor" id="s10">
+  <div class="slide-head">
+    <div class="meta">
+      <span class="eyebrow">10 · Diagnóstico</span>
+      <h2 class="display">Qué funciona,<br/>qué hay que escalar.</h2>
+    </div>
+    <div class="marker"><span class="num">10</span><span>Diag.</span></div>
+  </div>
+  <div class="grid-3">
+    <div class="card" style="border-top:4px solid var(--good)">
+      <div class="pill good" style="margin-bottom:.8vw">Funciona</div>
+      <h3 class="card-title left">Producción y aprovechamiento</h3>
+      <ul style="margin:0;padding-left:1.2vw;color:var(--ink-2);font-size:max(11px,.72vw);line-height:1.7">
+        <li>18 programas activos en junio.</li>
+        <li>6 profesionales médicos al aire.</li>
+        <li>97 videos editados (85%).</li>
+        <li>0 editados sin publicar.</li>
+        <li>623 videos en redes (345 IG + 278 TT).</li>
+      </ul>
+    </div>
+    <div class="card" style="border-top:4px solid var(--warn)">
+      <div class="pill gold" style="margin-bottom:.8vw">A resolver</div>
+      <h3 class="card-title left">Brechas operativas</h3>
+      <ul style="margin:0;padding-left:1.2vw;color:var(--ink-2);font-size:max(11px,.72vw);line-height:1.7">
+        <li>17 salidas (15%) sin editor asignado.</li>
+        <li>Lapman en el 43% de las salidas.</li>
+        <li>Menacor/Vitamet/Daozima sin Meta Ads.</li>
+        <li>Falta trazabilidad por video individual.</li>
+      </ul>
+    </div>
+    <div class="card" style="border-top:4px solid var(--fp-cyan)">
+      <div class="pill cyan" style="margin-bottom:.8vw">Para escalar</div>
+      <h3 class="card-title left">Multiplicar el alcance</h3>
+      <ul style="margin:0;padding-left:1.2vw;color:var(--ink-2);font-size:max(11px,.72vw);line-height:1.7">
+        <li>Cerrar el 15% sin editor.</li>
+        <li>Alinear pauta Meta con TV.</li>
+        <li>Cada video en 3+ redes.</li>
+        <li>Incorporar más profesionales al aire.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card lg" style="margin-top:1vw">
+    <h3 class="card-title">Equipo operativo</h3>
+    <div class="team-grid">
+      <div class="tm">
+        <div class="tm-av" style="background:linear-gradient(135deg,var(--fp-cyan),var(--fp-cyan-deep))">L</div>
+        <h4>Lucas</h4>
+        <p>Edición de videos y <strong>diseño</strong> de piezas gráficas.</p>
+      </div>
+      <div class="tm">
+        <div class="tm-av" style="background:linear-gradient(135deg,var(--fp-red),var(--fp-red-deep))">J</div>
+        <h4>Julián</h4>
+        <p><strong>Producción de televisión</strong> y edición de contenidos.</p>
+      </div>
+      <div class="tm">
+        <div class="tm-av" style="background:linear-gradient(135deg,#8C7434,var(--gold))">R</div>
+        <h4>Renata</h4>
+        <p><strong>Part-time</strong> para edición de videos.</p>
+      </div>
+      <div class="tm">
+        <div class="tm-av" style="background:linear-gradient(135deg,var(--ink),var(--ink-2))">F</div>
+        <h4>Felipe</h4>
+        <p>Coordina y gestiona la <strong>pauta digital</strong>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S11 · METAS -->
+<section class="slide slide-paper fade slide-anchor" id="s11">
+  <div class="slide-head">
+    <div class="meta">
+      <span class="eyebrow">11 · Metas · Julio 2026</span>
+      <h2 class="display">Lo que viene<br/>en los próximos meses.</h2>
+    </div>
+    <div class="marker"><span class="num">11</span><span>Metas</span></div>
+  </div>
+  <div class="goals">
+    <div class="goal" style="grid-column:span 3;background:linear-gradient(135deg,var(--ink) 0%,#16304e 100%);border:none;color:#fff;text-align:center">
+      <div class="goal-num" style="color:var(--fp-cyan)">★</div>
+      <h4 style="color:#fff;font-size:max(15px,1.2vw)">Llevar el aprovechamiento al 100% en julio</h4>
+      <p style="margin:.5vw 0 0;color:rgba(255,255,255,.78);font-size:max(11px,.72vw);line-height:1.5">Junio cerró con 85%. Los 17 sin procesar son la prioridad operativa del mes que viene.</p>
+    </div>
+    <div class="goal r"><div class="goal-num">01</div><h4>100% de editados publicados en todas las redes</h4></div>
+    <div class="goal r"><div class="goal-num">02</div><h4>Asignar editor a cada salida TV al momento de grabar</h4></div>
+    <div class="goal"><div class="goal-num">03</div><h4>Alinear pauta Meta con los productos más activos en TV</h4></div>
+    <div class="goal g"><div class="goal-num">04</div><h4>Sumar mínimo 2 profesionales nuevos al aire</h4></div>
+  </div>
+</section>
+
+<!-- S12 · TEMAS -->
+<section class="slide slide-cream fade slide-anchor" id="s12">
+  <div class="slide-head">
+    <div class="meta">
+      <span class="eyebrow">12 · Temas a discutir</span>
+      <h2 class="display">Temas a definir<br/>con gerencia.</h2>
+    </div>
+    <div class="marker"><span class="num">12</span><span>Temas</span></div>
+  </div>
+  <div class="grid-2" style="gap:1.3vw">
+    <div class="card" style="border-top:4px solid var(--fp-cyan)">
+      <div class="pill cyan" style="margin-bottom:.6vw">Tema 01 · Contenido</div>
+      <h4 style="font-family:'Manrope';font-weight:800;font-size:max(13px,.85vw);color:var(--ink);margin-bottom:.5vw;line-height:1.3">¿Videos de médicos publicitando productos en redes oficiales?</h4>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8vw">
+        <div>
+          <div style="font-family:'Manrope';font-weight:800;font-size:max(8px,.55vw);letter-spacing:.16em;text-transform:uppercase;color:var(--good);margin-bottom:.3vw">A favor</div>
+          <ul style="margin:0;padding-left:.9vw;color:var(--ink-2);font-size:max(11px,.7vw);line-height:1.6">
+            <li>Refuerza credibilidad.</li>
+            <li>Más contenido sin costo extra.</li>
+            <li>Mejora conversión por cuenta.</li>
+          </ul>
+        </div>
+        <div>
+          <div style="font-family:'Manrope';font-weight:800;font-size:max(8px,.55vw);letter-spacing:.16em;text-transform:uppercase;color:var(--fp-red);margin-bottom:.3vw">A considerar</div>
+          <ul style="margin:0;padding-left:.9vw;color:var(--ink-2);font-size:max(11px,.7vw);line-height:1.6">
+            <li>Hace evidente la relación med-prod.</li>
+            <li>Puede leerse como publicidad directa.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="border-top:4px solid var(--fp-red)">
+      <div class="pill red" style="margin-bottom:.6vw">Tema 02 · Equipo</div>
+      <h4 style="font-family:'Manrope';font-weight:800;font-size:max(13px,.85vw);color:var(--ink);margin-bottom:.5vw;line-height:1.3">¿Incorporar un responsable de redes con liderazgo?</h4>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8vw">
+        <div>
+          <div style="font-family:'Manrope';font-weight:800;font-size:max(8px,.55vw);letter-spacing:.16em;text-transform:uppercase;color:var(--good);margin-bottom:.3vw">A favor</div>
+          <ul style="margin:0;padding-left:.9vw;color:var(--ink-2);font-size:max(11px,.7vw);line-height:1.6">
+            <li>Organiza el calendario de publicaciones.</li>
+            <li>Evita los 17 sin procesar del mes.</li>
+            <li>Mejora métricas y distribución.</li>
+          </ul>
+        </div>
+        <div>
+          <div style="font-family:'Manrope';font-weight:800;font-size:max(8px,.55vw);letter-spacing:.16em;text-transform:uppercase;color:var(--fp-red);margin-bottom:.3vw">A considerar</div>
+          <ul style="margin:0;padding-left:.9vw;color:var(--ink-2);font-size:max(11px,.7vw);line-height:1.6">
+            <li>Costo recurrente.</li>
+            <li>Onboarding de 1–2 meses.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="border-top:4px solid var(--gold)">
+      <div class="pill gold" style="margin-bottom:.6vw">Tema 03 · Pauta</div>
+      <h4 style="font-family:'Manrope';font-weight:800;font-size:max(13px,.85vw);color:var(--ink);margin-bottom:.5vw;line-height:1.3">¿Alinear inversión Meta con los productos top de TV?</h4>
+      <p style="font-size:max(11px,.7vw);color:var(--ink-2);margin:0;line-height:1.55">Menacor, Vitamet y Daozima lideran TV en junio pero no tienen Meta activa. Ampkok y Metasitol sí. ¿Conviene sincronizar ambas estrategias?</p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--ink)">
+      <div class="pill" style="background:var(--canvas);color:var(--ink);margin-bottom:.6vw">Tema 04 · Incentivos</div>
+      <h4 style="font-family:'Manrope';font-weight:800;font-size:max(13px,.85vw);color:var(--ink);margin-bottom:.5vw;line-height:1.3">Pauta de incentivo a profesionales — lista junio</h4>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.5vw">
+        <div style="background:var(--canvas);border-radius:8px;padding:.5vw .7vw;display:flex;align-items:center;gap:.5vw"><div style="flex-shrink:0;width:24px;height:24px;border-radius:6px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Manrope';font-weight:800;font-size:max(9px,.6vw)">1</div><div style="font-family:'Manrope';font-weight:700;font-size:max(9px,.6vw);color:var(--ink);line-height:1.2">Micaela Olivares</div></div>
+        <div style="background:var(--canvas);border-radius:8px;padding:.5vw .7vw;display:flex;align-items:center;gap:.5vw"><div style="flex-shrink:0;width:24px;height:24px;border-radius:6px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Manrope';font-weight:800;font-size:max(9px,.6vw)">2</div><div style="font-family:'Manrope';font-weight:700;font-size:max(9px,.6vw);color:var(--ink);line-height:1.2">Evangelina Cueto</div></div>
+        <div style="background:var(--canvas);border-radius:8px;padding:.5vw .7vw;display:flex;align-items:center;gap:.5vw"><div style="flex-shrink:0;width:24px;height:24px;border-radius:6px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Manrope';font-weight:800;font-size:max(9px,.6vw)">3</div><div style="font-family:'Manrope';font-weight:700;font-size:max(9px,.6vw);color:var(--ink);line-height:1.2">Karina Ramírez</div></div>
+        <div style="background:var(--canvas);border-radius:8px;padding:.5vw .7vw;display:flex;align-items:center;gap:.5vw"><div style="flex-shrink:0;width:24px;height:24px;border-radius:6px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Manrope';font-weight:800;font-size:max(9px,.6vw)">4</div><div style="font-family:'Manrope';font-weight:700;font-size:max(9px,.6vw);color:var(--ink);line-height:1.2">Delfina Zimerman</div></div>
+        <div style="background:var(--canvas);border-radius:8px;padding:.5vw .7vw;display:flex;align-items:center;gap:.5vw"><div style="flex-shrink:0;width:24px;height:24px;border-radius:6px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Manrope';font-weight:800;font-size:max(9px,.6vw)">5</div><div style="font-family:'Manrope';font-weight:700;font-size:max(9px,.6vw);color:var(--ink);line-height:1.2">Andrea Purita</div></div>
+        <div style="background:var(--canvas);border-radius:8px;padding:.5vw .7vw;display:flex;align-items:center;gap:.5vw"><div style="flex-shrink:0;width:24px;height:24px;border-radius:6px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Manrope';font-weight:800;font-size:max(9px,.6vw)">6</div><div style="font-family:'Manrope';font-weight:700;font-size:max(9px,.6vw);color:var(--ink);line-height:1.2">G. Lapman</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S13 · CIERRE -->
+<section class="slide slide-dark fade slide-anchor" id="s13">
+  <div class="closing">
+    <div class="cline">Framingham Pharma · Marketing · Junio 2026</div>
+    <h2>Junio fue el mes del<br/><span class="ac">aprovechamiento.</span></h2>
+    <div class="cgrid">
+      <div class="cs">
+        <div class="clbl">Total invertido</div>
+        <div class="cval mono">$111,6 <span class="ac" style="font-size:.6em">M</span></div>
+        <div class="csub">TV + Redes sin ADN</div>
+      </div>
+      <div class="cs">
+        <div class="clbl">Videos en redes</div>
+        <div class="cval mono"><span class="ac">623</span></div>
+        <div class="csub">345 IG + 278 TikTok — el mejor mes</div>
+      </div>
+      <div class="cs">
+        <div class="clbl">Aprovechamiento</div>
+        <div class="cval mono"><span class="ac">85%</span></div>
+        <div class="csub">vs 54% en abril — tendencia positiva</div>
+      </div>
+    </div>
+    <div class="cbullets">
+      <div>$101,2M en <strong style="color:#fff">TV · 114 salidas · 18 programas</strong>.</div>
+      <div class="r">Gabriel Lapman con <strong style="color:#fff">49 apariciones</strong> — pilar del mes.</div>
+      <div>$10,4M en <strong style="color:#fff">Meta Ads · 21 cuentas · 3,6M de alcance</strong>.</div>
+      <div class="r">Objetivo julio: <strong style="color:#fff">100% aprovechamiento</strong> en todas las salidas.</div>
+    </div>
+    <div class="csig">
+      <svg viewBox="0 0 140 76" width="40" height="22"><rect x="2" y="2" width="64" height="72" rx="2" fill="#E63946"/><rect x="74" y="2" width="64" height="72" rx="2" fill="#1FAFE0"/><text x="34" y="55" text-anchor="middle" font-family="Arial" font-weight="800" font-size="50" fill="#fff">F</text><text x="106" y="55" text-anchor="middle" font-family="Arial" font-weight="800" font-size="50" fill="#fff">P</text></svg>
+      Framingham Pharma · Marketing · Junio 2026
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fpsig">
+    <svg viewBox="0 0 140 76" width="40" height="22"><rect x="2" y="2" width="64" height="72" rx="2" fill="#E63946"/><rect x="74" y="2" width="64" height="72" rx="2" fill="#1FAFE0"/><text x="34" y="55" text-anchor="middle" font-family="Arial" font-weight="800" font-size="50" fill="#fff">F</text><text x="106" y="55" text-anchor="middle" font-family="Arial" font-weight="800" font-size="50" fill="#fff">P</text></svg>
+    <b>Framingham Pharma</b>
+  </div>
+  <div>Informe Ejecutivo de Marketing · Junio 2026</div>
+</footer>
+
 <script>
-// ═══════════════════════════════════════════════════════════════════════
-// DATOS — ACTUALIZAR CADA MES · solo este bloque
-// ═══════════════════════════════════════════════════════════════════════
-const DATA = {
-  mes:"Junio", año:2026, periodo:"01 – 29 Junio 2026",
+const PRODUCTOS=[
+  {name:"Menacor",salidas:13,inv:14960000,apoyo:980000,color:"#5C1018",
+   logo:'<span class="lg-base lg-menacor">MENA<span>COR</span></span>'},
+  {name:"Vitamet",salidas:9,inv:14240000,apoyo:940000,color:"#1B2A6F",
+   logo:'<span class="lg-base lg-vitamet"><b>Vita</b>met</span>'},
+  {name:"Daozima",salidas:11,inv:13560000,apoyo:1080000,color:"#0F4A2A",
+   logo:'<span class="lg-base lg-daozima">DAOZIMA<small>PREMIUM</small></span>'},
+  {name:"Creatina HCL",salidas:10,inv:11400000,apoyo:890000,color:"#5C4033",
+   logo:'<span class="lg-base lg-creatina">CREATINA<small>HCL</small></span>'},
+  {name:"Digecaps",salidas:10,inv:9110000,apoyo:910000,color:"#1F7AB4",
+   logo:'<span class="lg-base lg-digecaps">Digecaps</span>'},
+  {name:"Telomerina",salidas:13,inv:8640000,apoyo:910000,color:"#9E2A8C",
+   logo:'<span class="lg-base lg-telomerina">Telomerina<sup>NAD+</sup></span>'},
+  {name:"Metasitol RI",salidas:8,inv:7480000,apoyo:760000,color:"#1565C0",
+   logo:'<span class="lg-base lg-metasitol-ri"><span class="name">Metasitol<span class="ri">RI</span></span><small>RES. INSULÍNICA</small></span>'},
+  {name:"Serrapep",salidas:13,inv:7220000,apoyo:740000,color:"#C12127",
+   logo:'<span class="lg-base lg-serrapep">Serrapep</span>'},
+  {name:"Metasitol",salidas:4,inv:4240000,apoyo:260000,color:"#185490",
+   logo:'<span class="lg-base lg-metasitol">Metasitol</span>'},
+  {name:"Goodskin",salidas:6,inv:3640000,apoyo:480000,color:"#1B6E3E",
+   logo:'<span class="lg-base lg-goodskin">good<span>skin</span><small>Salud de la piel</small></span>'},
+  {name:"Floragut",salidas:4,inv:3130000,apoyo:260000,color:"#F47C2A",
+   logo:'<span class="lg-base lg-floragut"><span>Flora</span>gut</span>'},
+  {name:"Satial Food",salidas:8,inv:2800000,apoyo:510000,color:"#E45A0F",
+   logo:'<span class="lg-base lg-satial-food">Satial<small>FOOD</small></span>'},
+  {name:"Capskrill",salidas:2,inv:440000,apoyo:190000,color:"#C0392B",
+   logo:'<span class="lg-base lg-capskrill">CAPSKRILL</span>'},
+  {name:"AMPK Protein",salidas:2,inv:270000,apoyo:270000,color:"#0078C0",
+   logo:'<span class="lg-base lg-ampk-bb"><span class="nm">AMPK</span><small>PROTEIN</small></span>'},
+  {name:"Sele200",salidas:1,inv:70000,apoyo:70000,color:"#E65100",
+   logo:'<span class="lg-base lg-sele200">Sele<span>200</span></span>'},
+];
 
-  tv_salidas:114, tv_notas:96, tv_pnt:18, tv_total:101208340,
+const PROGRAMAS=[
+  {name:"Desayuno Americano",salidas:11,inv:19800000},
+  {name:"Lape Club Social",salidas:9,inv:16200000},
+  {name:"Todo Cocinado",salidas:10,inv:10000000},
+  {name:"Los profesionales con Flor",salidas:6,inv:7710000},
+  {name:"La mañana de Moria",salidas:4,inv:6800000},
+  {name:"TL 9 al Mediodia",salidas:4,inv:6270000},
+  {name:"Con Carmen",salidas:5,inv:5890000},
+  {name:"La Cocina Rebelde",salidas:3,inv:4050000},
+  {name:"Que mañana!",salidas:3,inv:3210000},
+  {name:"TL 9 al Amanecer",salidas:4,inv:3080000},
+  {name:"Implacables",salidas:3,inv:2250000},
+  {name:"Las mañanas con Andino",salidas:8,inv:2000000},
+  {name:"SQP",salidas:2,inv:1600000},
+  {name:"Nara que ver",salidas:2,inv:1140000},
+  {name:"BTV",salidas:1,inv:1000000},
+];
 
-  meta_total:10357806, meta_alcance:3621064,
-  meta_impr:4944769, meta_clicks:211173, meta_ctr:4.27, meta_cuentas:21,
+const PROFESIONALES=[
+  {name:"Gabriel Lapman",salidas:49,apoyo:5880000,inv:60890000},
+  {name:"Micaela Olivares",salidas:10,apoyo:700000,inv:9700000},
+  {name:"Delfina Zimerman",salidas:6,apoyo:600000,inv:7350000},
+  {name:"Evangelina Cueto",salidas:9,apoyo:630000,inv:6430000},
+  {name:"Andrea Purita",salidas:6,apoyo:1020000,inv:4480000},
+  {name:"Karina Ramírez",salidas:6,apoyo:420000,inv:3760000},
+];
 
-  videos_ig:345, videos_tt:278,
+const PAUTA_INST=[
+  {name:"ADN Buena Salud",val:1471569,pct:100},
+  {name:"Farmaland",val:406040,pct:28},
+  {name:"Framingham Pharma",val:84024,pct:6},
+];
+const PAUTA_PROF=[
+  {name:"Endocrinólogo",val:960409,pct:100},
+  {name:"Sacle",val:682956,pct:71},
+  {name:"Dr. Milton Dan",val:481320,pct:50},
+  {name:"Médicos Consultores",val:199704,pct:21},
+  {name:"Evangelina Cueto",val:64561,pct:7},
+  {name:"Micaela Olivares",val:60627,pct:6},
+  {name:"Delfizi",val:26765,pct:3},
+  {name:"Andrea Purita",val:25988,pct:3},
+];
+const PAUTA_PROD=[
+  {name:"Ampkok",val:893532,pct:100},
+  {name:"Metasitol",val:886668,pct:99},
+  {name:"Telomerina NAD+",val:759235,pct:85},
+  {name:"Floragut",val:741200,pct:83},
+  {name:"Satial",val:741019,pct:83},
+  {name:"Nutri 100",val:704461,pct:79},
+  {name:"Vitamet",val:410438,pct:46},
+  {name:"Digecaps",val:145032,pct:16},
+  {name:"Goodskin",val:66861,pct:7},
+];
 
-  programas:[
-    { n:"Desayuno Americano",    s:11, inv:20800000 },
-    { n:"Lape Club Social",      s:9,  inv:17190000 },
-    { n:"Todo Cocinado",         s:10, inv:10930000 },
-    { n:"Los prof. con Flor",    s:6,  inv:8311200  },
-    { n:"La mañana de Moria",    s:4,  inv:7280000  },
-    { n:"TL 9 al Mediodía",      s:4,  inv:6634800  },
-    { n:"Con Carmen",            s:5,  inv:6420500  },
-    { n:"La Cocina Rebelde",     s:3,  inv:4390000  },
-    { n:"TL 9 al Amanecer",      s:4,  inv:3564480  },
-    { n:"Las mañanas c/Andino",  s:8,  inv:2910000  },
-  ],
+const TOTAL_TV=101208340, TOTAL_META=10357806, TOTAL_MKT=111566146;
+const ink='#0B1B2E', ink3='#4D637D', line2='#EBE4D8';
 
-  productos:[
-    { n:"Menacor",       s:13, inv:14964000 },
-    { n:"Telomerina",    s:13, inv:8637440  },
-    { n:"Serrapep",      s:13, inv:7218100  },
-    { n:"Daozima",       s:11, inv:13563640 },
-    { n:"Creatina HCL",  s:10, inv:11404430 },
-    { n:"Digecaps",      s:10, inv:9114730  },
-    { n:"Vitamet",       s:9,  inv:14240000 },
-    { n:"Metasitol R1",  s:8,  inv:7478400  },
-    { n:"Satial Food",   s:8,  inv:2795200  },
-    { n:"Goodskin",      s:6,  inv:3643300  },
-    { n:"Floragut",      s:4,  inv:3131000  },
-    { n:"Metasitol",     s:4,  inv:4238100  },
-  ],
+Chart.defaults.font.family="Manrope, Inter, system-ui, sans-serif";
+Chart.defaults.font.size=13;
+Chart.defaults.font.weight='500';
+Chart.defaults.color=ink3;
+Chart.defaults.plugins.legend.labels.color=ink;
+Chart.defaults.plugins.legend.labels.boxWidth=12;
+Chart.defaults.plugins.legend.labels.boxHeight=12;
+Chart.defaults.plugins.legend.labels.padding=16;
+Chart.defaults.plugins.legend.labels.font={family:"Manrope",size:13,weight:'600'};
+Chart.defaults.plugins.tooltip.backgroundColor='rgba(11,27,46,.96)';
+Chart.defaults.plugins.tooltip.padding=14;
+Chart.defaults.plugins.tooltip.titleFont={family:"Manrope",weight:'700',size:13};
+Chart.defaults.plugins.tooltip.bodyFont={family:"Manrope",weight:'500',size:13};
+Chart.defaults.plugins.tooltip.cornerRadius=10;
+Chart.defaults.plugins.tooltip.displayColors=false;
 
-  profesionales:[
-    { n:"Gabriel Lapman",   s:49, apoyo:5880000 },
-    { n:"Micaela Olivares", s:12, apoyo:700000  },
-    { n:"Evangelina Cueto", s:9,  apoyo:630000  },
-    { n:"Karina Ramírez",   s:8,  apoyo:420000  },
-    { n:"Delfina Zimerman", s:7,  apoyo:600000  },
-    { n:"Andrea Purita",    s:6,  apoyo:1020000 },
-  ],
-
-  cuentas_meta:[
-    { n:"ADN Buena Salud", g:1471569, clicks:12514, ctr:2.66 },
-    { n:"Endocrinólogo",   g:960409,  clicks:34829, ctr:5.49 },
-    { n:"Ampkok",          g:893532,  clicks:26053, ctr:5.20 },
-    { n:"Metasitol",       g:886668,  clicks:20591, ctr:3.61 },
-    { n:"Telomerina NAD+", g:759235,  clicks:13611, ctr:3.70 },
-    { n:"Floragut",        g:741200,  clicks:11953, ctr:2.93 },
-    { n:"Satial",          g:741019,  clicks:6903,  ctr:3.29 },
-    { n:"Nutri 100",       g:704461,  clicks:11327, ctr:3.84 },
-    { n:"Sacle",           g:682956,  clicks:23762, ctr:7.00 },
-    { n:"Dr. Milton Dan",  g:481320,  clicks:3250,  ctr:2.56 },
-  ],
-
-  ig_top:[
-    { c:"sacle.ar",           v:56, vis:"2.7M"  },
-    { c:"medicosconsultores", v:39, vis:"445K"  },
-    { c:"supleunico.ar",      v:38, vis:"13.1K" },
-    { c:"EnFocoSalud",        v:35, vis:"116K"  },
-    { c:"adnbuenasalud",      v:29, vis:"53.9K" },
-    { c:"medicos.clips",      v:27, vis:"53.9K" },
-    { c:"ampkprotein",        v:24, vis:"886K"  },
-    { c:"framinghampharma",   v:19, vis:"178K"  },
-  ],
-
-  tt_top:[
-    { c:"sacle.ok",           v:55, vis:"1.1M"   },
-    { c:"suplementosunicos",  v:55, vis:"46.6K"  },
-    { c:"adn.buena.salud",    v:54, vis:"35.3K"  },
-    { c:"medicos.clips",      v:54, vis:"221.9K" },
-    { c:"medicosconsultores", v:48, vis:"8.1K"   },
-    { c:"ampkprotein",        v:12, vis:"6.9K"   },
-  ],
+const money=v=>'$'+Math.round(v).toLocaleString('es-AR');
+const moneyShort=v=>{
+  if(Math.abs(v)>=1e6) return '$'+(v/1e6).toFixed(1).replace('.',',')+'M';
+  if(Math.abs(v)>=1e3) return '$'+(v/1e3).toFixed(0)+'K';
+  return '$'+v;
 };
-DATA.total = DATA.tv_total + DATA.meta_total;
-// ═══════════════════════════════════════════════════════════════════════
 
-// ─── NAVIGATION ─────────────────────────────────────────────────────
-const slides = Array.from(document.querySelectorAll('.slide'));
-const N = slides.length;
-let cur = 0;
-
-function go(dir) {
-  const prev = cur;
-  cur = (cur + dir + N) % N;
-  slides[prev].classList.remove('active');
-  if (dir > 0) slides[prev].classList.add('prev');
-  else slides[prev].classList.remove('prev');
-  slides.forEach((s,i) => { if (i !== cur && i !== prev) { s.classList.remove('active','prev'); } });
-  slides[cur].classList.remove('prev');
-  slides[cur].classList.add('active');
-  updateNav();
-}
-
-function goTo(i) {
-  if (i === cur) return;
-  slides.forEach(s => s.classList.remove('active','prev'));
-  slides[i].classList.add('active');
-  cur = i;
-  updateNav();
-}
-
-function updateNav() {
-  document.getElementById('prog').style.width = ((cur+1)/N*100) + '%';
-  document.querySelectorAll('.dot').forEach((d,i) => d.classList.toggle('on', i===cur));
-}
-
-document.addEventListener('keydown', e => {
-  if (e.key==='ArrowRight'||e.key==='PageDown') go(1);
-  if (e.key==='ArrowLeft' ||e.key==='PageUp')   go(-1);
+// S3 · TV vs Redes
+new Chart(document.getElementById('cTVRedes'),{
+  type:'doughnut',
+  data:{labels:['Televisión','Redes · Meta Ads'],datasets:[{data:[TOTAL_TV,TOTAL_META],backgroundColor:['#1FAFE0','#E63946'],borderColor:'#FFFFFF',borderWidth:6,hoverOffset:12}]},
+  options:{cutout:'68%',responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>c.label+': '+money(c.parsed)}}}}
 });
 
-const dotsEl = document.getElementById('dots');
-slides.forEach((_,i) => {
-  const d = document.createElement('button');
-  d.className = 'dot'+(i===0?' on':'');
-  d.onclick = () => goTo(i);
-  dotsEl.appendChild(d);
-});
-updateNav();
+// S4 · Programas
+{const top=[...PROGRAMAS].sort((a,b)=>b.salidas-a.salidas).slice(0,10);
+new Chart(document.getElementById('cSalProg'),{type:'bar',
+  data:{labels:top.map(p=>p.name),datasets:[{data:top.map(p=>p.salidas),backgroundColor:'#1FAFE0',borderRadius:8,barThickness:14}]},
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.x+' salidas'}}},
+    scales:{x:{beginAtZero:true,grid:{color:line2}},y:{grid:{display:false},ticks:{font:{size:11}}}}}});}
 
-// ─── CHART DEFAULTS ─────────────────────────────────────────────────
-Chart.defaults.font.family = "'DM Sans', sans-serif";
-Chart.defaults.color = 'rgba(255,255,255,0.5)';
+{const top=[...PROGRAMAS].sort((a,b)=>b.inv-a.inv).slice(0,10);
+new Chart(document.getElementById('cInvProg'),{type:'bar',
+  data:{labels:top.map(p=>p.name),datasets:[{data:top.map(p=>p.inv),backgroundColor:'#0B1B2E',borderRadius:8,barThickness:14}]},
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>money(c.parsed.x)}}},
+    scales:{x:{beginAtZero:true,grid:{color:line2},ticks:{callback:v=>moneyShort(v)}},y:{grid:{display:false},ticks:{font:{size:11}}}}}});}
 
-const RED='#E63946', INK='#0B1B2E', WH='rgba(255,255,255,0.72)', WG='rgba(255,255,255,0.07)';
+// S5 · Notas vs PNT
+new Chart(document.getElementById('cNotaPnt'),{type:'bar',
+  data:{labels:['Cantidad','Inversión ($M)'],datasets:[
+    {label:'Notas',data:[96,97.8],backgroundColor:'#1FAFE0',borderRadius:8,barThickness:50},
+    {label:'PNT',data:[18,3.4],backgroundColor:'#E63946',borderRadius:8,barThickness:50}
+  ]},
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y+(c.dataIndex===1?' M':' sal.')}}},
+    scales:{x:{grid:{display:false}},y:{beginAtZero:true,grid:{color:line2}}}}});
 
-function hBarDark(id, labels, values, maxVal) {
-  const fs = Math.max(9, window.innerWidth * 0.0062);
-  new Chart(document.getElementById(id), {
-    type:'bar',
-    data:{ labels, datasets:[{ data:values, backgroundColor:RED, borderRadius:3, borderSkipped:false }] },
-    options:{
-      indexAxis:'y', responsive:true, maintainAspectRatio:false,
-      plugins:{ legend:{display:false}, tooltip:{enabled:false} },
-      scales:{
-        x:{ display:false, max:maxVal },
-        y:{ ticks:{ color:WH, font:{size:fs}, padding:4 }, grid:{display:false}, border:{display:false} }
-      },
-      layout:{ padding:{right:50} },
-      animation:{ duration:700, easing:'easeOutQuart' },
-    },
-    plugins:[{ id:'vl', afterDatasetsDraw(chart) {
-      const {ctx} = chart;
-      chart.data.datasets[0].data.forEach((val,i) => {
-        const bar = chart.getDatasetMeta(0).data[i];
-        ctx.save();
-        ctx.fillStyle = WH;
-        ctx.font = `600 ${fs}px 'Space Grotesk'`;
-        ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
-        const lbl = val >= 1000000 ? '$'+(val/1000000).toFixed(1)+'M' : val;
-        ctx.fillText(lbl, bar.x+6, bar.y);
-        ctx.restore();
-      });
-    }}]
+// S7 · Funnel
+new Chart(document.getElementById('cFunnel'),{type:'bar',
+  data:{labels:['Salidas en TV','Videos editados','Sin procesar'],datasets:[{data:[114,97,17],backgroundColor:['#1FAFE0','#1E8A5A','#B45309'],borderRadius:10,barThickness:70}]},
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y+' · '+(c.parsed.y/114*100).toFixed(0)+'%'}}},
+    scales:{x:{grid:{display:false},ticks:{color:'rgba(255,255,255,.8)'}},y:{beginAtZero:true,grid:{color:'rgba(255,255,255,.08)'},ticks:{color:'rgba(255,255,255,.6)'}}}}});
+
+// S8 · Productos
+{const all=[...PRODUCTOS].sort((a,b)=>b.inv-a.inv);
+new Chart(document.getElementById('cProdInv'),{type:'bar',
+  data:{labels:all.map(p=>p.name),datasets:[{data:all.map(p=>p.inv),backgroundColor:all.map(p=>p.color),borderRadius:7,barThickness:18}]},
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>money(c.parsed.x)+' · '+all[c.dataIndex].salidas+' sal.'}}},
+    scales:{x:{beginAtZero:true,grid:{color:line2},ticks:{callback:v=>moneyShort(v)}},y:{grid:{display:false},ticks:{font:{size:11}}}}}});}
+
+// S9 · Profesionales
+{const d=[...PROFESIONALES].sort((a,b)=>b.salidas-a.salidas);
+new Chart(document.getElementById('cProfCnt'),{type:'bar',
+  data:{labels:d.map(p=>p.name),datasets:[{data:d.map(p=>p.salidas),backgroundColor:'#E63946',borderRadius:8,barThickness:26}]},
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.x+' salidas'}}},
+    scales:{x:{beginAtZero:true,grid:{color:line2}},y:{grid:{display:false},ticks:{font:{size:13,weight:'600'}}}}}});}
+
+// Prod tiles
+{const grid=document.getElementById('prodGrid');
+[...PRODUCTOS].sort((a,b)=>b.inv-a.inv).forEach(p=>{
+  const el=document.createElement('div');
+  el.className='prod';el.style.setProperty('--pc',p.color);
+  el.innerHTML=`<div class="plogo">${p.logo}</div><div class="pmeta"><div class="pname">${p.name}</div><div class="pkpis"><div><span class="k">Inv </span><span class="v">${moneyShort(p.inv)}</span></div><div><span class="k">Sal </span><span class="v">${p.salidas}</span></div></div></div>`;
+  grid.appendChild(el);
+});}
+
+// Pauta ranking
+function renderPauta(id,arr,tier){
+  const wrap=document.getElementById(id);
+  arr.forEach((p,i)=>{
+    const el=document.createElement('div');
+    el.className='prk '+tier;
+    el.innerHTML=`<div class="px">${String(i+1).padStart(2,'0')}</div><div class="pname">${p.name}</div><div class="pbar"><span data-w="${p.pct}%"></span></div><div class="pval">${moneyShort(p.val)}<small>Meta Ads</small></div>`;
+    wrap.appendChild(el);
   });
 }
+renderPauta('pautaInst',PAUTA_INST,'tier-3');
+renderPauta('pautaProf',PAUTA_PROF,'tier-1');
+renderPauta('pautaProd',PAUTA_PROD,'tier-2');
 
-function hBarLight(id, labels, values, maxVal) {
-  const fs = Math.max(9, window.innerWidth * 0.006);
-  const IC = 'rgba(11,27,46,0.75)', IG = 'rgba(11,27,46,0.07)';
-  new Chart(document.getElementById(id), {
-    type:'bar',
-    data:{ labels, datasets:[{ data:values, backgroundColor:RED, borderRadius:3, borderSkipped:false }] },
-    options:{
-      indexAxis:'y', responsive:true, maintainAspectRatio:false,
-      plugins:{ legend:{display:false}, tooltip:{enabled:false} },
-      scales:{
-        x:{ display:false, max:maxVal },
-        y:{ ticks:{ color:IC, font:{size:fs}, padding:4 }, grid:{display:false}, border:{display:false} }
-      },
-      layout:{ padding:{right:35} },
-      animation:{ duration:700 },
-    },
-    plugins:[{ id:'vl', afterDatasetsDraw(chart) {
-      const {ctx} = chart;
-      chart.data.datasets[0].data.forEach((val,i) => {
-        const bar = chart.getDatasetMeta(0).data[i];
-        ctx.save();
-        ctx.fillStyle = IC;
-        ctx.font = `600 ${Math.round(window.innerWidth*0.006)}px 'Space Grotesk'`;
-        ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
-        ctx.fillText(val, bar.x+5, bar.y);
-        ctx.restore();
-      });
-    }}]
+// Prof table
+{const tbody=document.getElementById('tblProf');
+[...PROFESIONALES].sort((a,b)=>b.salidas-a.salidas).forEach((p,i)=>{
+  const cls=i===0?'t1':i===1?'t2':i===2?'t3':'';
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td><span class="rank-chip ${cls}">${i+1}</span></td><td><strong>${p.name}</strong></td><td class="num">${p.salidas}</td><td class="num">${money(p.apoyo)}</td><td class="num"><strong>${money(p.inv)}</strong></td>`;
+  tbody.appendChild(tr);
+});}
+
+// Fade + bar animation
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('in');
+      e.target.querySelectorAll('.pbar>span').forEach(b=>{const w=b.getAttribute('data-w');if(w)requestAnimationFrame(()=>b.style.width=w);});
+      io.unobserve(e.target);
+    }
   });
-}
+},{threshold:.06});
+document.querySelectorAll('.fade').forEach(el=>io.observe(el));
+setTimeout(()=>document.querySelectorAll('.pbar>span').forEach(b=>{const w=b.getAttribute('data-w');if(w&&!b.style.width)b.style.width=w;}),700);
 
-// S3: Programas
-const prog = DATA.programas;
-hBarDark('chartProg', prog.map(p=>p.n), prog.map(p=>p.inv), Math.max(...prog.map(p=>p.inv))*1.3);
-
-// S4: Productos (ordenados por salidas)
-const prods = [...DATA.productos].sort((a,b)=>b.s-a.s);
-hBarLight('chartProd', prods.map(p=>p.n), prods.map(p=>p.s), Math.max(...prods.map(p=>p.s))*1.35);
-
-// S5: Meta rank list
-const maxG = DATA.cuentas_meta[0].g;
-document.getElementById('metaList').innerHTML = DATA.cuentas_meta.map(c=>`
-  <div class="rank-item">
-    <div class="nm">${c.n}</div>
-    <div class="rank-bar-wrap"><div class="rank-bar" style="width:${(c.g/maxG*100).toFixed(1)}%"></div></div>
-    <div class="rank-val">${(c.g/1000).toFixed(0)}K</div>
-  </div>`).join('');
-
-// S6: Content lists
-document.getElementById('igItems').innerHTML = DATA.ig_top.map(a=>`
-  <div class="s6-row"><div class="sn">${a.c}</div><div class="sv">${a.v}</div><div class="svi">${a.vis}</div></div>`).join('');
-document.getElementById('ttItems').innerHTML = DATA.tt_top.map(a=>`
-  <div class="s6-row"><div class="sn">${a.c}</div><div class="sv">${a.v}</div><div class="svi">${a.vis}</div></div>`).join('');
-
-// S7: Profesionales bar
-const prfs = DATA.profesionales;
-new Chart(document.getElementById('chartProfs'), {
-  type:'bar',
-  data:{
-    labels: prfs.map(p=>p.n.split(' ').slice(0,2).join(' ')),
-    datasets:[{ data:prfs.map(p=>p.s), backgroundColor:[RED,...Array(5).fill('rgba(255,255,255,0.15)')], borderRadius:3, borderSkipped:false }]
-  },
-  options:{
-    responsive:true, maintainAspectRatio:false,
-    plugins:{ legend:{display:false}, tooltip:{enabled:false} },
-    scales:{
-      y:{ ticks:{color:WH,font:{size:Math.max(9,window.innerWidth*0.006)}}, grid:{color:WG}, border:{display:false} },
-      x:{ ticks:{color:WH,font:{size:Math.max(9,window.innerWidth*0.007)}}, grid:{display:false}, border:{display:false} }
-    },
-    animation:{ duration:600 }
-  },
-  plugins:[{ id:'vl2', afterDatasetsDraw(chart) {
-    const {ctx}=chart;
-    chart.data.datasets[0].data.forEach((val,i) => {
-      const bar=chart.getDatasetMeta(0).data[i];
-      ctx.save();
-      ctx.fillStyle='rgba(255,255,255,0.75)';
-      ctx.font=`600 ${Math.round(window.innerWidth*0.007)}px 'Space Grotesk'`;
-      ctx.textAlign='center'; ctx.textBaseline='bottom';
-      ctx.fillText(val, bar.x, bar.y-4);
-      ctx.restore();
-    });
-  }}]
+// Nav
+const SLIDES=Array.from(document.querySelectorAll('.slide-anchor'));
+function currentSlideIndex(){const y=window.scrollY+window.innerHeight*.35;let idx=0;SLIDES.forEach((s,i)=>{if(s.offsetTop<=y)idx=i;});return idx;}
+function goSlide(dir){const n=Math.max(0,Math.min(SLIDES.length-1,currentSlideIndex()+dir));SLIDES[n].scrollIntoView({behavior:'smooth',block:'start'});}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();goSlide(1);}
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();goSlide(-1);}
+  else if(e.key==='Home'){e.preventDefault();SLIDES[0].scrollIntoView({behavior:'smooth'});}
+  else if(e.key==='End'){e.preventDefault();SLIDES[SLIDES.length-1].scrollIntoView({behavior:'smooth'});}
 });
-
-// S7: Apoyo list
-const maxA = DATA.profesionales[0].apoyo;
-document.getElementById('profApoyo').innerHTML = DATA.profesionales.map(p=>`
-  <div class="rank-item">
-    <div class="nm">${p.n.split(' ')[0]}</div>
-    <div class="rank-bar-wrap"><div class="rank-bar" style="width:${(p.apoyo/maxA*100).toFixed(1)}%"></div></div>
-    <div class="rank-val">${(p.apoyo/1000).toFixed(0)}K</div>
-  </div>`).join('');
-
+const prog=document.getElementById('navProg');
+window.addEventListener('scroll',()=>{const max=document.documentElement.scrollHeight-window.innerHeight;prog.style.width=(max>0?(window.scrollY/max)*100:0)+'%';},{passive:true});
 </script>
 </body>
 </html>
