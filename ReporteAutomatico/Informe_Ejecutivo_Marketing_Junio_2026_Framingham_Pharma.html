@@ -24,50 +24,51 @@
 html,body{background:var(--canvas);color:var(--ink);font-family:'Inter',system-ui,sans-serif;font-size:max(18px,1.05vw);line-height:1.55;-webkit-font-smoothing:antialiased;scroll-behavior:smooth;overflow-x:hidden}
 
 /* ── 16:9 SLIDES ── */
-.slide{width:100vw;height:56.25vw;overflow:hidden;position:relative;max-width:none;padding:3.5vw 4vw 2vw;box-sizing:border-box}
+.slide{width:100vw;height:56.25vw;overflow:hidden;position:relative;max-width:none;padding:3vw 4vw 2vw;box-sizing:border-box}
 .slide-cream{background:var(--canvas)}
 .slide-paper{background:var(--paper)}
 .slide-dark{background:linear-gradient(180deg,#0B1B2E 0%,#142C48 100%);color:#fff}
-.slide-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2vw;flex-shrink:0}
+
+/* ── SLIDE HEAD ── */
+.slide-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.8vw;flex-shrink:0}
 .slide-head .meta{flex:1}
-.eyebrow{font-family:'Manrope';font-weight:800;font-size:max(11px,.7vw);letter-spacing:.22em;text-transform:uppercase;color:var(--ink-4);display:block;margin-bottom:.5vw}
-h2.display{font-family:'Fraunces';font-weight:700;font-size:max(26px,2.7vw);line-height:1.08;letter-spacing:-.025em;color:var(--ink)}
+.eyebrow{font-family:'Manrope';font-weight:800;font-size:max(11px,.72vw);letter-spacing:.22em;text-transform:uppercase;color:var(--ink-2);display:block;margin-bottom:.4vw}
+h2.display{font-family:'Fraunces';font-weight:700;font-size:max(26px,2.8vw);line-height:1.08;letter-spacing:-.025em;color:var(--ink)}
 .slide-dark h2.display{color:#fff}
-.marker{display:flex;flex-direction:column;align-items:center;gap:4px;opacity:.2;flex-shrink:0;margin-left:24px}
+.marker{display:flex;flex-direction:column;align-items:center;gap:2px;opacity:.15;flex-shrink:0;margin-left:20px}
 .marker .num{font-family:'Fraunces';font-weight:700;font-size:max(48px,4.5vw);line-height:1;letter-spacing:-.04em;color:var(--ink)}
-.marker span:last-child{font-family:'Manrope';font-weight:800;font-size:max(9px,.55vw);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3)}
-.slide-dark .marker .num{color:#fff}
+.marker span:last-child{font-family:'Manrope';font-weight:800;font-size:max(9px,.55vw);letter-spacing:.2em;text-transform:uppercase;color:var(--ink)}
+.slide-dark .marker .num,.slide-dark .marker span{color:#fff}
 
 /* ── HERO ── */
 .hero{width:100vw;height:56.25vw;overflow:hidden;position:relative;
   background:radial-gradient(1200px 600px at 20% -10%,rgba(31,175,224,.22),transparent 55%),
              radial-gradient(900px 500px at 110% 80%,rgba(230,57,70,.18),transparent 60%),
              linear-gradient(160deg,#0B1B2E 0%,#0D2236 50%,#142C48 100%);
-  color:#fff;display:flex;flex-direction:column;padding:3.5vw 4vw;box-sizing:border-box}
+  color:#fff;display:flex;flex-direction:column;padding:3vw 4vw;box-sizing:border-box}
 .hero-bg-pattern{position:absolute;inset:0;background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.04) 1px,transparent 0);background-size:48px 48px;pointer-events:none}
-.hero-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:2.5vw;flex-shrink:0}
+.hero-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:2vw;flex-shrink:0}
 .fp{display:flex;align-items:center;gap:1.2vw}
 .fp-mark{width:5.5vw;min-width:55px;max-width:110px;height:auto;border-radius:6px;object-fit:cover}
-.fp-text{display:flex;flex-direction:column;gap:2px}
-.fp-text b{font-family:'Manrope';font-weight:800;font-size:max(13px,.9vw);letter-spacing:-.005em;color:#fff}
+.fp-text b{font-family:'Manrope';font-weight:800;font-size:max(14px,1vw);color:#fff}
 .fp-text span{font-family:'Manrope';font-weight:600;font-size:max(10px,.65vw);letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55)}
 .month{font-family:'Manrope';font-weight:800;font-size:max(12px,.8vw);letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.55)}
 .hero-body{flex:1;display:flex;align-items:center}
-.hero-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:4vw;width:100%;align-items:center}
+.hero-grid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:4vw;width:100%;align-items:center}
 .hero-eyebrow{font-family:'Manrope';font-weight:800;font-size:max(10px,.65vw);letter-spacing:.26em;text-transform:uppercase;color:var(--fp-cyan);margin-bottom:1.2vw;display:flex;align-items:center;gap:1vw}
 .hero-eyebrow::before,.hero-eyebrow::after{content:'';width:2.5vw;height:1px;background:var(--fp-cyan)}
-.hero h1{font-family:'Fraunces';font-weight:700;font-size:max(46px,5.5vw);line-height:1.04;letter-spacing:-.03em;color:#fff;margin-bottom:2.5vw}
+.hero h1{font-family:'Fraunces';font-weight:700;font-size:max(56px,6.5vw);line-height:1.02;letter-spacing:-.03em;color:#fff;margin-bottom:2.5vw}
 .hero h1 .ac{color:var(--fp-cyan);font-style:italic;font-weight:600}
 .hero-foot{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5vw;border-top:1px solid rgba(255,255,255,.12);padding-top:2vw}
 .hero-foot div{display:flex;flex-direction:column;gap:4px}
-.hero-foot .k{font-family:'Manrope';font-weight:800;font-size:max(9px,.6vw);letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.45)}
-.hero-foot .v{font-family:'Manrope';font-weight:700;font-size:max(13px,.85vw);color:rgba(255,255,255,.9)}
-.hero-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:2vw;backdrop-filter:blur(12px)}
+.hero-foot .k{font-family:'Manrope';font-weight:800;font-size:max(9px,.6vw);letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.hero-foot .v{font-family:'Manrope';font-weight:700;font-size:max(14px,.9vw);color:rgba(255,255,255,.95)}
+.hero-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:20px;padding:2.2vw;backdrop-filter:blur(12px)}
 .hero-card h3{font-family:'Manrope';font-weight:800;font-size:max(10px,.7vw);letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:1.2vw}
-.hero-card .row{display:flex;justify-content:space-between;align-items:center;padding:.65vw 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.hero-card .row{display:flex;justify-content:space-between;align-items:center;padding:.7vw 0;border-bottom:1px solid rgba(255,255,255,.08)}
 .hero-card .row:last-child{border-bottom:none}
-.hero-card .k{font-family:'Inter';font-size:max(12px,.78vw);color:rgba(255,255,255,.6)}
-.hero-card .v{font-family:'Manrope';font-weight:800;font-size:max(14px,.9vw);color:#fff;letter-spacing:-.01em}
+.hero-card .k{font-family:'Inter';font-size:max(13px,.82vw);color:rgba(255,255,255,.7)}
+.hero-card .v{font-family:'Manrope';font-weight:800;font-size:max(16px,1.05vw);color:#fff;letter-spacing:-.01em}
 .hero-card .v.ac{color:var(--fp-cyan)}
 .hero-card .v.warn{color:#FFAB55}
 .mono{font-variant-numeric:tabular-nums}
@@ -76,51 +77,61 @@ h2.display{font-family:'Fraunces';font-weight:700;font-size:max(26px,2.7vw);line
 .kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2vw}
 .kpi-row.three{grid-template-columns:repeat(3,1fr)}
 .kpi-row.two{grid-template-columns:1fr 1fr}
-.stat{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-sm);padding:1.3vw 1.5vw 1.1vw;position:relative;overflow:hidden;box-shadow:var(--sh-sm)}
-.stat-tinted{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12)}
+.stat{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-sm);padding:1.2vw 1.4vw 1vw;position:relative;overflow:hidden;box-shadow:var(--sh-sm)}
 .stat .stat-bar{position:absolute;top:0;left:0;right:0;height:4px;background:var(--fp-cyan)}
 .stat.red .stat-bar{background:var(--fp-red)}
-.stat.dark .stat-bar{background:rgba(255,255,255,.18)}
+.stat.solid-dark .stat-bar{background:rgba(255,255,255,.2)}
 .stat.gold .stat-bar{background:var(--gold)}
 .stat.warn .stat-bar{background:var(--warn)}
 .stat.good .stat-bar{background:var(--good)}
-.stat .stat-lbl{font-family:'Manrope';font-weight:700;font-size:max(9px,.58vw);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:.7vw}
-.stat.dark .stat-lbl{color:rgba(255,255,255,.55)}
+/* solid dark stat — properly opaque */
+.stat.solid-dark{background:var(--ink);border-color:var(--ink)}
+.stat.solid-dark .stat-lbl{color:rgba(255,255,255,.65) !important}
+.stat.solid-dark .stat-val{color:#fff !important}
+.stat.solid-dark .stat-val .cur,.stat.solid-dark .stat-val .unit{color:rgba(255,255,255,.6) !important}
+.stat.solid-dark .stat-sub{color:rgba(255,255,255,.55) !important}
+/* dark-slide stat */
+.stat.on-dark{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.14)}
+.stat.on-dark .stat-lbl{color:rgba(255,255,255,.65) !important}
+.stat.on-dark .stat-val{color:#fff !important}
+.stat.on-dark .stat-sub{color:rgba(255,255,255,.55) !important}
+.stat.on-dark .stat-bar{background:rgba(255,255,255,.25)}
+.stat .stat-lbl{font-family:'Manrope';font-weight:700;font-size:max(9px,.6vw);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);margin-bottom:.6vw}
 .stat .stat-val{font-family:'Manrope';font-weight:800;font-size:max(21px,2.2vw);color:var(--ink);line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-.stat .stat-val .cur{font-size:max(13px,1.3vw);font-weight:600;color:var(--ink-3);letter-spacing:0}
-.stat .stat-val .unit{font-size:max(15px,1.4vw);font-weight:600;color:var(--ink-3);margin-left:2px}
-.stat.dark .stat-val,.stat.dark .stat-val .cur,.stat.dark .stat-val .unit{color:#fff}
-.stat .stat-sub{font-family:'Inter';font-size:max(10px,.65vw);color:var(--ink-4);margin-top:.4vw;line-height:1.35}
-.stat.dark .stat-sub{color:rgba(255,255,255,.5)}
+.stat .stat-val .cur{font-size:max(13px,1.2vw);font-weight:600;color:var(--ink-2);letter-spacing:0}
+.stat .stat-val .unit{font-size:max(15px,1.4vw);font-weight:600;color:var(--ink-2);margin-left:2px}
+.stat .stat-sub{font-family:'Inter';font-size:max(11px,.68vw);color:var(--ink-2);margin-top:.4vw;line-height:1.35}
 
 /* ── CARDS ── */
-.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:1.4vw;box-shadow:var(--sh-sm)}
-.card.lg{padding:1.4vw 1.8vw}
-.card-title{font-family:'Manrope';font-weight:800;font-size:max(10px,.7vw);letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);text-align:center;margin-bottom:1vw}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:1.3vw;box-shadow:var(--sh-sm)}
+.card.lg{padding:1.3vw 1.7vw}
+.card-title{font-family:'Manrope';font-weight:800;font-size:max(10px,.7vw);letter-spacing:.18em;text-transform:uppercase;color:var(--ink-2);text-align:center;margin-bottom:.9vw}
 .card-title.left{text-align:left}
 .chart-wrap{height:20vw;min-height:150px;position:relative}
-.chart-wrap.tall{height:22vw}
+.chart-wrap.tall{height:24vw}
 .chart-wrap.sm{height:16vw}
+.chart-wrap.xs{height:13vw}
 
 /* ── BIGNUM ── */
-.bignum{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:1.8vw;box-shadow:var(--sh-sm)}
+.bignum{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:1.6vw;box-shadow:var(--sh-sm)}
 .bignum.dark{background:var(--ink);border-color:var(--ink)}
 .bignum.accent{background:linear-gradient(180deg,rgba(31,175,224,.08) 0%,var(--paper) 100%);border-color:var(--fp-cyan)}
-.bignum .lbl{font-family:'Manrope';font-weight:800;font-size:max(10px,.65vw);letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);margin-bottom:.8vw}
+.bignum .lbl{font-family:'Manrope';font-weight:800;font-size:max(10px,.65vw);letter-spacing:.18em;text-transform:uppercase;color:var(--ink-2);margin-bottom:.7vw}
 .bignum.dark .lbl{color:rgba(255,255,255,.6)}
 .bignum.accent .lbl{color:var(--fp-cyan-deep)}
-.bignum .val{font-family:'Fraunces';font-weight:700;font-size:max(56px,5.2vw);line-height:1;color:var(--ink);letter-spacing:-.035em;font-variant-numeric:tabular-nums}
+.bignum .val{font-family:'Fraunces';font-weight:700;font-size:max(52px,5vw);line-height:1;color:var(--ink);letter-spacing:-.035em;font-variant-numeric:tabular-nums}
 .bignum.dark .val{color:#fff}
 .bignum.accent .val{color:var(--fp-cyan-deep)}
 
 /* ── GRIDS ── */
 .grid-21{display:grid;grid-template-columns:2fr 1fr;gap:2vw;align-items:start}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.8vw}
-.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5vw}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.4vw}
 .grid-12{display:grid;grid-template-columns:1fr 2fr;gap:2vw;align-items:start}
+.grid-13{display:grid;grid-template-columns:1fr 3fr;gap:2vw;align-items:start}
 
 /* ── PILLS ── */
-.pill{display:inline-flex;align-items:center;padding:.3vw .8vw;border-radius:999px;font-family:'Manrope';font-weight:800;font-size:max(9px,.6vw);letter-spacing:.14em;text-transform:uppercase}
+.pill{display:inline-flex;align-items:center;padding:.25vw .75vw;border-radius:999px;font-family:'Manrope';font-weight:800;font-size:max(9px,.58vw);letter-spacing:.14em;text-transform:uppercase}
 .pill.cyan{background:rgba(31,175,224,.12);color:var(--fp-cyan-deep)}
 .pill.red{background:rgba(230,57,70,.12);color:var(--fp-red-deep)}
 .pill.gold{background:rgba(201,162,39,.14);color:#8C7434}
@@ -134,7 +145,7 @@ h2.display{font-family:'Fraunces';font-weight:700;font-size:max(26px,2.7vw);line
 .pmeta{padding:.5vw .7vw}
 .pname{font-family:'Manrope';font-weight:800;font-size:max(7px,.47vw);letter-spacing:.04em;color:var(--ink);margin-bottom:3px}
 .pkpis{display:flex;gap:8px}
-.pkpis .k{font-family:'Manrope';font-weight:600;font-size:max(6px,.4vw);color:var(--ink-4);letter-spacing:.1em}
+.pkpis .k{font-family:'Manrope';font-weight:600;font-size:max(6px,.4vw);color:var(--ink-3);letter-spacing:.1em}
 .pkpis .v{font-family:'Manrope';font-weight:800;font-size:max(7px,.48vw);color:var(--ink)}
 
 /* ── LOGO CSS ── */
@@ -170,74 +181,100 @@ h2.display{font-family:'Fraunces';font-weight:700;font-size:max(26px,2.7vw);line
 .lg-sele200{font-family:'Manrope';font-weight:800;font-size:max(13px,.95vw);color:#E65100;letter-spacing:-.015em}
 .lg-sele200 span{color:#1FAFE0}
 
-/* ── TABLE ── */
-.tbl{width:100%;border-collapse:collapse;font-family:'Inter';font-size:max(11px,.72vw)}
-.tbl thead th{background:var(--canvas);font-family:'Manrope';font-weight:800;font-size:max(9px,.58vw);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);padding:.6vw .8vw;text-align:left;border-bottom:2px solid var(--line)}
-.tbl th.num,.tbl td.num{text-align:right;font-variant-numeric:tabular-nums}
-.tbl tbody tr{border-bottom:1px solid var(--line-2)}
-.tbl tbody tr:last-child{border-bottom:none}
-.tbl tbody td{padding:.55vw .8vw;color:var(--ink-2);line-height:1.35}
-.rank-chip{width:26px;height:26px;border-radius:8px;background:var(--canvas);display:flex;align-items:center;justify-content:center;font-family:'Manrope';font-weight:800;font-size:max(10px,.65vw);color:var(--ink-3)}
-.rank-chip.t1{background:#C9A227;color:#fff}
-.rank-chip.t2{background:var(--ink-3);color:#fff}
-.rank-chip.t3{background:#BE9166;color:#fff}
-
 /* ── PAUTA RANKING ── */
-.pauta-section{margin-bottom:.8vw}
+.pauta-section{margin-bottom:.9vw}
 .pauta-section:last-child{margin-bottom:0}
-.ps-head{font-family:'Manrope';font-weight:800;font-size:max(9px,.58vw);letter-spacing:.22em;text-transform:uppercase;color:var(--ink-3);margin-bottom:.5vw;display:flex;align-items:center;gap:.6vw}
+.ps-head{font-family:'Manrope';font-weight:800;font-size:max(10px,.65vw);letter-spacing:.22em;text-transform:uppercase;color:var(--ink-2);margin-bottom:.5vw;display:flex;align-items:center;gap:.6vw}
 .ps-dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex-shrink:0}
 .ps-dot.prof{background:var(--fp-red)}
 .ps-dot.prod{background:var(--fp-cyan)}
 .ps-dot.inst{background:var(--gold)}
-.pauta-rank{display:flex;flex-direction:column;gap:.4vw}
-.prk{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-sm);padding:.65vw 1vw;display:grid;grid-template-columns:2.2vw 1.3fr 1.1fr 6.5vw;gap:.8vw;align-items:center}
-.prk .px{font-family:'Fraunces';font-weight:700;font-size:max(14px,1.3vw);color:var(--ink-4);letter-spacing:-.03em;line-height:1;text-align:center}
-.prk .pname{font-family:'Manrope';font-weight:700;font-size:max(10px,.68vw);color:var(--ink);letter-spacing:-.008em}
+.pauta-rank{display:flex;flex-direction:column;gap:.35vw}
+.prk{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-sm);padding:.55vw .9vw;display:grid;grid-template-columns:2vw 1.5fr 1fr 6vw;gap:.7vw;align-items:center}
+.prk.sm{grid-template-columns:1.8vw 1.4fr .9fr 5.5vw}
+.prk .px{font-family:'Fraunces';font-weight:700;font-size:max(14px,1.3vw);color:var(--ink-3);letter-spacing:-.03em;line-height:1;text-align:center}
+.prk .pname{font-family:'Manrope';font-weight:700;font-size:max(11px,.7vw);color:var(--ink);letter-spacing:-.008em}
 .prk .pbar{height:7px;background:var(--canvas-2);border-radius:6px;overflow:hidden}
 .prk .pbar>span{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--fp-cyan),var(--fp-cyan-deep));width:0%;transition:width 1.4s cubic-bezier(.2,.7,.2,1)}
 .prk.tier-1 .pbar>span{background:linear-gradient(90deg,var(--fp-red),var(--fp-red-deep))}
 .prk.tier-3 .pbar>span{background:linear-gradient(90deg,var(--gold),#8C7434)}
-.prk .pval{font-family:'Manrope';font-weight:700;font-size:max(10px,.65vw);color:var(--ink-3);font-variant-numeric:tabular-nums;text-align:right}
-.prk .pval small{display:block;font-size:max(7px,.42vw);letter-spacing:.16em;color:var(--ink-4);font-weight:700;text-transform:uppercase;margin-top:2px}
+.prk .pval{font-family:'Manrope';font-weight:700;font-size:max(11px,.68vw);color:var(--ink-2);font-variant-numeric:tabular-nums;text-align:right}
+.prk .pval small{display:block;font-size:max(7px,.42vw);letter-spacing:.16em;color:var(--ink-3);font-weight:700;text-transform:uppercase;margin-top:2px}
 .prk.tier-1 .px{color:var(--fp-red)}
 .prk.tier-2 .px{color:var(--fp-cyan-deep)}
 .prk.tier-3 .px{color:var(--gold)}
 
+/* ── COMPARISON TABLE ── */
+.cmp-table{width:100%;border-collapse:collapse}
+.cmp-table thead th{font-family:'Manrope';font-weight:800;font-size:max(10px,.68vw);letter-spacing:.18em;text-transform:uppercase;color:var(--ink-2);padding:.5vw .8vw;border-bottom:2px solid var(--line);text-align:center}
+.cmp-table thead th:first-child{text-align:left}
+.cmp-table tbody tr{border-bottom:1px solid var(--line-2)}
+.cmp-table tbody tr:last-child{border-bottom:none}
+.cmp-table tbody td{padding:.5vw .8vw;font-family:'Manrope';font-size:max(13px,.85vw);text-align:center;color:var(--ink)}
+.cmp-table tbody td:first-child{text-align:left;font-weight:600;color:var(--ink-2);font-size:max(11px,.72vw);letter-spacing:.04em}
+.cmp-table tbody td.val{font-weight:800;font-variant-numeric:tabular-nums}
+.cmp-table tbody td.delta-pos{color:var(--good);font-weight:800}
+.cmp-table tbody td.delta-neg{color:var(--fp-red);font-weight:800}
+.cmp-table tbody td.delta-neu{color:var(--ink-3);font-weight:700}
+.cmp-table tbody td.hi{background:rgba(31,175,224,.07);font-size:max(15px,1.1vw)}
+.cmp-table tbody tr.sep td{padding:.2vw;background:var(--canvas-2)}
+
+/* ── TEMAS ── */
+.tm-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh-sm)}
+.tm-head{padding:.8vw 1.2vw .4vw;border-bottom:1px solid var(--line-2);display:flex;align-items:center;justify-content:space-between}
+.tm-body{padding:.6vw 1.2vw 1vw;font-size:max(12px,.75vw);color:var(--ink-2);line-height:1.6}
+.tm-body ul{margin:0;padding-left:1.2vw}
+.pro-con{display:grid;grid-template-columns:1fr 1fr;gap:.8vw;margin-top:.5vw}
+.pc-col-head{font-family:'Manrope';font-weight:800;font-size:max(9px,.58vw);letter-spacing:.16em;text-transform:uppercase;margin-bottom:.3vw}
+.pro .pc-col-head{color:var(--good)}
+.con .pc-col-head{color:var(--fp-red)}
+
 /* ── EXPAND ── */
 details.expand{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh-sm);margin-top:.8vw}
-details.expand summary{padding:.9vw 1.3vw;cursor:pointer;font-family:'Manrope';font-weight:700;font-size:max(11px,.72vw);letter-spacing:.08em;color:var(--ink-2);display:flex;justify-content:space-between;align-items:center;list-style:none}
+details.expand summary{padding:.8vw 1.3vw;cursor:pointer;font-family:'Manrope';font-weight:700;font-size:max(11px,.72vw);letter-spacing:.08em;color:var(--ink-2);display:flex;justify-content:space-between;align-items:center;list-style:none}
 details.expand summary::-webkit-details-marker{display:none}
 .det-body{padding:0 1.3vw 1.3vw}
 
+/* ── TABLE ── */
+.tbl{width:100%;border-collapse:collapse;font-family:'Inter';font-size:max(12px,.78vw)}
+.tbl thead th{background:var(--canvas);font-family:'Manrope';font-weight:800;font-size:max(9px,.58vw);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);padding:.55vw .8vw;text-align:left;border-bottom:2px solid var(--line)}
+.tbl th.num,.tbl td.num{text-align:right;font-variant-numeric:tabular-nums}
+.tbl tbody tr{border-bottom:1px solid var(--line-2)}
+.tbl tbody tr:last-child{border-bottom:none}
+.tbl tbody td{padding:.5vw .8vw;color:var(--ink-2);line-height:1.35}
+.rank-chip{width:26px;height:26px;border-radius:8px;background:var(--canvas);display:flex;align-items:center;justify-content:center;font-family:'Manrope';font-weight:800;font-size:max(10px,.65vw);color:var(--ink)}
+.rank-chip.t1{background:#C9A227;color:#fff}
+.rank-chip.t2{background:var(--ink-3);color:#fff}
+.rank-chip.t3{background:#BE9166;color:#fff}
+
 /* ── TEAM ── */
-.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1vw;margin-top:1vw}
-.tm{background:var(--canvas);border-radius:var(--r-sm);padding:1vw;display:flex;flex-direction:column;gap:.4vw}
-.tm-av{width:2.5vw;height:2.5vw;min-width:30px;min-height:30px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces';font-weight:700;font-size:max(16px,1.3vw);color:#fff}
-.tm h4{font-family:'Manrope';font-weight:800;font-size:max(12px,.82vw);color:var(--ink)}
-.tm p{font-family:'Inter';font-size:max(11px,.68vw);color:var(--ink-3);line-height:1.5}
-.tm p strong{font-weight:700;color:var(--ink)}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.9vw;margin-top:.9vw}
+.tm-av-wrap{width:2.5vw;height:2.5vw;min-width:28px;min-height:28px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces';font-weight:700;font-size:max(16px,1.3vw);color:#fff}
+.team-member{background:var(--canvas);border-radius:var(--r-sm);padding:.9vw;display:flex;flex-direction:column;gap:.4vw}
+.team-member h4{font-family:'Manrope';font-weight:800;font-size:max(13px,.88vw);color:var(--ink)}
+.team-member p{font-family:'Inter';font-size:max(11px,.7vw);color:var(--ink-2);line-height:1.5}
+.team-member p strong{font-weight:700;color:var(--ink)}
 
 /* ── GOALS ── */
-.goals{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2vw}
-.goal{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:1.5vw 1.3vw;text-align:center;box-shadow:var(--sh-sm)}
-.goal-num{font-family:'Fraunces';font-weight:700;font-size:max(36px,3.2vw);color:var(--ink-4);line-height:1;margin-bottom:.6vw}
-.goal h4{font-family:'Manrope';font-weight:800;font-size:max(12px,.82vw);color:var(--ink);letter-spacing:-.012em;line-height:1.3}
+.goals{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1vw}
+.goal{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:1.4vw 1.2vw;text-align:center;box-shadow:var(--sh-sm)}
+.goal-num{font-family:'Fraunces';font-weight:700;font-size:max(36px,3.2vw);color:var(--ink-3);line-height:1;margin-bottom:.6vw}
+.goal h4{font-family:'Manrope';font-weight:800;font-size:max(13px,.85vw);color:var(--ink);letter-spacing:-.012em;line-height:1.3}
 .goal.g{border-top:4px solid var(--good)}
 .goal.r{border-top:4px solid var(--fp-red)}
 
 /* ── CLOSING ── */
 .closing{background:radial-gradient(800px 400px at 10% 0%,rgba(31,175,224,.16),transparent 60%),radial-gradient(800px 400px at 100% 100%,rgba(230,57,70,.14),transparent 65%),linear-gradient(180deg,#0B1B2E 0%,#142C48 100%);color:#fff;border-radius:20px;padding:3.5vw 4vw;position:relative;overflow:hidden;height:100%}
-.closing .cline{font-family:'Manrope';font-weight:700;font-size:max(9px,.6vw);letter-spacing:.32em;text-transform:uppercase;color:var(--fp-cyan);margin-bottom:1.5vw;display:inline-flex;align-items:center;gap:1vw}
-.closing .cline::before,.closing .cline::after{content:'';width:2vw;height:1px;background:var(--fp-cyan)}
-.closing h2{font-family:'Fraunces';font-weight:700;font-size:max(34px,3.6vw);line-height:1.05;letter-spacing:-.025em;color:#fff;margin:0 0 2vw;max-width:900px}
+.cline{font-family:'Manrope';font-weight:700;font-size:max(9px,.6vw);letter-spacing:.32em;text-transform:uppercase;color:var(--fp-cyan);margin-bottom:1.5vw;display:inline-flex;align-items:center;gap:1vw}
+.cline::before,.cline::after{content:'';width:2vw;height:1px;background:var(--fp-cyan)}
+.closing h2{font-family:'Fraunces';font-weight:700;font-size:max(34px,3.8vw);line-height:1.05;letter-spacing:-.025em;color:#fff;margin:0 0 2vw}
 .closing h2 .ac{color:var(--fp-cyan);font-style:italic;font-weight:600}
 .cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1vw;margin:1.5vw 0}
-.cs{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:1.3vw;text-align:center}
-.cs .clbl{font-family:'Manrope';font-size:max(8px,.55vw);font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:.7vw}
-.cs .cval{font-family:'Manrope';font-weight:800;font-size:max(30px,2.8vw);color:#fff;letter-spacing:-.025em;line-height:1;font-variant-numeric:tabular-nums}
+.cs{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:1.2vw;text-align:center}
+.cs .clbl{font-family:'Manrope';font-size:max(8px,.55vw);font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:.6vw}
+.cs .cval{font-family:'Manrope';font-weight:800;font-size:max(28px,2.8vw);color:#fff;letter-spacing:-.025em;line-height:1;font-variant-numeric:tabular-nums}
 .cs .cval .ac{color:var(--fp-cyan)}
-.cs .csub{font-family:'Inter';font-size:max(10px,.65vw);color:rgba(255,255,255,.65);margin-top:.6vw;line-height:1.45}
+.cs .csub{font-family:'Inter';font-size:max(11px,.7vw);color:rgba(255,255,255,.65);margin-top:.5vw;line-height:1.45}
 .cbullets{display:grid;grid-template-columns:1fr 1fr;gap:.7vw 2vw;margin-top:1.5vw}
 .cbullets div{font-family:'Inter';font-size:max(12px,.78vw);color:rgba(255,255,255,.85);line-height:1.5;padding-left:1.5vw;position:relative}
 .cbullets div::before{content:'';position:absolute;left:0;top:8px;width:8px;height:8px;border-radius:50%;background:var(--fp-cyan)}
@@ -246,7 +283,7 @@ details.expand summary::-webkit-details-marker{display:none}
 
 /* ── FOOTER ── */
 footer{background:var(--ink);color:rgba(255,255,255,.62);padding:1.5vw 3vw;text-align:center;font-family:'Manrope';font-size:max(10px,.65vw);letter-spacing:.12em}
-footer .fpsig{display:inline-flex;align-items:center;gap:1vw;margin-bottom:6px}
+footer .fpsig{display:inline-flex;align-items:center;gap:1vw;margin-bottom:4px}
 footer b{font-family:'Manrope';font-weight:800;font-size:max(10px,.65vw);letter-spacing:.18em;color:#fff;text-transform:uppercase}
 
 /* ── FADE ── */
@@ -255,11 +292,13 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(10px,.65vw);letter-
 @media (prefers-reduced-motion:reduce){.fade{opacity:1;transform:none;transition:none}}
 
 /* ── NAV ── */
-.nav-fab{position:fixed;bottom:2vw;right:2vw;z-index:50;display:flex;gap:.7vw}
-.nav-fab button{background:var(--ink);color:#fff;border:none;cursor:pointer;font-family:'Manrope';font-weight:700;font-size:max(10px,.68vw);letter-spacing:.08em;text-transform:uppercase;padding:.75vw 1.3vw;border-radius:999px;display:inline-flex;align-items:center;gap:.6vw;box-shadow:0 14px 32px -10px rgba(11,27,46,.45);transition:transform .2s ease,background .2s ease}
+.nav-fab{position:fixed;bottom:2vw;right:2vw;z-index:50;display:flex;gap:.6vw;align-items:center}
+.nav-fab button{background:var(--ink);color:#fff;border:none;cursor:pointer;font-family:'Manrope';font-weight:700;font-size:max(10px,.68vw);letter-spacing:.08em;text-transform:uppercase;padding:.7vw 1.2vw;border-radius:999px;display:inline-flex;align-items:center;gap:.5vw;box-shadow:0 14px 32px -10px rgba(11,27,46,.45);transition:transform .2s ease,background .2s ease}
 .nav-fab button:hover{transform:translateY(-2px);background:var(--fp-cyan-deep)}
 .nav-fab button.prev{background:var(--paper);color:var(--ink);border:1px solid var(--line)}
 .nav-fab button.prev:hover{background:var(--ink);color:#fff}
+.nav-fab button.font-btn{background:var(--gold);color:var(--ink);font-size:max(11px,.75vw);padding:.65vw 1.1vw;min-width:3.5vw;justify-content:center}
+.nav-fab button.font-btn:hover{background:#A8861E}
 .ic{width:1.1vw;height:1.1vw;min-width:13px;min-height:13px}
 .nav-progress{position:fixed;left:0;right:0;top:0;height:3px;z-index:60}
 .nav-progress>span{display:block;height:100%;background:linear-gradient(90deg,var(--fp-cyan),var(--fp-red));width:0%;transition:width .15s ease-out}
@@ -274,6 +313,7 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(10px,.65vw);letter-
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
     Anterior
   </button>
+  <button class="font-btn" id="btnFont" onclick="cycleFontSize()" title="Tamaño de letra en gráficos">A</button>
   <button onclick="goSlide(1)">
     Próxima
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
@@ -307,8 +347,8 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(10px,.65vw);letter-
         <div class="row"><span class="k">Inversión Redes</span><span class="v mono ac">$10,4 M</span></div>
         <div class="row"><span class="k">Total marketing</span><span class="v mono">$111,6 M</span></div>
         <div class="row"><span class="k">Salidas TV</span><span class="v mono">114</span></div>
-        <div class="row"><span class="k">Videos en IG</span><span class="v mono">345</span></div>
-        <div class="row"><span class="k">Videos en TikTok</span><span class="v mono warn">278</span></div>
+        <div class="row"><span class="k">Videos IG</span><span class="v mono">345</span></div>
+        <div class="row"><span class="k">Videos TikTok</span><span class="v mono warn">278</span></div>
       </aside>
     </div>
   </div>
@@ -326,10 +366,10 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(10px,.65vw);letter-
   <div class="kpi-row">
     <div class="stat"><div class="stat-bar"></div><div class="stat-lbl">Inversión TV</div><div class="stat-val mono"><span class="cur">$</span>101,2<span class="unit">M</span></div><div class="stat-sub">90,7% del total marketing</div></div>
     <div class="stat red"><div class="stat-bar"></div><div class="stat-lbl">Inversión Redes</div><div class="stat-val mono"><span class="cur">$</span>10,4<span class="unit">M</span></div><div class="stat-sub">9,3% del total marketing</div></div>
-    <div class="stat dark stat-tinted"><div class="stat-bar"></div><div class="stat-lbl">Total marketing</div><div class="stat-val mono"><span class="cur">$</span>111,6<span class="unit">M</span></div><div class="stat-sub">TV + Redes consolidados</div></div>
+    <div class="stat solid-dark"><div class="stat-bar"></div><div class="stat-lbl">Total marketing</div><div class="stat-val mono"><span class="cur">$</span>111,6<span class="unit">M</span></div><div class="stat-sub">TV + Redes consolidados</div></div>
     <div class="stat gold"><div class="stat-bar"></div><div class="stat-lbl">Salidas en TV</div><div class="stat-val mono">114</div><div class="stat-sub">18 programas · 6 profesionales</div></div>
   </div>
-  <div class="kpi-row" style="margin-top:1.2vw">
+  <div class="kpi-row" style="margin-top:1.1vw">
     <div class="stat"><div class="stat-bar"></div><div class="stat-lbl">Videos editados</div><div class="stat-val mono">97</div><div class="stat-sub">85% de las salidas TV</div></div>
     <div class="stat good"><div class="stat-bar"></div><div class="stat-lbl">Videos en IG</div><div class="stat-val mono">345</div><div class="stat-sub">17 cuentas activas</div></div>
     <div class="stat"><div class="stat-bar"></div><div class="stat-lbl">Videos en TikTok</div><div class="stat-val mono">278</div><div class="stat-sub">6 cuentas activas</div></div>
@@ -337,28 +377,64 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(10px,.65vw);letter-
   </div>
 </section>
 
-<!-- S3 · INVERSIÓN -->
+<!-- S3 · COMPARATIVO MAYO vs JUNIO -->
 <section class="slide slide-paper fade slide-anchor" id="s3">
   <div class="slide-head">
     <div class="meta">
-      <span class="eyebrow">03 · Inversión total</span>
-      <h2 class="display">$111,6 millones<br/>invertidos en junio.</h2>
+      <span class="eyebrow">03 · Comparativo</span>
+      <h2 class="display">Mayo vs Junio:<br/>más salidas, menos inversión.</h2>
     </div>
-    <div class="marker"><span class="num">03</span><span>Inversión</span></div>
+    <div class="marker"><span class="num">03</span><span>Compar.</span></div>
   </div>
-  <div class="grid-21">
-    <div class="card lg">
-      <h3 class="card-title left">TV vs Redes</h3>
-      <div class="chart-wrap"><canvas id="cTVRedes"></canvas></div>
+  <div class="grid-2" style="align-items:start;gap:2.5vw">
+    <div>
+      <table class="cmp-table">
+        <thead>
+          <tr>
+            <th>Métrica</th>
+            <th>Mayo</th>
+            <th>Junio</th>
+            <th>Δ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Inversión TV</td><td class="val">$136,9 M</td><td class="val">$101,2 M</td><td class="delta-neg">−26%</td></tr>
+          <tr><td>Inversión Redes</td><td class="val">$9,2 M</td><td class="val">$10,4 M</td><td class="delta-pos">+13%</td></tr>
+          <tr><td>Total marketing</td><td class="val">$146,1 M</td><td class="val">$111,6 M</td><td class="delta-neg">−24%</td></tr>
+          <tr class="sep"><td colspan="4"></td></tr>
+          <tr><td>Salidas TV</td><td class="val">98</td><td class="val">114</td><td class="delta-pos">+16%</td></tr>
+          <tr><td>Editados</td><td class="val">96 <span style="font-size:.8em;color:var(--ink-3)">(98%)</span></td><td class="val">97 <span style="font-size:.8em;color:var(--ink-3)">(85%)</span></td><td class="delta-neg">−13pp</td></tr>
+          <tr class="sep"><td colspan="4"></td></tr>
+          <tr><td>Alcance Meta</td><td class="val">3,4 M</td><td class="val">3,6 M</td><td class="delta-pos">+6%</td></tr>
+          <tr><td>Clicks Meta</td><td class="val">178 K</td><td class="val">211 K</td><td class="delta-pos">+18%</td></tr>
+          <tr><td>CTR</td><td class="val">4,0%</td><td class="val">4,3%</td><td class="delta-pos">+7%</td></tr>
+        </tbody>
+      </table>
     </div>
     <div style="display:flex;flex-direction:column;gap:1.2vw">
-      <div class="bignum dark">
-        <div class="lbl">Total marketing</div>
-        <div class="val mono"><span style="font-size:2.3vw;color:rgba(255,255,255,.6);font-weight:600">$</span>111,6<span style="font-size:1.8vw;color:rgba(255,255,255,.6);font-weight:600;margin-left:6px">M</span></div>
+      <div class="card" style="border-top:4px solid var(--good)">
+        <div class="pill good" style="margin-bottom:.7vw">Eficiencia</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1vw;margin-top:.3vw">
+          <div>
+            <div style="font-family:'Manrope';font-weight:800;font-size:max(9px,.58vw);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);margin-bottom:.3vw">Costo / salida · Mayo</div>
+            <div style="font-family:'Fraunces';font-weight:700;font-size:max(28px,2.6vw);color:var(--ink-2);letter-spacing:-.025em;line-height:1">$1,40<span style="font-size:.55em;font-weight:600;color:var(--ink-3)"> M</span></div>
+          </div>
+          <div>
+            <div style="font-family:'Manrope';font-weight:800;font-size:max(9px,.58vw);letter-spacing:.16em;text-transform:uppercase;color:var(--good);margin-bottom:.3vw">Costo / salida · Junio</div>
+            <div style="font-family:'Fraunces';font-weight:700;font-size:max(28px,2.6vw);color:var(--good);letter-spacing:-.025em;line-height:1">$0,89<span style="font-size:.55em;font-weight:600"> M</span></div>
+          </div>
+        </div>
+        <p style="font-family:'Inter';font-size:max(12px,.78vw);color:var(--ink);margin-top:.8vw;line-height:1.5">En junio se logró un <strong>37% más de eficiencia</strong> por salida frente a mayo.</p>
       </div>
-      <div class="kpi-row two" style="gap:1vw">
-        <div class="stat"><div class="stat-bar"></div><div class="stat-lbl">TV</div><div class="stat-val mono"><span class="cur">$</span>101,2<span class="unit">M</span></div><div class="stat-sub">90,7%</div></div>
-        <div class="stat red"><div class="stat-bar"></div><div class="stat-lbl">Redes</div><div class="stat-val mono"><span class="cur">$</span>10,4<span class="unit">M</span></div><div class="stat-sub">9,3%</div></div>
+      <div class="card" style="border-top:4px solid var(--fp-red)">
+        <div class="pill red" style="margin-bottom:.7vw">A mejorar</div>
+        <p style="font-family:'Inter';font-size:max(12px,.78vw);color:var(--ink);line-height:1.5">Mayo tenía <strong>98% de aprovechamiento</strong> (96/98 salidas editadas). Junio bajó a <strong>85%</strong> (97/114). El volumen creció pero el equipo de edición aún no escala al mismo ritmo.</p>
+      </div>
+      <div class="stat solid-dark">
+        <div class="stat-bar"></div>
+        <div class="stat-lbl">Meta relevante</div>
+        <div style="font-family:'Manrope';font-weight:800;font-size:max(16px,1.5vw);color:#fff;line-height:1.2;margin-top:.3vw">100% edición en julio</div>
+        <div class="stat-sub">Llevar de 85% → 100% de aprovechamiento</div>
       </div>
     </div>
   </div>
@@ -376,9 +452,9 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(10px,.65vw);letter-
   <div class="kpi-row three">
     <div class="stat"><div class="stat-bar"></div><div class="stat-lbl">Inversión en programas</div><div class="stat-val mono"><span class="cur">$</span>92,0<span class="unit">M</span></div><div class="stat-sub">90,9% de la inversión TV</div></div>
     <div class="stat red"><div class="stat-bar"></div><div class="stat-lbl">Apoyo profesionales</div><div class="stat-val mono"><span class="cur">$</span>9,25<span class="unit">M</span></div><div class="stat-sub">9,1% de la inversión TV</div></div>
-    <div class="stat dark stat-tinted"><div class="stat-bar"></div><div class="stat-lbl">Total TV</div><div class="stat-val mono"><span class="cur">$</span>101,2<span class="unit">M</span></div><div class="stat-sub">Programas + apoyo</div></div>
+    <div class="stat solid-dark"><div class="stat-bar"></div><div class="stat-lbl">Total TV</div><div class="stat-val mono"><span class="cur">$</span>101,2<span class="unit">M</span></div><div class="stat-sub">Programas + apoyo</div></div>
   </div>
-  <div class="grid-2" style="margin-top:1.3vw">
+  <div class="grid-2" style="margin-top:1.2vw">
     <div class="card">
       <h3 class="card-title">Salidas por programa (top 10)</h3>
       <div class="chart-wrap"><canvas id="cSalProg"></canvas></div>
@@ -401,320 +477,287 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(10px,.65vw);letter-
   </div>
   <div class="grid-2" style="align-items:center">
     <div class="card">
-      <h3 class="card-title">Cantidad e inversión</h3>
+      <h3 class="card-title">Cantidad e inversión comparada</h3>
       <div class="chart-wrap"><canvas id="cNotaPnt"></canvas></div>
     </div>
-    <div style="display:flex;flex-direction:column;gap:1.5vw">
-      <div class="stat">
-        <div class="stat-bar"></div>
-        <div class="stat-lbl">Notas</div>
-        <div class="stat-val mono">96</div>
-        <div class="stat-sub"><strong style="color:var(--ink)">$97,8 M</strong> · 97% del TV</div>
-      </div>
-      <div class="stat red">
-        <div class="stat-bar"></div>
-        <div class="stat-lbl">PNT</div>
-        <div class="stat-val mono">18</div>
-        <div class="stat-sub"><strong style="color:var(--ink)">$3,4 M</strong> · 3% del TV</div>
-      </div>
+    <div style="display:flex;flex-direction:column;gap:1.4vw">
+      <div class="stat"><div class="stat-bar"></div><div class="stat-lbl">Notas</div><div class="stat-val mono">96</div><div class="stat-sub"><strong style="color:var(--ink)">$97,8 M</strong> · 97% de la inversión TV</div></div>
+      <div class="stat red"><div class="stat-bar"></div><div class="stat-lbl">PNT</div><div class="stat-val mono">18</div><div class="stat-sub"><strong style="color:var(--ink)">$3,4 M</strong> · 3% de la inversión TV</div></div>
       <div class="card" style="border-left:4px solid var(--fp-cyan)">
-        <p style="margin:0;font-size:max(12px,.78vw);color:var(--ink);font-family:'Manrope';font-weight:600;letter-spacing:-.005em">Las notas dominan: <strong>84%</strong> de las salidas y <strong>97%</strong> de la inversión TV.</p>
+        <p style="margin:0;font-size:max(13px,.82vw);color:var(--ink);font-family:'Manrope';font-weight:600;line-height:1.5">Las notas dominan: <strong>84%</strong> de las salidas y <strong>97%</strong> de la inversión TV. Los PNT son puntuales y estratégicos.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- S6 · REDES -->
+<!-- S6 · REDES INSTITUCIONALES + KPIs -->
 <section class="slide slide-cream fade slide-anchor" id="s6">
   <div class="slide-head">
     <div class="meta">
-      <span class="eyebrow">06 · Redes</span>
-      <h2 class="display">$10,4 M en pauta<br/>digital, 21 cuentas.</h2>
+      <span class="eyebrow">06 · Redes · Pauta institucional</span>
+      <h2 class="display">$10,4 M en Meta Ads.<br/>21 cuentas activas.</h2>
     </div>
-    <div class="marker"><span class="num">06</span><span>Redes</span></div>
+    <div class="marker"><span class="num">06</span><span>Redes I</span></div>
   </div>
-  <div class="grid-12" style="align-items:start">
-    <div style="display:flex;flex-direction:column;gap:1vw">
-      <div class="bignum accent">
-        <div class="lbl">Pauta digital</div>
-        <div class="val mono" style="font-size:max(40px,3.8vw)"><span style="font-size:2vw;color:var(--ink-3);font-weight:600">$</span>10,4<span style="font-size:1.8vw;color:var(--ink-3);font-weight:600;margin-left:5px">M</span></div>
-      </div>
-      <div class="stat"><div class="stat-bar"></div><div class="stat-lbl">Alcance total</div><div class="stat-val mono" style="font-size:max(19px,1.9vw)">3,6 M</div><div class="stat-sub">personas alcanzadas</div></div>
-      <div class="stat red"><div class="stat-bar"></div><div class="stat-lbl">Clicks totales</div><div class="stat-val mono" style="font-size:max(19px,1.9vw)">211 K</div><div class="stat-sub">CTR promedio 4,27%</div></div>
+  <div class="kpi-row" style="margin-bottom:1.3vw">
+    <div class="stat solid-dark"><div class="stat-bar"></div><div class="stat-lbl">Pauta total</div><div class="stat-val mono"><span class="cur">$</span>10,4<span class="unit">M</span></div><div class="stat-sub">21 cuentas Meta Ads</div></div>
+    <div class="stat"><div class="stat-bar"></div><div class="stat-lbl">Alcance</div><div class="stat-val mono">3,6<span class="unit">M</span></div><div class="stat-sub">personas alcanzadas</div></div>
+    <div class="stat"><div class="stat-bar"></div><div class="stat-lbl">Clicks</div><div class="stat-val mono">211<span class="unit" style="font-size:max(13px,1.2vw)">K</span></div><div class="stat-sub">CTR promedio 4,27%</div></div>
+    <div class="stat good"><div class="stat-bar"></div><div class="stat-lbl">Distribución</div><div class="stat-val mono" style="font-size:max(14px,1.4vw)">51% Prod<br/>24% Prof</div><div class="stat-sub">18% Inst · 5% s/asignar</div></div>
+  </div>
+  <div class="grid-12">
+    <div>
+      <div style="font-family:'Manrope';font-weight:800;font-size:max(10px,.68vw);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2);margin-bottom:.7vw;display:flex;align-items:center;gap:.6vw"><span class="ps-dot inst"></span>Institucional</div>
+      <div class="pauta-rank" id="pautaInst"></div>
     </div>
     <div class="card">
-      <h3 class="card-title left">Ranking de cuentas por inversión</h3>
-      <div class="pauta-section">
-        <div class="ps-head"><span class="ps-dot inst"></span>Redes institucionales</div>
-        <div class="pauta-rank" id="pautaInst"></div>
-      </div>
-      <div class="pauta-section">
-        <div class="ps-head"><span class="ps-dot prof"></span>Profesionales · médicos</div>
-        <div class="pauta-rank" id="pautaProf"></div>
-      </div>
-      <div class="pauta-section">
-        <div class="ps-head"><span class="ps-dot prod"></span>Redes de producto</div>
-        <div class="pauta-rank" id="pautaProd"></div>
-      </div>
+      <h3 class="card-title left">Cuentas institucionales · detalle</h3>
+      <table class="tbl">
+        <thead><tr><th>Cuenta</th><th class="num">Gasto</th><th class="num">Alcance</th><th class="num">Clicks</th><th class="num">CTR</th></tr></thead>
+        <tbody>
+          <tr><td><strong>ADN Buena Salud</strong></td><td class="num">$1.471.569</td><td class="num">352.517</td><td class="num">12.514</td><td class="num">2,66%</td></tr>
+          <tr><td><strong>Farmaland</strong></td><td class="num">$406.040</td><td class="num">343.902</td><td class="num">23.789</td><td class="num">5,39%</td></tr>
+          <tr><td><strong>Framingham Pharma</strong></td><td class="num">$84.024</td><td class="num">30.099</td><td class="num">1.402</td><td class="num">3,69%</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
 
-<!-- S7 · APROVECHAMIENTO -->
-<section class="slide slide-dark fade slide-anchor" id="s7">
+<!-- S7 · REDES PROFESIONALES + PRODUCTOS -->
+<section class="slide slide-paper fade slide-anchor" id="s7">
   <div class="slide-head">
     <div class="meta">
-      <span class="eyebrow">07 · Aprovechamiento</span>
-      <h2 class="display">Junio: mejor mes<br/>de aprovechamiento del año.</h2>
+      <span class="eyebrow">07 · Redes · Profesionales y Productos</span>
+      <h2 class="display">¿Dónde va la pauta<br/>por profesional y producto?</h2>
     </div>
-    <div class="marker"><span class="num">07</span><span>Aprove.</span></div>
+    <div class="marker"><span class="num">07</span><span>Redes II</span></div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <div style="font-family:'Manrope';font-weight:800;font-size:max(10px,.68vw);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2);margin-bottom:.7vw;display:flex;align-items:center;gap:.6vw"><span class="ps-dot prof"></span>Profesionales · médicos</div>
+      <div class="pauta-rank" id="pautaProf"></div>
+    </div>
+    <div class="card">
+      <div style="font-family:'Manrope';font-weight:800;font-size:max(10px,.68vw);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2);margin-bottom:.7vw;display:flex;align-items:center;gap:.6vw"><span class="ps-dot prod"></span>Productos</div>
+      <div class="pauta-rank" id="pautaProd"></div>
+    </div>
+  </div>
+</section>
+
+<!-- S8 · APROVECHAMIENTO -->
+<section class="slide slide-dark fade slide-anchor" id="s8">
+  <div class="slide-head">
+    <div class="meta">
+      <span class="eyebrow">08 · Aprovechamiento</span>
+      <h2 class="display">114 salidas TV.<br/>El mayor volumen del año.</h2>
+    </div>
+    <div class="marker"><span class="num">08</span><span>Aprove.</span></div>
   </div>
   <div class="kpi-row three">
-    <div class="stat stat-tinted dark good"><div class="stat-bar"></div><div class="stat-lbl">Salidas TV</div><div class="stat-val mono">114</div><div class="stat-sub">tomadas al aire</div></div>
-    <div class="stat stat-tinted dark good"><div class="stat-bar"></div><div class="stat-lbl">Videos editados</div><div class="stat-val mono">97</div><div class="stat-sub">85% de aprovechamiento</div></div>
-    <div class="stat stat-tinted dark warn"><div class="stat-bar"></div><div class="stat-lbl">Sin procesar</div><div class="stat-val mono">17</div><div class="stat-sub">15% sin editor asignado</div></div>
+    <div class="stat on-dark good"><div class="stat-bar"></div><div class="stat-lbl">Salidas TV</div><div class="stat-val mono">114</div><div class="stat-sub">+16% vs mayo (98 sal.)</div></div>
+    <div class="stat on-dark warn"><div class="stat-bar"></div><div class="stat-lbl">Videos editados</div><div class="stat-val mono">97 <span style="font-size:.55em;color:rgba(255,255,255,.6)">(85%)</span></div><div class="stat-sub">Mayo: 96 editados (98%)</div></div>
+    <div class="stat on-dark"><div class="stat-bar"></div><div class="stat-lbl">Sin procesar</div><div class="stat-val mono">17</div><div class="stat-sub">Prioridad operativa julio</div></div>
   </div>
-  <div class="card" style="margin-top:1.2vw;background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.12)">
-    <h3 class="card-title" style="color:#fff">Funnel · de la TV a las redes</h3>
+  <div class="card" style="margin-top:1.1vw;background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1)">
+    <h3 class="card-title" style="color:rgba(255,255,255,.8)">Funnel · de la TV a las redes</h3>
     <div class="chart-wrap sm"><canvas id="cFunnel"></canvas></div>
   </div>
-  <div class="card" style="margin-top:.8vw;background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.12)">
+  <div class="card" style="margin-top:.8vw;background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1)">
     <div style="display:flex;align-items:center;gap:1.5vw;justify-content:center">
-      <div class="pill cyan" style="background:rgba(31,175,224,.16)">Logro del mes</div>
-      <p style="margin:0;font-size:max(13px,.85vw);color:rgba(255,255,255,.95);font-family:'Manrope';font-weight:600;letter-spacing:-.005em">El 100% de los videos editados fue publicado. 623 videos en redes (345 IG + 278 TikTok).</p>
+      <div class="pill cyan" style="background:rgba(31,175,224,.16)">Logro</div>
+      <p style="margin:0;font-size:max(13px,.85vw);color:rgba(255,255,255,.95);font-family:'Manrope';font-weight:600">El 100% de los videos editados fue publicado. 623 videos en redes (345 IG + 278 TikTok).</p>
     </div>
   </div>
 </section>
 
-<!-- S8 · PRODUCTOS -->
-<section class="slide slide-cream fade slide-anchor" id="s8">
+<!-- S9 · PRODUCTOS -->
+<section class="slide slide-cream fade slide-anchor" id="s9">
   <div class="slide-head">
     <div class="meta">
-      <span class="eyebrow">08 · Productos</span>
-      <h2 class="display">Top productos<br/>por inversión.</h2>
+      <span class="eyebrow">09 · Productos</span>
+      <h2 class="display">Inversión y salidas<br/>por producto en junio.</h2>
     </div>
-    <div class="marker"><span class="num">08</span><span>Productos</span></div>
+    <div class="marker"><span class="num">09</span><span>Productos</span></div>
   </div>
-  <div class="card lg" style="margin-bottom:1vw">
-    <div class="chart-wrap tall"><canvas id="cProdInv"></canvas></div>
+  <div class="card lg">
+    <div class="chart-wrap tall"><canvas id="cProdComb"></canvas></div>
   </div>
-  <div class="prod-grid" id="prodGrid"></div>
 </section>
 
-<!-- S9 · PROFESIONALES -->
-<section class="slide slide-paper fade slide-anchor" id="s9">
+<!-- S10 · PROFESIONALES -->
+<section class="slide slide-paper fade slide-anchor" id="s10">
   <div class="slide-head">
     <div class="meta">
-      <span class="eyebrow">09 · Profesionales</span>
+      <span class="eyebrow">10 · Profesionales</span>
       <h2 class="display">Quiénes están al aire<br/>y con qué intensidad.</h2>
     </div>
-    <div class="marker"><span class="num">09</span><span>Profes.</span></div>
+    <div class="marker"><span class="num">10</span><span>Profes.</span></div>
   </div>
   <div class="card lg">
     <h3 class="card-title">Apariciones por profesional</h3>
     <div class="chart-wrap" style="height:24vw"><canvas id="cProfCnt"></canvas></div>
   </div>
   <details class="expand">
-    <summary><span>Ver detalle completo</span><span>▾</span></summary>
+    <summary><span>Ver tabla completa de profesionales</span><span>▾</span></summary>
     <div class="det-body">
       <table class="tbl">
-        <thead><tr><th style="width:50px">#</th><th>Profesional</th><th class="num">Salidas</th><th class="num">Apoyo</th><th class="num">Inversión total</th></tr></thead>
+        <thead><tr><th style="width:46px">#</th><th>Profesional</th><th class="num">Salidas</th><th class="num">Apoyo</th><th class="num">Inversión total</th></tr></thead>
         <tbody id="tblProf"></tbody>
       </table>
     </div>
   </details>
 </section>
 
-<!-- S10 · DIAGNÓSTICO -->
-<section class="slide slide-cream fade slide-anchor" id="s10">
+<!-- S11 · DIAGNÓSTICO + COMPARATIVO -->
+<section class="slide slide-cream fade slide-anchor" id="s11">
   <div class="slide-head">
     <div class="meta">
-      <span class="eyebrow">10 · Diagnóstico</span>
-      <h2 class="display">Qué funciona,<br/>qué hay que escalar.</h2>
+      <span class="eyebrow">11 · Diagnóstico · KPIs Mayo vs Junio</span>
+      <h2 class="display">Qué funciona y<br/>qué muestran los datos.</h2>
     </div>
-    <div class="marker"><span class="num">10</span><span>Diag.</span></div>
+    <div class="marker"><span class="num">11</span><span>Diag.</span></div>
   </div>
-  <div class="grid-3">
+  <div class="grid-3" style="margin-bottom:1.2vw">
     <div class="card" style="border-top:4px solid var(--good)">
-      <div class="pill good" style="margin-bottom:.8vw">Funciona</div>
-      <h3 class="card-title left">Producción y aprovechamiento</h3>
-      <ul style="margin:0;padding-left:1.2vw;color:var(--ink-2);font-size:max(11px,.72vw);line-height:1.7">
-        <li>18 programas activos en junio.</li>
-        <li>6 profesionales médicos al aire.</li>
-        <li>97 videos editados (85%).</li>
-        <li>0 editados sin publicar.</li>
-        <li>623 videos en redes (345 IG + 278 TT).</li>
+      <div class="pill good" style="margin-bottom:.7vw">Funciona</div>
+      <h3 class="card-title left">Producción</h3>
+      <ul style="margin:0;padding-left:1.2vw;color:var(--ink);font-size:max(13px,.85vw);line-height:1.75">
+        <li><strong>114 salidas</strong> — el mayor volumen del año.</li>
+        <li>18 programas activos, 6 médicos.</li>
+        <li>97 editados, 0 sin publicar.</li>
+        <li><strong>623 videos</strong> en redes.</li>
+        <li>37% menor costo por salida vs mayo.</li>
       </ul>
     </div>
     <div class="card" style="border-top:4px solid var(--warn)">
-      <div class="pill gold" style="margin-bottom:.8vw">A resolver</div>
-      <h3 class="card-title left">Brechas operativas</h3>
-      <ul style="margin:0;padding-left:1.2vw;color:var(--ink-2);font-size:max(11px,.72vw);line-height:1.7">
-        <li>17 salidas (15%) sin editor asignado.</li>
-        <li>Lapman en el 43% de las salidas.</li>
-        <li>Menacor/Vitamet/Daozima sin Meta Ads.</li>
-        <li>Falta trazabilidad por video individual.</li>
+      <div class="pill gold" style="margin-bottom:.7vw">A resolver</div>
+      <h3 class="card-title left">Brechas</h3>
+      <ul style="margin:0;padding-left:1.2vw;color:var(--ink);font-size:max(13px,.85vw);line-height:1.75">
+        <li><strong>17 salidas</strong> sin editor (15%).</li>
+        <li>Edición bajó de 98% a 85%.</li>
+        <li>Lapman en el <strong>43%</strong> de las salidas.</li>
+        <li>Menacor/Vitamet/Daozima sin Meta.</li>
       </ul>
     </div>
     <div class="card" style="border-top:4px solid var(--fp-cyan)">
-      <div class="pill cyan" style="margin-bottom:.8vw">Para escalar</div>
-      <h3 class="card-title left">Multiplicar el alcance</h3>
-      <ul style="margin:0;padding-left:1.2vw;color:var(--ink-2);font-size:max(11px,.72vw);line-height:1.7">
-        <li>Cerrar el 15% sin editor.</li>
+      <div class="pill cyan" style="margin-bottom:.7vw">Para escalar</div>
+      <h3 class="card-title left">Oportunidades</h3>
+      <ul style="margin:0;padding-left:1.2vw;color:var(--ink);font-size:max(13px,.85vw);line-height:1.75">
+        <li>Asignar editor al grabar la salida.</li>
         <li>Alinear pauta Meta con TV.</li>
         <li>Cada video en 3+ redes.</li>
-        <li>Incorporar más profesionales al aire.</li>
+        <li>Sumar 2 profesionales nuevos.</li>
       </ul>
     </div>
   </div>
-  <div class="card lg" style="margin-top:1vw">
-    <h3 class="card-title">Equipo operativo</h3>
-    <div class="team-grid">
-      <div class="tm">
-        <div class="tm-av" style="background:linear-gradient(135deg,var(--fp-cyan),var(--fp-cyan-deep))">L</div>
-        <h4>Lucas</h4>
-        <p>Edición de videos y <strong>diseño</strong> de piezas gráficas.</p>
-      </div>
-      <div class="tm">
-        <div class="tm-av" style="background:linear-gradient(135deg,var(--fp-red),var(--fp-red-deep))">J</div>
-        <h4>Julián</h4>
-        <p><strong>Producción de televisión</strong> y edición de contenidos.</p>
-      </div>
-      <div class="tm">
-        <div class="tm-av" style="background:linear-gradient(135deg,#8C7434,var(--gold))">R</div>
-        <h4>Renata</h4>
-        <p><strong>Part-time</strong> para edición de videos.</p>
-      </div>
-      <div class="tm">
-        <div class="tm-av" style="background:linear-gradient(135deg,var(--ink),var(--ink-2))">F</div>
-        <h4>Felipe</h4>
-        <p>Coordina y gestiona la <strong>pauta digital</strong>.</p>
-      </div>
-    </div>
+  <div class="card" style="padding:1vw 1.4vw">
+    <h3 class="card-title left">KPIs comparativos · Mayo vs Junio</h3>
+    <table class="cmp-table" style="font-size:max(12px,.78vw)">
+      <thead><tr><th>Métrica</th><th>Mayo</th><th>Junio</th><th>Δ</th></tr></thead>
+      <tbody>
+        <tr><td>Inversión TV (sin ADN)</td><td class="val">$136,9 M</td><td class="val">$101,2 M</td><td class="delta-neg">−26%</td></tr>
+        <tr><td>Pauta Meta</td><td class="val">$9,2 M</td><td class="val">$10,4 M</td><td class="delta-pos">+13%</td></tr>
+        <tr><td>Salidas TV tomadas</td><td class="val">98</td><td class="val">114</td><td class="delta-pos">+16%</td></tr>
+        <tr><td>Aprovechamiento %</td><td class="val">98%</td><td class="val">85%</td><td class="delta-neg">−13pp</td></tr>
+        <tr><td>Costo / salida</td><td class="val">$1,40 M</td><td class="val">$0,89 M</td><td class="delta-pos">−37%</td></tr>
+        <tr><td>Alcance Meta</td><td class="val">3,4 M</td><td class="val">3,6 M</td><td class="delta-pos">+6%</td></tr>
+      </tbody>
+    </table>
   </div>
 </section>
 
-<!-- S11 · METAS -->
-<section class="slide slide-paper fade slide-anchor" id="s11">
+<!-- S12 · METAS -->
+<section class="slide slide-paper fade slide-anchor" id="s12">
   <div class="slide-head">
     <div class="meta">
-      <span class="eyebrow">11 · Metas · Julio 2026</span>
+      <span class="eyebrow">12 · Metas · Julio 2026</span>
       <h2 class="display">Lo que viene<br/>en los próximos meses.</h2>
     </div>
-    <div class="marker"><span class="num">11</span><span>Metas</span></div>
+    <div class="marker"><span class="num">12</span><span>Metas</span></div>
   </div>
   <div class="goals">
-    <div class="goal" style="grid-column:span 3;background:linear-gradient(135deg,var(--ink) 0%,#16304e 100%);border:none;color:#fff;text-align:center">
+    <div class="goal" style="grid-column:span 3;background:linear-gradient(135deg,var(--ink) 0%,#16304e 100%);border:none;color:#fff">
       <div class="goal-num" style="color:var(--fp-cyan)">★</div>
       <h4 style="color:#fff;font-size:max(15px,1.2vw)">Llevar el aprovechamiento al 100% en julio</h4>
-      <p style="margin:.5vw 0 0;color:rgba(255,255,255,.78);font-size:max(11px,.72vw);line-height:1.5">Junio cerró con 85%. Los 17 sin procesar son la prioridad operativa del mes que viene.</p>
+      <p style="margin:.5vw 0 0;color:rgba(255,255,255,.78);font-size:max(12px,.78vw);line-height:1.5">Junio cerró con 85%. Mayo tenía 98%. El equipo de edición debe escalar junto con el volumen de salidas.</p>
     </div>
     <div class="goal r"><div class="goal-num">01</div><h4>100% de editados publicados en todas las redes</h4></div>
-    <div class="goal r"><div class="goal-num">02</div><h4>Asignar editor a cada salida TV al momento de grabar</h4></div>
-    <div class="goal"><div class="goal-num">03</div><h4>Alinear pauta Meta con los productos más activos en TV</h4></div>
+    <div class="goal r"><div class="goal-num">02</div><h4>Asignar editor a cada salida TV al grabar</h4></div>
+    <div class="goal"><div class="goal-num">03</div><h4>Alinear pauta Meta con los productos top de TV</h4></div>
     <div class="goal g"><div class="goal-num">04</div><h4>Sumar mínimo 2 profesionales nuevos al aire</h4></div>
   </div>
 </section>
 
-<!-- S12 · TEMAS -->
-<section class="slide slide-cream fade slide-anchor" id="s12">
+<!-- S13 · TEMAS -->
+<section class="slide slide-cream fade slide-anchor" id="s13">
   <div class="slide-head">
     <div class="meta">
-      <span class="eyebrow">12 · Temas a discutir</span>
+      <span class="eyebrow">13 · Temas a discutir</span>
       <h2 class="display">Temas a definir<br/>con gerencia.</h2>
     </div>
-    <div class="marker"><span class="num">12</span><span>Temas</span></div>
+    <div class="marker"><span class="num">13</span><span>Temas</span></div>
   </div>
-  <div class="grid-2" style="gap:1.3vw">
-    <div class="card" style="border-top:4px solid var(--fp-cyan)">
-      <div class="pill cyan" style="margin-bottom:.6vw">Tema 01 · Contenido</div>
-      <h4 style="font-family:'Manrope';font-weight:800;font-size:max(13px,.85vw);color:var(--ink);margin-bottom:.5vw;line-height:1.3">¿Videos de médicos publicitando productos en redes oficiales?</h4>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8vw">
-        <div>
-          <div style="font-family:'Manrope';font-weight:800;font-size:max(8px,.55vw);letter-spacing:.16em;text-transform:uppercase;color:var(--good);margin-bottom:.3vw">A favor</div>
-          <ul style="margin:0;padding-left:.9vw;color:var(--ink-2);font-size:max(11px,.7vw);line-height:1.6">
-            <li>Refuerza credibilidad.</li>
-            <li>Más contenido sin costo extra.</li>
-            <li>Mejora conversión por cuenta.</li>
-          </ul>
-        </div>
-        <div>
-          <div style="font-family:'Manrope';font-weight:800;font-size:max(8px,.55vw);letter-spacing:.16em;text-transform:uppercase;color:var(--fp-red);margin-bottom:.3vw">A considerar</div>
-          <ul style="margin:0;padding-left:.9vw;color:var(--ink-2);font-size:max(11px,.7vw);line-height:1.6">
-            <li>Hace evidente la relación med-prod.</li>
-            <li>Puede leerse como publicidad directa.</li>
-          </ul>
+  <div class="grid-2" style="gap:1.2vw">
+    <div class="tm-card">
+      <div class="tm-head"><div class="pill cyan">Tema 01 · Contenido</div></div>
+      <div class="tm-body">
+        <strong>¿Videos de médicos publicitando productos en redes oficiales?</strong>
+        <div class="pro-con">
+          <div class="pro"><div class="pc-col-head">A favor</div><ul><li>Refuerza credibilidad.</li><li>Más contenido sin costo extra.</li><li>Mejora conversión.</li></ul></div>
+          <div class="con"><div class="pc-col-head">A considerar</div><ul><li>Relación médico-producto visible.</li><li>Puede leerse como publicidad directa.</li></ul></div>
         </div>
       </div>
     </div>
-    <div class="card" style="border-top:4px solid var(--fp-red)">
-      <div class="pill red" style="margin-bottom:.6vw">Tema 02 · Equipo</div>
-      <h4 style="font-family:'Manrope';font-weight:800;font-size:max(13px,.85vw);color:var(--ink);margin-bottom:.5vw;line-height:1.3">¿Incorporar un responsable de redes con liderazgo?</h4>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8vw">
-        <div>
-          <div style="font-family:'Manrope';font-weight:800;font-size:max(8px,.55vw);letter-spacing:.16em;text-transform:uppercase;color:var(--good);margin-bottom:.3vw">A favor</div>
-          <ul style="margin:0;padding-left:.9vw;color:var(--ink-2);font-size:max(11px,.7vw);line-height:1.6">
-            <li>Organiza el calendario de publicaciones.</li>
-            <li>Evita los 17 sin procesar del mes.</li>
-            <li>Mejora métricas y distribución.</li>
-          </ul>
-        </div>
-        <div>
-          <div style="font-family:'Manrope';font-weight:800;font-size:max(8px,.55vw);letter-spacing:.16em;text-transform:uppercase;color:var(--fp-red);margin-bottom:.3vw">A considerar</div>
-          <ul style="margin:0;padding-left:.9vw;color:var(--ink-2);font-size:max(11px,.7vw);line-height:1.6">
-            <li>Costo recurrente.</li>
-            <li>Onboarding de 1–2 meses.</li>
-          </ul>
+    <div class="tm-card">
+      <div class="tm-head"><div class="pill red">Tema 02 · Equipo</div></div>
+      <div class="tm-body">
+        <strong>¿Incorporar un responsable de redes con liderazgo?</strong>
+        <div class="pro-con">
+          <div class="pro"><div class="pc-col-head">A favor</div><ul><li>Organiza calendario de publicaciones.</li><li>Evita los 17 sin procesar del mes.</li><li>Mejora métricas y distribución.</li></ul></div>
+          <div class="con"><div class="pc-col-head">A considerar</div><ul><li>Costo recurrente.</li><li>Onboarding de 1–2 meses.</li></ul></div>
         </div>
       </div>
     </div>
-    <div class="card" style="border-top:4px solid var(--gold)">
-      <div class="pill gold" style="margin-bottom:.6vw">Tema 03 · Pauta</div>
-      <h4 style="font-family:'Manrope';font-weight:800;font-size:max(13px,.85vw);color:var(--ink);margin-bottom:.5vw;line-height:1.3">¿Alinear inversión Meta con los productos top de TV?</h4>
-      <p style="font-size:max(11px,.7vw);color:var(--ink-2);margin:0;line-height:1.55">Menacor, Vitamet y Daozima lideran TV en junio pero no tienen Meta activa. Ampkok y Metasitol sí. ¿Conviene sincronizar ambas estrategias?</p>
+    <div class="tm-card">
+      <div class="tm-head"><div class="pill gold">Tema 03 · Pauta</div></div>
+      <div class="tm-body">
+        <strong>¿Alinear inversión Meta con los productos top de TV?</strong>
+        <p style="margin-top:.5vw">Menacor, Vitamet y Daozima lideran TV en junio pero no tienen Meta activa. Ampkok y Metasitol sí. ¿Conviene sincronizar ambas estrategias?</p>
+      </div>
     </div>
-    <div class="card" style="border-top:4px solid var(--ink)">
-      <div class="pill" style="background:var(--canvas);color:var(--ink);margin-bottom:.6vw">Tema 04 · Incentivos</div>
-      <h4 style="font-family:'Manrope';font-weight:800;font-size:max(13px,.85vw);color:var(--ink);margin-bottom:.5vw;line-height:1.3">Pauta de incentivo a profesionales — lista junio</h4>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.5vw">
-        <div style="background:var(--canvas);border-radius:8px;padding:.5vw .7vw;display:flex;align-items:center;gap:.5vw"><div style="flex-shrink:0;width:24px;height:24px;border-radius:6px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Manrope';font-weight:800;font-size:max(9px,.6vw)">1</div><div style="font-family:'Manrope';font-weight:700;font-size:max(9px,.6vw);color:var(--ink);line-height:1.2">Micaela Olivares</div></div>
-        <div style="background:var(--canvas);border-radius:8px;padding:.5vw .7vw;display:flex;align-items:center;gap:.5vw"><div style="flex-shrink:0;width:24px;height:24px;border-radius:6px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Manrope';font-weight:800;font-size:max(9px,.6vw)">2</div><div style="font-family:'Manrope';font-weight:700;font-size:max(9px,.6vw);color:var(--ink);line-height:1.2">Evangelina Cueto</div></div>
-        <div style="background:var(--canvas);border-radius:8px;padding:.5vw .7vw;display:flex;align-items:center;gap:.5vw"><div style="flex-shrink:0;width:24px;height:24px;border-radius:6px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Manrope';font-weight:800;font-size:max(9px,.6vw)">3</div><div style="font-family:'Manrope';font-weight:700;font-size:max(9px,.6vw);color:var(--ink);line-height:1.2">Karina Ramírez</div></div>
-        <div style="background:var(--canvas);border-radius:8px;padding:.5vw .7vw;display:flex;align-items:center;gap:.5vw"><div style="flex-shrink:0;width:24px;height:24px;border-radius:6px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Manrope';font-weight:800;font-size:max(9px,.6vw)">4</div><div style="font-family:'Manrope';font-weight:700;font-size:max(9px,.6vw);color:var(--ink);line-height:1.2">Delfina Zimerman</div></div>
-        <div style="background:var(--canvas);border-radius:8px;padding:.5vw .7vw;display:flex;align-items:center;gap:.5vw"><div style="flex-shrink:0;width:24px;height:24px;border-radius:6px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Manrope';font-weight:800;font-size:max(9px,.6vw)">5</div><div style="font-family:'Manrope';font-weight:700;font-size:max(9px,.6vw);color:var(--ink);line-height:1.2">Andrea Purita</div></div>
-        <div style="background:var(--canvas);border-radius:8px;padding:.5vw .7vw;display:flex;align-items:center;gap:.5vw"><div style="flex-shrink:0;width:24px;height:24px;border-radius:6px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Manrope';font-weight:800;font-size:max(9px,.6vw)">6</div><div style="font-family:'Manrope';font-weight:700;font-size:max(9px,.6vw);color:var(--ink);line-height:1.2">G. Lapman</div></div>
+    <div class="tm-card">
+      <div class="tm-head"><div class="pill" style="background:var(--canvas);color:var(--ink)">Tema 04 · Incentivos</div></div>
+      <div class="tm-body">
+        <strong>Pauta de incentivo a profesionales — lista junio</strong>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.4vw;margin-top:.5vw">
+          <div style="background:var(--canvas);border-radius:7px;padding:.4vw .6vw;font-family:'Manrope';font-weight:700;font-size:max(10px,.68vw);color:var(--ink)">1. Micaela Olivares</div>
+          <div style="background:var(--canvas);border-radius:7px;padding:.4vw .6vw;font-family:'Manrope';font-weight:700;font-size:max(10px,.68vw);color:var(--ink)">2. Evangelina Cueto</div>
+          <div style="background:var(--canvas);border-radius:7px;padding:.4vw .6vw;font-family:'Manrope';font-weight:700;font-size:max(10px,.68vw);color:var(--ink)">3. Karina Ramírez</div>
+          <div style="background:var(--canvas);border-radius:7px;padding:.4vw .6vw;font-family:'Manrope';font-weight:700;font-size:max(10px,.68vw);color:var(--ink)">4. Delfina Zimerman</div>
+          <div style="background:var(--canvas);border-radius:7px;padding:.4vw .6vw;font-family:'Manrope';font-weight:700;font-size:max(10px,.68vw);color:var(--ink)">5. Andrea Purita</div>
+          <div style="background:var(--canvas);border-radius:7px;padding:.4vw .6vw;font-family:'Manrope';font-weight:700;font-size:max(10px,.68vw);color:var(--ink)">6. G. Lapman</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- S13 · CIERRE -->
-<section class="slide slide-dark fade slide-anchor" id="s13">
+<!-- S14 · CIERRE -->
+<section class="slide slide-dark fade slide-anchor" id="s14">
   <div class="closing">
     <div class="cline">Framingham Pharma · Marketing · Junio 2026</div>
-    <h2>Junio fue el mes del<br/><span class="ac">aprovechamiento.</span></h2>
+    <h2>Junio: <span class="ac">más salidas,</span><br/>más eficiencia.</h2>
     <div class="cgrid">
-      <div class="cs">
-        <div class="clbl">Total invertido</div>
-        <div class="cval mono">$111,6 <span class="ac" style="font-size:.6em">M</span></div>
-        <div class="csub">TV + Redes sin ADN</div>
-      </div>
-      <div class="cs">
-        <div class="clbl">Videos en redes</div>
-        <div class="cval mono"><span class="ac">623</span></div>
-        <div class="csub">345 IG + 278 TikTok — el mejor mes</div>
-      </div>
-      <div class="cs">
-        <div class="clbl">Aprovechamiento</div>
-        <div class="cval mono"><span class="ac">85%</span></div>
-        <div class="csub">vs 54% en abril — tendencia positiva</div>
-      </div>
+      <div class="cs"><div class="clbl">Total invertido</div><div class="cval mono">$111,6 <span class="ac" style="font-size:.6em">M</span></div><div class="csub">TV + Redes sin ADN</div></div>
+      <div class="cs"><div class="clbl">Salidas · costo/salida</div><div class="cval mono"><span class="ac">114</span> · <span class="ac" style="font-size:.65em">$0,89M</span></div><div class="csub">37% más eficiente que mayo</div></div>
+      <div class="cs"><div class="clbl">Videos en redes</div><div class="cval mono"><span class="ac">623</span></div><div class="csub">345 IG + 278 TikTok</div></div>
     </div>
     <div class="cbullets">
       <div>$101,2M en <strong style="color:#fff">TV · 114 salidas · 18 programas</strong>.</div>
-      <div class="r">Gabriel Lapman con <strong style="color:#fff">49 apariciones</strong> — pilar del mes.</div>
-      <div>$10,4M en <strong style="color:#fff">Meta Ads · 21 cuentas · 3,6M de alcance</strong>.</div>
-      <div class="r">Objetivo julio: <strong style="color:#fff">100% aprovechamiento</strong> en todas las salidas.</div>
+      <div class="r">Aprovechamiento: <strong style="color:#fff">85%</strong> — objetivo julio: 100%.</div>
+      <div>$10,4M en <strong style="color:#fff">Meta Ads · 21 cuentas · 3,6M alcance</strong>.</div>
+      <div class="r">Gabriel Lapman: <strong style="color:#fff">49 apariciones</strong> — pilar del mes.</div>
     </div>
     <div class="csig">
       <svg viewBox="0 0 140 76" width="40" height="22"><rect x="2" y="2" width="64" height="72" rx="2" fill="#E63946"/><rect x="74" y="2" width="64" height="72" rx="2" fill="#1FAFE0"/><text x="34" y="55" text-anchor="middle" font-family="Arial" font-weight="800" font-size="50" fill="#fff">F</text><text x="106" y="55" text-anchor="middle" font-family="Arial" font-weight="800" font-size="50" fill="#fff">P</text></svg>
@@ -732,100 +775,85 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(10px,.65vw);letter-
 </footer>
 
 <script>
+/* ── DATA ── */
 const PRODUCTOS=[
-  {name:"Menacor",salidas:13,inv:14960000,apoyo:980000,color:"#5C1018",
-   logo:'<span class="lg-base lg-menacor">MENA<span>COR</span></span>'},
-  {name:"Vitamet",salidas:9,inv:14240000,apoyo:940000,color:"#1B2A6F",
-   logo:'<span class="lg-base lg-vitamet"><b>Vita</b>met</span>'},
-  {name:"Daozima",salidas:11,inv:13560000,apoyo:1080000,color:"#0F4A2A",
-   logo:'<span class="lg-base lg-daozima">DAOZIMA<small>PREMIUM</small></span>'},
-  {name:"Creatina HCL",salidas:10,inv:11400000,apoyo:890000,color:"#5C4033",
-   logo:'<span class="lg-base lg-creatina">CREATINA<small>HCL</small></span>'},
-  {name:"Digecaps",salidas:10,inv:9110000,apoyo:910000,color:"#1F7AB4",
-   logo:'<span class="lg-base lg-digecaps">Digecaps</span>'},
-  {name:"Telomerina",salidas:13,inv:8640000,apoyo:910000,color:"#9E2A8C",
-   logo:'<span class="lg-base lg-telomerina">Telomerina<sup>NAD+</sup></span>'},
-  {name:"Metasitol RI",salidas:8,inv:7480000,apoyo:760000,color:"#1565C0",
-   logo:'<span class="lg-base lg-metasitol-ri"><span class="name">Metasitol<span class="ri">RI</span></span><small>RES. INSULÍNICA</small></span>'},
-  {name:"Serrapep",salidas:13,inv:7220000,apoyo:740000,color:"#C12127",
-   logo:'<span class="lg-base lg-serrapep">Serrapep</span>'},
-  {name:"Metasitol",salidas:4,inv:4240000,apoyo:260000,color:"#185490",
-   logo:'<span class="lg-base lg-metasitol">Metasitol</span>'},
-  {name:"Goodskin",salidas:6,inv:3640000,apoyo:480000,color:"#1B6E3E",
-   logo:'<span class="lg-base lg-goodskin">good<span>skin</span><small>Salud de la piel</small></span>'},
-  {name:"Floragut",salidas:4,inv:3130000,apoyo:260000,color:"#F47C2A",
-   logo:'<span class="lg-base lg-floragut"><span>Flora</span>gut</span>'},
-  {name:"Satial Food",salidas:8,inv:2800000,apoyo:510000,color:"#E45A0F",
-   logo:'<span class="lg-base lg-satial-food">Satial<small>FOOD</small></span>'},
-  {name:"Capskrill",salidas:2,inv:440000,apoyo:190000,color:"#C0392B",
-   logo:'<span class="lg-base lg-capskrill">CAPSKRILL</span>'},
-  {name:"AMPK Protein",salidas:2,inv:270000,apoyo:270000,color:"#0078C0",
-   logo:'<span class="lg-base lg-ampk-bb"><span class="nm">AMPK</span><small>PROTEIN</small></span>'},
-  {name:"Sele200",salidas:1,inv:70000,apoyo:70000,color:"#E65100",
-   logo:'<span class="lg-base lg-sele200">Sele<span>200</span></span>'},
+  {name:"Menacor",       salidas:13, inv:14960000, apoyo:980000,  color:"#5C1018", logo:'<span class="lg-base lg-menacor">MENA<span>COR</span></span>'},
+  {name:"Vitamet",       salidas:9,  inv:14240000, apoyo:940000,  color:"#1B2A6F", logo:'<span class="lg-base lg-vitamet"><b>Vita</b>met</span>'},
+  {name:"Daozima",       salidas:11, inv:13560000, apoyo:1080000, color:"#0F4A2A", logo:'<span class="lg-base lg-daozima">DAOZIMA<small>PREMIUM</small></span>'},
+  {name:"Creatina HCL",  salidas:10, inv:11400000, apoyo:890000,  color:"#5C4033", logo:'<span class="lg-base lg-creatina">CREATINA<small>HCL</small></span>'},
+  {name:"Digecaps",      salidas:10, inv:9110000,  apoyo:910000,  color:"#1F7AB4", logo:'<span class="lg-base lg-digecaps">Digecaps</span>'},
+  {name:"Telomerina",    salidas:13, inv:8640000,  apoyo:910000,  color:"#9E2A8C", logo:'<span class="lg-base lg-telomerina">Telomerina<sup>NAD+</sup></span>'},
+  {name:"Metasitol RI",  salidas:8,  inv:7480000,  apoyo:760000,  color:"#1565C0", logo:'<span class="lg-base lg-metasitol-ri"><span class="name">Metasitol<span class="ri">RI</span></span><small>RES. INSULÍNICA</small></span>'},
+  {name:"Serrapep",      salidas:13, inv:7220000,  apoyo:740000,  color:"#C12127", logo:'<span class="lg-base lg-serrapep">Serrapep</span>'},
+  {name:"Metasitol",     salidas:4,  inv:4240000,  apoyo:260000,  color:"#185490", logo:'<span class="lg-base lg-metasitol">Metasitol</span>'},
+  {name:"Goodskin",      salidas:6,  inv:3640000,  apoyo:480000,  color:"#1B6E3E", logo:'<span class="lg-base lg-goodskin">good<span>skin</span><small>Salud de la piel</small></span>'},
+  {name:"Floragut",      salidas:4,  inv:3130000,  apoyo:260000,  color:"#F47C2A", logo:'<span class="lg-base lg-floragut"><span>Flora</span>gut</span>'},
+  {name:"Satial Food",   salidas:8,  inv:2800000,  apoyo:510000,  color:"#E45A0F", logo:'<span class="lg-base lg-satial-food">Satial<small>FOOD</small></span>'},
+  {name:"Capskrill",     salidas:2,  inv:440000,   apoyo:190000,  color:"#C0392B", logo:'<span class="lg-base lg-capskrill">CAPSKRILL</span>'},
+  {name:"AMPK Protein",  salidas:2,  inv:270000,   apoyo:270000,  color:"#0078C0", logo:'<span class="lg-base lg-ampk-bb"><span class="nm">AMPK</span><small>PROTEIN</small></span>'},
+  {name:"Sele200",       salidas:1,  inv:70000,    apoyo:70000,   color:"#E65100", logo:'<span class="lg-base lg-sele200">Sele<span>200</span></span>'},
 ];
 
 const PROGRAMAS=[
-  {name:"Desayuno Americano",salidas:11,inv:19800000},
-  {name:"Lape Club Social",salidas:9,inv:16200000},
-  {name:"Todo Cocinado",salidas:10,inv:10000000},
-  {name:"Los profesionales con Flor",salidas:6,inv:7710000},
-  {name:"La mañana de Moria",salidas:4,inv:6800000},
-  {name:"TL 9 al Mediodia",salidas:4,inv:6270000},
-  {name:"Con Carmen",salidas:5,inv:5890000},
-  {name:"La Cocina Rebelde",salidas:3,inv:4050000},
-  {name:"Que mañana!",salidas:3,inv:3210000},
-  {name:"TL 9 al Amanecer",salidas:4,inv:3080000},
-  {name:"Implacables",salidas:3,inv:2250000},
-  {name:"Las mañanas con Andino",salidas:8,inv:2000000},
-  {name:"SQP",salidas:2,inv:1600000},
-  {name:"Nara que ver",salidas:2,inv:1140000},
-  {name:"BTV",salidas:1,inv:1000000},
+  {name:"Desayuno Americano",          salidas:11, inv:19800000},
+  {name:"Lape Club Social",            salidas:9,  inv:16200000},
+  {name:"Todo Cocinado",               salidas:10, inv:10000000},
+  {name:"Los profesionales con Flor",  salidas:6,  inv:7710000},
+  {name:"La mañana de Moria",          salidas:4,  inv:6800000},
+  {name:"TL 9 al Mediodia",            salidas:4,  inv:6270000},
+  {name:"Con Carmen",                  salidas:5,  inv:5890000},
+  {name:"La Cocina Rebelde",           salidas:3,  inv:4050000},
+  {name:"Que mañana!",                 salidas:3,  inv:3210000},
+  {name:"TL 9 al Amanecer",            salidas:4,  inv:3080000},
+  {name:"Implacables",                 salidas:3,  inv:2250000},
+  {name:"Las mañanas con Andino",      salidas:8,  inv:2000000},
+  {name:"SQP",                         salidas:2,  inv:1600000},
+  {name:"Nara que ver",                salidas:2,  inv:1140000},
+  {name:"BTV",                         salidas:1,  inv:1000000},
 ];
 
 const PROFESIONALES=[
-  {name:"Gabriel Lapman",salidas:49,apoyo:5880000,inv:60890000},
-  {name:"Micaela Olivares",salidas:10,apoyo:700000,inv:9700000},
-  {name:"Delfina Zimerman",salidas:6,apoyo:600000,inv:7350000},
-  {name:"Evangelina Cueto",salidas:9,apoyo:630000,inv:6430000},
-  {name:"Andrea Purita",salidas:6,apoyo:1020000,inv:4480000},
-  {name:"Karina Ramírez",salidas:6,apoyo:420000,inv:3760000},
+  {name:"Gabriel Lapman",     salidas:49, apoyo:5880000, inv:60890000},
+  {name:"Micaela Olivares",   salidas:10, apoyo:700000,  inv:9700000},
+  {name:"Delfina Zimerman",   salidas:6,  apoyo:600000,  inv:7350000},
+  {name:"Evangelina Cueto",   salidas:9,  apoyo:630000,  inv:6430000},
+  {name:"Andrea Purita",      salidas:6,  apoyo:1020000, inv:4480000},
+  {name:"Karina Ramírez",     salidas:6,  apoyo:420000,  inv:3760000},
 ];
 
 const PAUTA_INST=[
-  {name:"ADN Buena Salud",val:1471569,pct:100},
-  {name:"Farmaland",val:406040,pct:28},
-  {name:"Framingham Pharma",val:84024,pct:6},
+  {name:"ADN Buena Salud",    val:1471569, pct:100},
+  {name:"Farmaland",          val:406040,  pct:28},
+  {name:"Framingham Pharma",  val:84024,   pct:6},
 ];
 const PAUTA_PROF=[
-  {name:"Endocrinólogo",val:960409,pct:100},
-  {name:"Sacle",val:682956,pct:71},
-  {name:"Dr. Milton Dan",val:481320,pct:50},
-  {name:"Médicos Consultores",val:199704,pct:21},
-  {name:"Evangelina Cueto",val:64561,pct:7},
-  {name:"Micaela Olivares",val:60627,pct:6},
-  {name:"Delfizi",val:26765,pct:3},
-  {name:"Andrea Purita",val:25988,pct:3},
+  {name:"Endocrinólogo",      val:960409,  pct:100},
+  {name:"Sacle",              val:682956,  pct:71},
+  {name:"Dr. Milton Dan",     val:481320,  pct:50},
+  {name:"Médicos Consultores",val:199704,  pct:21},
+  {name:"Evangelina Cueto",   val:64561,   pct:7},
+  {name:"Micaela Olivares",   val:60627,   pct:6},
+  {name:"Delfizi",            val:26765,   pct:3},
+  {name:"Andrea Purita",      val:25988,   pct:3},
 ];
 const PAUTA_PROD=[
-  {name:"Ampkok",val:893532,pct:100},
-  {name:"Metasitol",val:886668,pct:99},
-  {name:"Telomerina NAD+",val:759235,pct:85},
-  {name:"Floragut",val:741200,pct:83},
-  {name:"Satial",val:741019,pct:83},
-  {name:"Nutri 100",val:704461,pct:79},
-  {name:"Vitamet",val:410438,pct:46},
-  {name:"Digecaps",val:145032,pct:16},
-  {name:"Goodskin",val:66861,pct:7},
+  {name:"Ampkok",             val:893532,  pct:100},
+  {name:"Metasitol",          val:886668,  pct:99},
+  {name:"Telomerina NAD+",    val:759235,  pct:85},
+  {name:"Floragut",           val:741200,  pct:83},
+  {name:"Satial",             val:741019,  pct:83},
+  {name:"Nutri 100",          val:704461,  pct:79},
+  {name:"Vitamet",            val:410438,  pct:46},
+  {name:"Digecaps",           val:145032,  pct:16},
+  {name:"Goodskin",           val:66861,   pct:7},
 ];
 
-const TOTAL_TV=101208340, TOTAL_META=10357806, TOTAL_MKT=111566146;
-const ink='#0B1B2E', ink3='#4D637D', line2='#EBE4D8';
-
+/* ── CHART DEFAULTS ── */
+const ink='#0B1B2E', ink2='#243E57', ink3='#4D637D', line2='#EBE4D8';
 Chart.defaults.font.family="Manrope, Inter, system-ui, sans-serif";
 Chart.defaults.font.size=13;
 Chart.defaults.font.weight='500';
-Chart.defaults.color=ink3;
+Chart.defaults.color=ink2;
 Chart.defaults.plugins.legend.labels.color=ink;
 Chart.defaults.plugins.legend.labels.boxWidth=12;
 Chart.defaults.plugins.legend.labels.boxHeight=12;
@@ -840,82 +868,120 @@ Chart.defaults.plugins.tooltip.displayColors=false;
 
 const money=v=>'$'+Math.round(v).toLocaleString('es-AR');
 const moneyShort=v=>{
-  if(Math.abs(v)>=1e6) return '$'+(v/1e6).toFixed(1).replace('.',',')+'M';
-  if(Math.abs(v)>=1e3) return '$'+(v/1e3).toFixed(0)+'K';
+  if(Math.abs(v)>=1e6)return '$'+(v/1e6).toFixed(1).replace('.',',')+'M';
+  if(Math.abs(v)>=1e3)return '$'+(v/1e3).toFixed(0)+'K';
   return '$'+v;
 };
 
-// S3 · TV vs Redes
-new Chart(document.getElementById('cTVRedes'),{
-  type:'doughnut',
-  data:{labels:['Televisión','Redes · Meta Ads'],datasets:[{data:[TOTAL_TV,TOTAL_META],backgroundColor:['#1FAFE0','#E63946'],borderColor:'#FFFFFF',borderWidth:6,hoverOffset:12}]},
-  options:{cutout:'68%',responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>c.label+': '+money(c.parsed)}}}}
-});
+/* ── ALL CHARTS REGISTRY (for font-size toggle) ── */
+const allCharts=[];
+function mkChart(id,cfg){const c=new Chart(document.getElementById(id),cfg);allCharts.push(c);return c;}
 
-// S4 · Programas
+/* S4 · Salidas por programa */
 {const top=[...PROGRAMAS].sort((a,b)=>b.salidas-a.salidas).slice(0,10);
-new Chart(document.getElementById('cSalProg'),{type:'bar',
+mkChart('cSalProg',{type:'bar',
   data:{labels:top.map(p=>p.name),datasets:[{data:top.map(p=>p.salidas),backgroundColor:'#1FAFE0',borderRadius:8,barThickness:14}]},
   options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
     plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.x+' salidas'}}},
-    scales:{x:{beginAtZero:true,grid:{color:line2}},y:{grid:{display:false},ticks:{font:{size:11}}}}}});}
+    scales:{x:{beginAtZero:true,grid:{color:line2}},y:{grid:{display:false},ticks:{font:{size:11}}}}
+  }});}
 
+/* S4 · Inversión por programa */
 {const top=[...PROGRAMAS].sort((a,b)=>b.inv-a.inv).slice(0,10);
-new Chart(document.getElementById('cInvProg'),{type:'bar',
-  data:{labels:top.map(p=>p.name),datasets:[{data:top.map(p=>p.inv),backgroundColor:'#0B1B2E',borderRadius:8,barThickness:14}]},
+mkChart('cInvProg',{type:'bar',
+  data:{labels:top.map(p=>p.name),datasets:[{data:top.map(p=>p.inv),backgroundColor:ink,borderRadius:8,barThickness:14}]},
   options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
     plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>money(c.parsed.x)}}},
-    scales:{x:{beginAtZero:true,grid:{color:line2},ticks:{callback:v=>moneyShort(v)}},y:{grid:{display:false},ticks:{font:{size:11}}}}}});}
+    scales:{x:{beginAtZero:true,grid:{color:line2},ticks:{callback:v=>moneyShort(v)}},y:{grid:{display:false},ticks:{font:{size:11}}}}
+  }});}
 
-// S5 · Notas vs PNT
-new Chart(document.getElementById('cNotaPnt'),{type:'bar',
-  data:{labels:['Cantidad','Inversión ($M)'],datasets:[
-    {label:'Notas',data:[96,97.8],backgroundColor:'#1FAFE0',borderRadius:8,barThickness:50},
-    {label:'PNT',data:[18,3.4],backgroundColor:'#E63946',borderRadius:8,barThickness:50}
+/* S5 · Notas vs PNT */
+mkChart('cNotaPnt',{type:'bar',
+  data:{labels:['Cantidad de salidas','Inversión ($M)'],datasets:[
+    {label:'Notas', data:[96,97.8],backgroundColor:'#1FAFE0',borderRadius:8,barThickness:50},
+    {label:'PNT',   data:[18,3.4], backgroundColor:'#E63946',borderRadius:8,barThickness:50}
   ]},
   options:{responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y+(c.dataIndex===1?' M':' sal.')}}},
-    scales:{x:{grid:{display:false}},y:{beginAtZero:true,grid:{color:line2}}}}});
+    plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y+(c.dataIndex===1?' M':' salidas')}}},
+    scales:{x:{grid:{display:false}},y:{beginAtZero:true,grid:{color:line2}}}
+  }});
 
-// S7 · Funnel
-new Chart(document.getElementById('cFunnel'),{type:'bar',
-  data:{labels:['Salidas en TV','Videos editados','Sin procesar'],datasets:[{data:[114,97,17],backgroundColor:['#1FAFE0','#1E8A5A','#B45309'],borderRadius:10,barThickness:70}]},
+/* S8 · Funnel */
+mkChart('cFunnel',{type:'bar',
+  data:{labels:['Salidas en TV','Videos editados','Sin procesar'],
+    datasets:[{data:[114,97,17],backgroundColor:['#1FAFE0','#1E8A5A','#B45309'],borderRadius:10,barThickness:72}]},
   options:{responsive:true,maintainAspectRatio:false,
     plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y+' · '+(c.parsed.y/114*100).toFixed(0)+'%'}}},
-    scales:{x:{grid:{display:false},ticks:{color:'rgba(255,255,255,.8)'}},y:{beginAtZero:true,grid:{color:'rgba(255,255,255,.08)'},ticks:{color:'rgba(255,255,255,.6)'}}}}});
+    scales:{
+      x:{grid:{display:false},ticks:{color:'rgba(255,255,255,.85)'}},
+      y:{beginAtZero:true,grid:{color:'rgba(255,255,255,.08)'},ticks:{color:'rgba(255,255,255,.65)'}}
+    }
+  }});
 
-// S8 · Productos
-{const all=[...PRODUCTOS].sort((a,b)=>b.inv-a.inv);
-new Chart(document.getElementById('cProdInv'),{type:'bar',
-  data:{labels:all.map(p=>p.name),datasets:[{data:all.map(p=>p.inv),backgroundColor:all.map(p=>p.color),borderRadius:7,barThickness:18}]},
-  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>money(c.parsed.x)+' · '+all[c.dataIndex].salidas+' sal.'}}},
-    scales:{x:{beginAtZero:true,grid:{color:line2},ticks:{callback:v=>moneyShort(v)}},y:{grid:{display:false},ticks:{font:{size:11}}}}}});}
+/* S9 · Productos combinado (inversión + salidas) */
+{const prod=[...PRODUCTOS].sort((a,b)=>b.inv-a.inv);
+mkChart('cProdComb',{
+  type:'bar',
+  data:{
+    labels:prod.map(p=>p.name),
+    datasets:[
+      {
+        label:'Inversión ($)',
+        data:prod.map(p=>p.inv),
+        backgroundColor:prod.map(p=>p.color),
+        borderRadius:{topLeft:6,topRight:6},
+        yAxisID:'yInv',
+        order:1,
+        barPercentage:.6,
+        categoryPercentage:.8,
+      },
+      {
+        label:'Salidas',
+        data:prod.map(p=>p.salidas),
+        backgroundColor:'rgba(11,27,46,0.18)',
+        borderColor:'rgba(11,27,46,0.5)',
+        borderWidth:1,
+        borderRadius:{topLeft:4,topRight:4},
+        yAxisID:'ySal',
+        order:2,
+        barPercentage:.3,
+        categoryPercentage:.8,
+      }
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'bottom'},
+      tooltip:{callbacks:{
+        label:c=>{
+          if(c.dataset.label==='Inversión ($)')return 'Inversión: '+money(c.parsed.y);
+          return 'Salidas: '+c.parsed.y;
+        }
+      }}
+    },
+    scales:{
+      yInv:{type:'linear',position:'left',beginAtZero:true,ticks:{callback:v=>moneyShort(v)},grid:{color:line2}},
+      ySal:{type:'linear',position:'right',beginAtZero:true,grid:{drawOnChartArea:false},ticks:{stepSize:2}}
+    }
+  }
+});}
 
-// S9 · Profesionales
+/* S10 · Profesionales */
 {const d=[...PROFESIONALES].sort((a,b)=>b.salidas-a.salidas);
-new Chart(document.getElementById('cProfCnt'),{type:'bar',
+mkChart('cProfCnt',{type:'bar',
   data:{labels:d.map(p=>p.name),datasets:[{data:d.map(p=>p.salidas),backgroundColor:'#E63946',borderRadius:8,barThickness:26}]},
   options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
     plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.x+' salidas'}}},
-    scales:{x:{beginAtZero:true,grid:{color:line2}},y:{grid:{display:false},ticks:{font:{size:13,weight:'600'}}}}}});}
+    scales:{x:{beginAtZero:true,grid:{color:line2}},y:{grid:{display:false},ticks:{font:{size:14,weight:'600'}}}}
+  }});}
 
-// Prod tiles
-{const grid=document.getElementById('prodGrid');
-[...PRODUCTOS].sort((a,b)=>b.inv-a.inv).forEach(p=>{
-  const el=document.createElement('div');
-  el.className='prod';el.style.setProperty('--pc',p.color);
-  el.innerHTML=`<div class="plogo">${p.logo}</div><div class="pmeta"><div class="pname">${p.name}</div><div class="pkpis"><div><span class="k">Inv </span><span class="v">${moneyShort(p.inv)}</span></div><div><span class="k">Sal </span><span class="v">${p.salidas}</span></div></div></div>`;
-  grid.appendChild(el);
-});}
-
-// Pauta ranking
+/* ── PAUTA RANKING ── */
 function renderPauta(id,arr,tier){
   const wrap=document.getElementById(id);
   arr.forEach((p,i)=>{
     const el=document.createElement('div');
-    el.className='prk '+tier;
+    el.className='prk sm '+tier;
     el.innerHTML=`<div class="px">${String(i+1).padStart(2,'0')}</div><div class="pname">${p.name}</div><div class="pbar"><span data-w="${p.pct}%"></span></div><div class="pval">${moneyShort(p.val)}<small>Meta Ads</small></div>`;
     wrap.appendChild(el);
   });
@@ -924,7 +990,7 @@ renderPauta('pautaInst',PAUTA_INST,'tier-3');
 renderPauta('pautaProf',PAUTA_PROF,'tier-1');
 renderPauta('pautaProd',PAUTA_PROD,'tier-2');
 
-// Prof table
+/* ── PROFESIONALES TABLE ── */
 {const tbody=document.getElementById('tblProf');
 [...PROFESIONALES].sort((a,b)=>b.salidas-a.salidas).forEach((p,i)=>{
   const cls=i===0?'t1':i===1?'t2':i===2?'t3':'';
@@ -933,7 +999,20 @@ renderPauta('pautaProd',PAUTA_PROD,'tier-2');
   tbody.appendChild(tr);
 });}
 
-// Fade + bar animation
+/* ── FONT SIZE TOGGLE ── */
+const FONT_STEPS=[13,17,21];
+const FONT_LABELS=['A','A+','A++'];
+let fIdx=0;
+function cycleFontSize(){
+  fIdx=(fIdx+1)%FONT_STEPS.length;
+  const sz=FONT_STEPS[fIdx];
+  Chart.defaults.font.size=sz;
+  Chart.defaults.plugins.legend.labels.font={family:"Manrope",size:sz,weight:'600'};
+  allCharts.forEach(c=>{c.update('none');});
+  document.getElementById('btnFont').textContent=FONT_LABELS[fIdx];
+}
+
+/* ── FADE + BAR ANIMATION ── */
 const io=new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     if(e.isIntersecting){
@@ -946,7 +1025,7 @@ const io=new IntersectionObserver(entries=>{
 document.querySelectorAll('.fade').forEach(el=>io.observe(el));
 setTimeout(()=>document.querySelectorAll('.pbar>span').forEach(b=>{const w=b.getAttribute('data-w');if(w&&!b.style.width)b.style.width=w;}),700);
 
-// Nav
+/* ── KEYBOARD NAV ── */
 const SLIDES=Array.from(document.querySelectorAll('.slide-anchor'));
 function currentSlideIndex(){const y=window.scrollY+window.innerHeight*.35;let idx=0;SLIDES.forEach((s,i)=>{if(s.offsetTop<=y)idx=i;});return idx;}
 function goSlide(dir){const n=Math.max(0,Math.min(SLIDES.length-1,currentSlideIndex()+dir));SLIDES[n].scrollIntoView({behavior:'smooth',block:'start'});}
