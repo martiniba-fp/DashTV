@@ -303,6 +303,49 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
 .nav-progress{position:fixed;left:0;right:0;top:0;height:3px;z-index:60}
 .nav-progress>span{display:block;height:100%;background:linear-gradient(90deg,var(--fp-cyan),var(--fp-red));width:0%;transition:width .15s ease-out}
 @media print{.nav-fab,.nav-progress{display:none}}
+
+/* ── S6 category KPI cards ── */
+.cat-kpi{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:1.1vw 1.5vw;box-shadow:var(--sh-sm)}
+.cat-kpi-head{display:flex;align-items:center;gap:.6vw;margin-bottom:.9vw}
+.cat-kpi-head .cat-name{font-family:'Manrope';font-weight:800;font-size:1.1vw;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2)}
+.cat-kpi-head .cat-sub{margin-left:auto;font-family:'Manrope';font-size:.95vw;font-weight:700;color:var(--ink-3)}
+.cat-kpi-vals{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.5vw}
+.ckv .ck{font-family:'Manrope';font-weight:700;font-size:.88vw;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:.2vw}
+.ckv .cv{font-family:'Manrope';font-weight:800;font-size:1.7vw;color:var(--ink);letter-spacing:-.025em;line-height:1}
+
+/* ── S7 pauta rows auto-scale ── */
+#s7 .grid-2{height:calc(56.25vw - 14vw)}
+#s7 .card{display:flex;flex-direction:column}
+#s7 .pauta-rank{flex:1;overflow:hidden;display:flex;flex-direction:column;justify-content:space-evenly}
+#s7 .prk{padding:.7vw 1vw}
+#s7 .prk .px{font-size:1.8vw}
+#s7 .prk .pname{font-size:1.25vw}
+#s7 .prk .pval{font-size:1.1vw}
+#s7 .prk .pval small{font-size:.85vw;letter-spacing:.1em}
+#s7 .prk .pbar{height:10px}
+#s7 .grid-2>div>div:first-child{font-size:1.1vw !important;margin-bottom:.8vw !important}
+
+/* ── S11 adaptable ── */
+#s11 .grid-3{height:calc(56.25vw - 25vw)}
+#s11 .card{display:flex;flex-direction:column}
+#s11 .card ul{font-size:1.25vw !important;line-height:1.75}
+#s11 .card .pill{font-size:1vw}
+#s11 .card-title{font-size:1vw !important}
+#s11 .cmp-table td,#s11 .cmp-table th{font-size:1.15vw !important;padding:.55vw .9vw !important}
+
+/* ── S12 metas ── */
+.metas-wrap{height:calc(56.25vw - 14vw);display:flex;flex-direction:column;gap:1vw}
+.meta-hero{flex:1.4;background:linear-gradient(135deg,var(--ink) 0%,#16304e 100%);border-radius:var(--r);padding:2vw 3vw;display:flex;align-items:center;gap:3vw}
+.meta-hero .star{font-family:'Fraunces';font-weight:700;font-size:5vw;color:var(--fp-cyan);line-height:1;flex-shrink:0}
+.meta-hero h3{font-family:'Fraunces';font-weight:700;font-size:2.6vw;color:#fff;letter-spacing:-.025em;line-height:1.1;flex:1}
+.meta-hero h3 .ac{color:var(--fp-cyan);font-style:italic}
+.meta-hero .ctx{font-family:'Inter';font-size:1.2vw;color:rgba(255,255,255,.75);margin-top:.8vw;line-height:1.55}
+.meta-goals{flex:1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:1vw}
+.meta-goal{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:1.4vw 1.6vw;box-shadow:var(--sh-sm);display:flex;flex-direction:column;gap:.7vw}
+.meta-goal.red{border-top:4px solid var(--fp-red)}
+.meta-goal.teal{border-top:4px solid var(--fp-cyan)}
+.meta-goal .mg-num{font-family:'Fraunces';font-weight:700;font-size:2.8vw;color:var(--ink-3);line-height:1}
+.meta-goal h4{font-family:'Manrope';font-weight:800;font-size:1.4vw;color:var(--ink);letter-spacing:-.012em;line-height:1.3}
 </style>
 </head>
 <body>
@@ -345,8 +388,8 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
         <h3>El mes de un vistazo</h3>
         <div class="row"><span class="k">Inversión TV</span><span class="v mono">$101,2 M</span></div>
         <div class="row"><span class="k">Inversión Redes</span><span class="v mono ac">$10,4 M</span></div>
-        <div class="row"><span class="k">Total marketing</span><span class="v mono">$111,6 M</span></div>
-        <div class="row"><span class="k">Salidas TV</span><span class="v mono">114</span></div>
+        <div class="row"><span class="k">Total marketing</span><span class="v mono">$111,4 M</span></div>
+        <div class="row"><span class="k">Salidas TV</span><span class="v mono">109</span></div>
         <div class="row"><span class="k">Videos IG</span><span class="v mono">345</span></div>
         <div class="row"><span class="k">Videos TikTok</span><span class="v mono warn">278</span></div>
       </aside>
@@ -366,14 +409,14 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
   <div class="kpi-row">
     <div class="stat"><div class="stat-bar"></div><div class="stat-lbl">Inversión TV</div><div class="stat-val mono"><span class="cur">$</span>101,2<span class="unit">M</span></div><div class="stat-sub">90,7% del total marketing</div></div>
     <div class="stat red"><div class="stat-bar"></div><div class="stat-lbl">Inversión Redes</div><div class="stat-val mono"><span class="cur">$</span>10,4<span class="unit">M</span></div><div class="stat-sub">9,3% del total marketing</div></div>
-    <div class="stat solid-dark"><div class="stat-bar"></div><div class="stat-lbl">Total marketing</div><div class="stat-val mono"><span class="cur">$</span>111,6<span class="unit">M</span></div><div class="stat-sub">TV + Redes consolidados</div></div>
-    <div class="stat gold"><div class="stat-bar"></div><div class="stat-lbl">Salidas en TV</div><div class="stat-val mono">114</div><div class="stat-sub">18 programas · 6 profesionales</div></div>
+    <div class="stat solid-dark"><div class="stat-bar"></div><div class="stat-lbl">Total marketing</div><div class="stat-val mono"><span class="cur">$</span>111,4<span class="unit">M</span></div><div class="stat-sub">TV + Redes consolidados</div></div>
+    <div class="stat gold"><div class="stat-bar"></div><div class="stat-lbl">Salidas en TV</div><div class="stat-val mono">109</div><div class="stat-sub">15 programas · 6 profesionales</div></div>
   </div>
   <div class="kpi-row" style="margin-top:1.1vw">
-    <div class="stat"><div class="stat-bar"></div><div class="stat-lbl">Videos editados</div><div class="stat-val mono">97</div><div class="stat-sub">85% de las salidas TV</div></div>
+    <div class="stat"><div class="stat-bar"></div><div class="stat-lbl">Videos editados</div><div class="stat-val mono">92</div><div class="stat-sub">84% de las salidas TV</div></div>
     <div class="stat good"><div class="stat-bar"></div><div class="stat-lbl">Videos en IG</div><div class="stat-val mono">345</div><div class="stat-sub">17 cuentas activas</div></div>
     <div class="stat"><div class="stat-bar"></div><div class="stat-lbl">Videos en TikTok</div><div class="stat-val mono">278</div><div class="stat-sub">6 cuentas activas</div></div>
-    <div class="stat good"><div class="stat-bar"></div><div class="stat-lbl">Notas · PNT</div><div class="stat-val mono">96 / 18</div><div class="stat-sub">84% notas · 16% PNT</div></div>
+    <div class="stat good"><div class="stat-bar"></div><div class="stat-lbl">Notas · PNT</div><div class="stat-val mono">93 / 16</div><div class="stat-sub">85% notas · 15% PNT</div></div>
   </div>
 </section>
 
@@ -400,10 +443,10 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
         <tbody>
           <tr><td>Inversión TV</td><td class="val">$136,9 M</td><td class="val">$101,2 M</td><td class="delta-neg">−26%</td></tr>
           <tr><td>Inversión Redes</td><td class="val">$9,2 M</td><td class="val">$10,4 M</td><td class="delta-pos">+13%</td></tr>
-          <tr><td>Total marketing</td><td class="val">$146,1 M</td><td class="val">$111,6 M</td><td class="delta-neg">−24%</td></tr>
+          <tr><td>Total marketing</td><td class="val">$146,1 M</td><td class="val">$111,4 M</td><td class="delta-neg">−24%</td></tr>
           <tr class="sep"><td colspan="4"></td></tr>
-          <tr><td>Salidas TV</td><td class="val">98</td><td class="val">114</td><td class="delta-pos">+16%</td></tr>
-          <tr><td>Editados</td><td class="val">96 <span style="font-size:.8em;color:var(--ink-3)">(98%)</span></td><td class="val">97 <span style="font-size:.8em;color:var(--ink-3)">(85%)</span></td><td class="delta-neg">−13pp</td></tr>
+          <tr><td>Salidas TV</td><td class="val">98</td><td class="val">109</td><td class="delta-pos">+11%</td></tr>
+          <tr><td>Editados</td><td class="val">96 <span style="font-size:.8em;color:var(--ink-3)">(98%)</span></td><td class="val">92 <span style="font-size:.8em;color:var(--ink-3)">(84%)</span></td><td class="delta-neg">−14pp</td></tr>
           <tr class="sep"><td colspan="4"></td></tr>
           <tr><td>Alcance Meta</td><td class="val">3,4 M</td><td class="val">3,6 M</td><td class="delta-pos">+6%</td></tr>
           <tr><td>Clicks Meta</td><td class="val">178 K</td><td class="val">211 K</td><td class="delta-pos">+18%</td></tr>
@@ -421,10 +464,10 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
           </div>
           <div>
             <div style="font-family:'Manrope';font-weight:800;font-size:max(16px,.58vw);letter-spacing:.16em;text-transform:uppercase;color:var(--good);margin-bottom:.3vw">Costo / salida · Junio</div>
-            <div style="font-family:'Fraunces';font-weight:700;font-size:max(28px,2.6vw);color:var(--good);letter-spacing:-.025em;line-height:1">$0,89<span style="font-size:.55em;font-weight:600"> M</span></div>
+            <div style="font-family:'Fraunces';font-weight:700;font-size:max(28px,2.6vw);color:var(--good);letter-spacing:-.025em;line-height:1">$0,93<span style="font-size:.55em;font-weight:600"> M</span></div>
           </div>
         </div>
-        <p style="font-family:'Inter';font-size:max(16px,.78vw);color:var(--ink);margin-top:.8vw;line-height:1.5">En junio se logró un <strong>37% más de eficiencia</strong> por salida frente a mayo.</p>
+        <p style="font-family:'Inter';font-size:max(16px,.78vw);color:var(--ink);margin-top:.8vw;line-height:1.5">En junio se logró un <strong>34% más de eficiencia</strong> por salida frente a mayo.</p>
       </div>
       <div class="card" style="border-top:4px solid var(--fp-red)">
         <div class="pill red" style="margin-bottom:.7vw">A mejorar</div>
@@ -445,14 +488,14 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
   <div class="slide-head">
     <div class="meta">
       <span class="eyebrow">04 · Televisión</span>
-      <h2 class="display">$101,2 M en TV.<br/>114 salidas al aire.</h2>
+      <h2 class="display">$101,0 M en TV.<br/>109 salidas al aire.</h2>
     </div>
     <div class="marker"><span class="num">04</span><span>TV</span></div>
   </div>
   <div class="kpi-row three">
     <div class="stat"><div class="stat-bar"></div><div class="stat-lbl">Inversión en programas</div><div class="stat-val mono"><span class="cur">$</span>92,0<span class="unit">M</span></div><div class="stat-sub">90,9% de la inversión TV</div></div>
-    <div class="stat red"><div class="stat-bar"></div><div class="stat-lbl">Apoyo profesionales</div><div class="stat-val mono"><span class="cur">$</span>9,25<span class="unit">M</span></div><div class="stat-sub">9,1% de la inversión TV</div></div>
-    <div class="stat solid-dark"><div class="stat-bar"></div><div class="stat-lbl">Total TV</div><div class="stat-val mono"><span class="cur">$</span>101,2<span class="unit">M</span></div><div class="stat-sub">Programas + apoyo</div></div>
+    <div class="stat red"><div class="stat-bar"></div><div class="stat-lbl">Apoyo profesionales</div><div class="stat-val mono"><span class="cur">$</span>9,04<span class="unit">M</span></div><div class="stat-sub">8,9% de la inversión TV</div></div>
+    <div class="stat solid-dark"><div class="stat-bar"></div><div class="stat-lbl">Total TV</div><div class="stat-val mono"><span class="cur">$</span>101,0<span class="unit">M</span></div><div class="stat-sub">Programas + apoyo</div></div>
   </div>
   <div class="grid-2" style="margin-top:1.2vw">
     <div class="card">
@@ -481,33 +524,76 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
       <div class="chart-wrap"><canvas id="cNotaPnt"></canvas></div>
     </div>
     <div style="display:flex;flex-direction:column;gap:1.4vw">
-      <div class="stat"><div class="stat-bar"></div><div class="stat-lbl">Notas</div><div class="stat-val mono">96</div><div class="stat-sub"><strong style="color:var(--ink)">$97,8 M</strong> · 97% de la inversión TV</div></div>
-      <div class="stat red"><div class="stat-bar"></div><div class="stat-lbl">PNT</div><div class="stat-val mono">18</div><div class="stat-sub"><strong style="color:var(--ink)">$3,4 M</strong> · 3% de la inversión TV</div></div>
+      <div class="stat"><div class="stat-bar"></div><div class="stat-lbl">Notas</div><div class="stat-val mono">93</div><div class="stat-sub"><strong style="color:var(--ink)">$97,8 M</strong> · 97% de la inversión TV</div></div>
+      <div class="stat red"><div class="stat-bar"></div><div class="stat-lbl">PNT</div><div class="stat-val mono">16</div><div class="stat-sub"><strong style="color:var(--ink)">$3,2 M</strong> · 3% de la inversión TV</div></div>
       <div class="card" style="border-left:4px solid var(--fp-cyan)">
-        <p style="margin:0;font-size:max(16px,.82vw);color:var(--ink);font-family:'Manrope';font-weight:600;line-height:1.5">Las notas dominan: <strong>84%</strong> de las salidas y <strong>97%</strong> de la inversión TV. Los PNT son puntuales y estratégicos.</p>
+        <p style="margin:0;font-size:max(16px,.82vw);color:var(--ink);font-family:'Manrope';font-weight:600;line-height:1.5">Las notas dominan: <strong>85%</strong> de las salidas y <strong>97%</strong> de la inversión TV. Los PNT son puntuales y estratégicos.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- S6 · REDES INSTITUCIONALES + KPIs -->
+<!-- S6 · REDES INSTITUCIONALES + KPIs POR CATEGORÍA -->
 <section class="slide slide-cream fade slide-anchor" id="s6">
-  <div class="slide-head">
+  <div class="slide-head" style="margin-bottom:.9vw">
     <div class="meta">
-      <span class="eyebrow">06 · Redes · Pauta institucional</span>
-      <h2 class="display">$10,4 M en Meta Ads.<br/>21 cuentas activas.</h2>
+      <span class="eyebrow">06 · Redes · KPIs por categoría</span>
+      <h2 class="display">$10,4 M en Meta Ads.<br/>Alcance, clicks y CTR por categoría.</h2>
     </div>
     <div class="marker"><span class="num">06</span><span>Redes I</span></div>
   </div>
-  <div class="kpi-row" style="margin-bottom:1.3vw">
-    <div class="stat solid-dark"><div class="stat-bar"></div><div class="stat-lbl">Pauta total</div><div class="stat-val mono"><span class="cur">$</span>10,4<span class="unit">M</span></div><div class="stat-sub">21 cuentas Meta Ads</div></div>
-    <div class="stat"><div class="stat-bar"></div><div class="stat-lbl">Alcance</div><div class="stat-val mono">3,6<span class="unit">M</span></div><div class="stat-sub">personas alcanzadas</div></div>
-    <div class="stat"><div class="stat-bar"></div><div class="stat-lbl">Clicks</div><div class="stat-val mono">211<span class="unit" style="font-size:max(16px,1.2vw)">K</span></div><div class="stat-sub">CTR promedio 4,27%</div></div>
-    <div class="stat good"><div class="stat-bar"></div><div class="stat-lbl">Distribución</div><div class="stat-val mono" style="font-size:max(16px,1.4vw)">51% Prod<br/>24% Prof</div><div class="stat-sub">18% Inst · 5% s/asignar</div></div>
+
+  <!-- KPIs por categoría -->
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1vw;margin-bottom:1.1vw">
+
+    <!-- Institucional -->
+    <div class="cat-kpi" style="border-top:4px solid var(--gold)">
+      <div class="cat-kpi-head">
+        <span class="ps-dot inst"></span>
+        <span class="cat-name">Institucional</span>
+        <span class="cat-sub">$1,96M · 3 cuentas</span>
+      </div>
+      <div class="cat-kpi-vals">
+        <div class="ckv"><div class="ck">Alcance</div><div class="cv">727K</div></div>
+        <div class="ckv"><div class="ck">Clicks</div><div class="cv">37,7K</div></div>
+        <div class="ckv"><div class="ck">CTR</div><div class="cv" style="color:var(--gold)">3,97%</div></div>
+      </div>
+    </div>
+
+    <!-- Profesionales -->
+    <div class="cat-kpi" style="border-top:4px solid var(--fp-red)">
+      <div class="cat-kpi-head">
+        <span class="ps-dot prof"></span>
+        <span class="cat-name">Profesionales</span>
+        <span class="cat-sub">$2,50M · 8 cuentas</span>
+      </div>
+      <div class="cat-kpi-vals">
+        <div class="ckv"><div class="ck">Alcance</div><div class="cv">944K</div></div>
+        <div class="ckv"><div class="ck">Clicks</div><div class="cv">67,2K</div></div>
+        <div class="ckv"><div class="ck">CTR</div><div class="cv" style="color:var(--fp-red)">5,49%</div></div>
+      </div>
+    </div>
+
+    <!-- Productos -->
+    <div class="cat-kpi" style="border-top:4px solid var(--fp-cyan)">
+      <div class="cat-kpi-head">
+        <span class="ps-dot prod"></span>
+        <span class="cat-name">Productos</span>
+        <span class="cat-sub">$5,35M · 9 cuentas</span>
+      </div>
+      <div class="cat-kpi-vals">
+        <div class="ckv"><div class="ck">Alcance</div><div class="cv">1,79M</div></div>
+        <div class="ckv"><div class="ck">Clicks</div><div class="cv">100K</div></div>
+        <div class="ckv"><div class="ck">CTR</div><div class="cv" style="color:var(--fp-cyan-deep)">3,89%</div></div>
+      </div>
+    </div>
+
   </div>
+
+  <!-- Ranking institucionales + tabla -->
   <div class="grid-12">
     <div>
-      <div style="font-family:'Manrope';font-weight:800;font-size:max(16px,.68vw);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2);margin-bottom:.7vw;display:flex;align-items:center;gap:.6vw"><span class="ps-dot inst"></span>Institucional</div>
+      <div style="font-family:'Manrope';font-weight:800;font-size:1.05vw;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2);margin-bottom:.7vw;display:flex;align-items:center;gap:.6vw"><span class="ps-dot inst"></span>Ranking institucional</div>
       <div class="pauta-rank" id="pautaInst"></div>
     </div>
     <div class="card">
@@ -533,14 +619,14 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
     </div>
     <div class="marker"><span class="num">07</span><span>Redes II</span></div>
   </div>
-  <div class="grid-2">
-    <div class="card">
-      <div style="font-family:'Manrope';font-weight:800;font-size:max(16px,.68vw);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2);margin-bottom:.7vw;display:flex;align-items:center;gap:.6vw"><span class="ps-dot prof"></span>Profesionales · médicos</div>
-      <div class="pauta-rank" id="pautaProf"></div>
+  <div class="grid-2" style="height:calc(56.25vw - 14vw)">
+    <div class="card" style="display:flex;flex-direction:column">
+      <div style="font-family:'Manrope';font-weight:800;font-size:1.1vw;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2);margin-bottom:.7vw;flex-shrink:0;display:flex;align-items:center;gap:.6vw"><span class="ps-dot prof"></span>Profesionales · médicos</div>
+      <div class="pauta-rank" id="pautaProf" style="flex:1;overflow:hidden;display:flex;flex-direction:column;justify-content:space-evenly"></div>
     </div>
-    <div class="card">
-      <div style="font-family:'Manrope';font-weight:800;font-size:max(16px,.68vw);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2);margin-bottom:.7vw;display:flex;align-items:center;gap:.6vw"><span class="ps-dot prod"></span>Productos</div>
-      <div class="pauta-rank" id="pautaProd"></div>
+    <div class="card" style="display:flex;flex-direction:column">
+      <div style="font-family:'Manrope';font-weight:800;font-size:1.1vw;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2);margin-bottom:.7vw;flex-shrink:0;display:flex;align-items:center;gap:.6vw"><span class="ps-dot prod"></span>Productos</div>
+      <div class="pauta-rank" id="pautaProd" style="flex:1;overflow:hidden;display:flex;flex-direction:column;justify-content:space-evenly"></div>
     </div>
   </div>
 </section>
@@ -550,13 +636,13 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
   <div class="slide-head">
     <div class="meta">
       <span class="eyebrow">08 · Aprovechamiento</span>
-      <h2 class="display">114 salidas TV.<br/>El mayor volumen del año.</h2>
+      <h2 class="display">109 salidas TV.<br/>El mayor volumen del año.</h2>
     </div>
     <div class="marker"><span class="num">08</span><span>Aprove.</span></div>
   </div>
   <div class="kpi-row three">
-    <div class="stat on-dark good"><div class="stat-bar"></div><div class="stat-lbl">Salidas TV</div><div class="stat-val mono">114</div><div class="stat-sub">+16% vs mayo (98 sal.)</div></div>
-    <div class="stat on-dark warn"><div class="stat-bar"></div><div class="stat-lbl">Videos editados</div><div class="stat-val mono">97 <span style="font-size:.55em;color:rgba(255,255,255,.6)">(85%)</span></div><div class="stat-sub">Mayo: 96 editados (98%)</div></div>
+    <div class="stat on-dark good"><div class="stat-bar"></div><div class="stat-lbl">Salidas TV</div><div class="stat-val mono">109</div><div class="stat-sub">+11% vs mayo (98 sal.)</div></div>
+    <div class="stat on-dark warn"><div class="stat-bar"></div><div class="stat-lbl">Videos editados</div><div class="stat-val mono">92 <span style="font-size:.55em;color:rgba(255,255,255,.6)">(84%)</span></div><div class="stat-sub">Mayo: 96 editados (98%)</div></div>
     <div class="stat on-dark"><div class="stat-bar"></div><div class="stat-lbl">Sin procesar</div><div class="stat-val mono">17</div><div class="stat-sub">Prioridad operativa julio</div></div>
   </div>
   <div class="card" style="margin-top:1.1vw;background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1)">
@@ -618,32 +704,32 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
     </div>
     <div class="marker"><span class="num">11</span><span>Diag.</span></div>
   </div>
-  <div class="grid-3" style="margin-bottom:1.2vw">
-    <div class="card" style="border-top:4px solid var(--good)">
-      <div class="pill good" style="margin-bottom:.7vw">Funciona</div>
-      <h3 class="card-title left">Producción</h3>
-      <ul style="margin:0;padding-left:1.2vw;color:var(--ink);font-size:max(16px,.85vw);line-height:1.75">
-        <li><strong>114 salidas</strong> — el mayor volumen del año.</li>
+  <div class="grid-3" style="height:calc(56.25vw - 25vw);margin-bottom:1vw">
+    <div class="card" style="border-top:4px solid var(--good);display:flex;flex-direction:column">
+      <div class="pill good" style="margin-bottom:.7vw;font-size:1vw">Funciona</div>
+      <h3 class="card-title left" style="font-size:1vw">Producción</h3>
+      <ul style="margin:0;padding-left:1.2vw;color:var(--ink);font-size:1.25vw;line-height:1.75;flex:1">
+        <li><strong>109 salidas</strong> — el mayor volumen del año.</li>
         <li>18 programas activos, 6 médicos.</li>
-        <li>97 editados, 0 sin publicar.</li>
+        <li>92 editados, 0 sin publicar.</li>
         <li><strong>623 videos</strong> en redes.</li>
-        <li>37% menor costo por salida vs mayo.</li>
+        <li>34% menor costo por salida vs mayo.</li>
       </ul>
     </div>
-    <div class="card" style="border-top:4px solid var(--warn)">
-      <div class="pill gold" style="margin-bottom:.7vw">A resolver</div>
-      <h3 class="card-title left">Brechas</h3>
-      <ul style="margin:0;padding-left:1.2vw;color:var(--ink);font-size:max(16px,.85vw);line-height:1.75">
-        <li><strong>17 salidas</strong> sin editor (15%).</li>
-        <li>Edición bajó de 98% a 85%.</li>
+    <div class="card" style="border-top:4px solid var(--warn);display:flex;flex-direction:column">
+      <div class="pill gold" style="margin-bottom:.7vw;font-size:1vw">A resolver</div>
+      <h3 class="card-title left" style="font-size:1vw">Brechas</h3>
+      <ul style="margin:0;padding-left:1.2vw;color:var(--ink);font-size:1.25vw;line-height:1.75;flex:1">
+        <li><strong>17 salidas</strong> sin editor (16%).</li>
+        <li>Edición bajó de 98% a 84%.</li>
         <li>Lapman en el <strong>43%</strong> de las salidas.</li>
         <li>Menacor/Vitamet/Daozima sin Meta.</li>
       </ul>
     </div>
-    <div class="card" style="border-top:4px solid var(--fp-cyan)">
-      <div class="pill cyan" style="margin-bottom:.7vw">Para escalar</div>
-      <h3 class="card-title left">Oportunidades</h3>
-      <ul style="margin:0;padding-left:1.2vw;color:var(--ink);font-size:max(16px,.85vw);line-height:1.75">
+    <div class="card" style="border-top:4px solid var(--fp-cyan);display:flex;flex-direction:column">
+      <div class="pill cyan" style="margin-bottom:.7vw;font-size:1vw">Para escalar</div>
+      <h3 class="card-title left" style="font-size:1vw">Oportunidades</h3>
+      <ul style="margin:0;padding-left:1.2vw;color:var(--ink);font-size:1.25vw;line-height:1.75;flex:1">
         <li>Asignar editor al grabar la salida.</li>
         <li>Alinear pauta Meta con TV.</li>
         <li>Cada video en 3+ redes.</li>
@@ -652,15 +738,15 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
     </div>
   </div>
   <div class="card" style="padding:1vw 1.4vw">
-    <h3 class="card-title left">KPIs comparativos · Mayo vs Junio</h3>
-    <table class="cmp-table" style="font-size:max(16px,.78vw)">
+    <h3 class="card-title left" style="font-size:1vw">KPIs comparativos · Mayo vs Junio</h3>
+    <table class="cmp-table">
       <thead><tr><th>Métrica</th><th>Mayo</th><th>Junio</th><th>Δ</th></tr></thead>
       <tbody>
-        <tr><td>Inversión TV (sin ADN)</td><td class="val">$136,9 M</td><td class="val">$101,2 M</td><td class="delta-neg">−26%</td></tr>
+        <tr><td>Inversión TV (sin ADN)</td><td class="val">$136,9 M</td><td class="val">$101,0 M</td><td class="delta-neg">−26%</td></tr>
         <tr><td>Pauta Meta</td><td class="val">$9,2 M</td><td class="val">$10,4 M</td><td class="delta-pos">+13%</td></tr>
-        <tr><td>Salidas TV tomadas</td><td class="val">98</td><td class="val">114</td><td class="delta-pos">+16%</td></tr>
-        <tr><td>Aprovechamiento %</td><td class="val">98%</td><td class="val">85%</td><td class="delta-neg">−13pp</td></tr>
-        <tr><td>Costo / salida</td><td class="val">$1,40 M</td><td class="val">$0,89 M</td><td class="delta-pos">−37%</td></tr>
+        <tr><td>Salidas TV tomadas</td><td class="val">98</td><td class="val">109</td><td class="delta-pos">+11%</td></tr>
+        <tr><td>Aprovechamiento %</td><td class="val">98%</td><td class="val">84%</td><td class="delta-neg">−14pp</td></tr>
+        <tr><td>Costo / salida</td><td class="val">$1,40 M</td><td class="val">$0,93 M</td><td class="delta-pos">−34%</td></tr>
         <tr><td>Alcance Meta</td><td class="val">3,4 M</td><td class="val">3,6 M</td><td class="delta-pos">+6%</td></tr>
       </tbody>
     </table>
@@ -676,70 +762,129 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
     </div>
     <div class="marker"><span class="num">12</span><span>Metas</span></div>
   </div>
-  <div class="goals">
-    <div class="goal" style="grid-column:span 3;background:linear-gradient(135deg,var(--ink) 0%,#16304e 100%);border:none;color:#fff">
-      <div class="goal-num" style="color:var(--fp-cyan)">★</div>
-      <h4 style="color:#fff;font-size:max(16px,1.2vw)">Llevar el aprovechamiento al 100% en julio</h4>
-      <p style="margin:.5vw 0 0;color:rgba(255,255,255,.78);font-size:max(16px,.78vw);line-height:1.5">Junio cerró con 85%. Mayo tenía 98%. El equipo de edición debe escalar junto con el volumen de salidas.</p>
+  <div class="metas-wrap">
+    <div class="meta-hero">
+      <div class="star">★</div>
+      <div>
+        <h3>Llevar el aprovechamiento al <span class="ac">100%</span> en julio</h3>
+        <div class="ctx">Junio cerró en 84%. Mayo estaba en 98%. La brecha de 17 salidas sin editor es el principal cuello de botella. El objetivo: cero salidas sin procesar.</div>
+      </div>
     </div>
-    <div class="goal r"><div class="goal-num">01</div><h4>100% de editados publicados en todas las redes</h4></div>
-    <div class="goal r"><div class="goal-num">02</div><h4>Asignar editor a cada salida TV al grabar</h4></div>
-    <div class="goal"><div class="goal-num">03</div><h4>Alinear pauta Meta con los productos top de TV</h4></div>
-    <div class="goal g"><div class="goal-num">04</div><h4>Sumar mínimo 2 profesionales nuevos al aire</h4></div>
+    <div class="meta-goals">
+      <div class="meta-goal red">
+        <div class="mg-num">01</div>
+        <h4>Editor asignado al momento de grabar</h4>
+        <p style="margin:0;font-family:'Inter';font-size:1.1vw;color:var(--ink-3);line-height:1.5">Nunca más una salida TV sin responsable de edición desde el primer día.</p>
+      </div>
+      <div class="meta-goal red">
+        <div class="mg-num">02</div>
+        <h4>100% de editados publicados en todas las redes</h4>
+        <p style="margin:0;font-family:'Inter';font-size:1.1vw;color:var(--ink-3);line-height:1.5">IG + TikTok + YouTube Shorts para cada video. Sin excepción.</p>
+      </div>
+      <div class="meta-goal teal">
+        <div class="mg-num">03</div>
+        <h4>Alinear pauta Meta con los productos top de TV</h4>
+        <p style="margin:0;font-family:'Inter';font-size:1.1vw;color:var(--ink-3);line-height:1.5">Menacor, Vitamet y Daozima lideran TV pero no tienen Meta Ads activo.</p>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- S13 · TEMAS -->
 <section class="slide slide-cream fade slide-anchor" id="s13">
-  <div class="slide-head">
+  <div class="slide-head" style="margin-bottom:1vw">
     <div class="meta">
       <span class="eyebrow">13 · Temas a discutir</span>
-      <h2 class="display">Temas a definir<br/>con gerencia.</h2>
+      <h2 class="display">Temas a definir con gerencia.</h2>
     </div>
     <div class="marker"><span class="num">13</span><span>Temas</span></div>
   </div>
-  <div class="grid-2" style="gap:1.2vw">
-    <div class="tm-card">
-      <div class="tm-head"><div class="pill cyan">Tema 01 · Contenido</div></div>
-      <div class="tm-body">
-        <strong>¿Videos de médicos publicitando productos en redes oficiales?</strong>
-        <div class="pro-con">
-          <div class="pro"><div class="pc-col-head">A favor</div><ul><li>Refuerza credibilidad.</li><li>Más contenido sin costo extra.</li><li>Mejora conversión.</li></ul></div>
-          <div class="con"><div class="pc-col-head">A considerar</div><ul><li>Relación médico-producto visible.</li><li>Puede leerse como publicidad directa.</li></ul></div>
+  <!-- grid fills remaining slide height: 56.25vw total - 3vw padding-top - 2vw padding-bottom - ~8.5vw slide-head -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:1vw;height:calc(56.25vw - 14.5vw)">
+
+    <!-- Tema 01 -->
+    <div class="tm-card" style="display:flex;flex-direction:column;overflow:hidden">
+      <div class="tm-head" style="padding:1vw 1.4vw .6vw;flex-shrink:0">
+        <div class="pill cyan" style="font-size:1.15vw;padding:.35vw 1.1vw;letter-spacing:.12em">Tema 01 · Contenido</div>
+      </div>
+      <div style="flex:1;padding:.7vw 1.4vw 1vw;font-family:'Inter';font-size:1.25vw;color:var(--ink-2);line-height:1.55;overflow:hidden">
+        <strong style="font-family:'Manrope';font-weight:800;font-size:1.55vw;color:var(--ink);display:block;margin-bottom:.6vw;line-height:1.25">¿Videos de médicos publicitando productos en redes oficiales?</strong>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1vw">
+          <div>
+            <div style="font-family:'Manrope';font-weight:800;font-size:1.05vw;letter-spacing:.16em;text-transform:uppercase;color:var(--good);margin-bottom:.4vw">A favor</div>
+            <ul style="margin:0;padding-left:1.2vw;font-size:1.2vw">
+              <li>Refuerza credibilidad.</li>
+              <li>Más contenido sin costo extra.</li>
+              <li>Mejora conversión.</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-family:'Manrope';font-weight:800;font-size:1.05vw;letter-spacing:.16em;text-transform:uppercase;color:var(--fp-red);margin-bottom:.4vw">A considerar</div>
+            <ul style="margin:0;padding-left:1.2vw;font-size:1.2vw">
+              <li>Relación médico-producto visible.</li>
+              <li>Puede leerse como publicidad directa.</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-    <div class="tm-card">
-      <div class="tm-head"><div class="pill red">Tema 02 · Equipo</div></div>
-      <div class="tm-body">
-        <strong>¿Incorporar un responsable de redes con liderazgo?</strong>
-        <div class="pro-con">
-          <div class="pro"><div class="pc-col-head">A favor</div><ul><li>Organiza calendario de publicaciones.</li><li>Evita los 17 sin procesar del mes.</li><li>Mejora métricas y distribución.</li></ul></div>
-          <div class="con"><div class="pc-col-head">A considerar</div><ul><li>Costo recurrente.</li><li>Onboarding de 1–2 meses.</li></ul></div>
+
+    <!-- Tema 02 -->
+    <div class="tm-card" style="display:flex;flex-direction:column;overflow:hidden">
+      <div class="tm-head" style="padding:1vw 1.4vw .6vw;flex-shrink:0">
+        <div class="pill red" style="font-size:1.15vw;padding:.35vw 1.1vw;letter-spacing:.12em">Tema 02 · Equipo</div>
+      </div>
+      <div style="flex:1;padding:.7vw 1.4vw 1vw;font-family:'Inter';font-size:1.25vw;color:var(--ink-2);line-height:1.55;overflow:hidden">
+        <strong style="font-family:'Manrope';font-weight:800;font-size:1.55vw;color:var(--ink);display:block;margin-bottom:.6vw;line-height:1.25">¿Incorporar un responsable de redes con liderazgo?</strong>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1vw">
+          <div>
+            <div style="font-family:'Manrope';font-weight:800;font-size:1.05vw;letter-spacing:.16em;text-transform:uppercase;color:var(--good);margin-bottom:.4vw">A favor</div>
+            <ul style="margin:0;padding-left:1.2vw;font-size:1.2vw">
+              <li>Organiza calendario de publicaciones.</li>
+              <li>Evita los 17 sin procesar del mes.</li>
+              <li>Mejora métricas y distribución.</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-family:'Manrope';font-weight:800;font-size:1.05vw;letter-spacing:.16em;text-transform:uppercase;color:var(--fp-red);margin-bottom:.4vw">A considerar</div>
+            <ul style="margin:0;padding-left:1.2vw;font-size:1.2vw">
+              <li>Costo recurrente.</li>
+              <li>Onboarding de 1–2 meses.</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-    <div class="tm-card">
-      <div class="tm-head"><div class="pill gold">Tema 03 · Pauta</div></div>
-      <div class="tm-body">
-        <strong>¿Alinear inversión Meta con los productos top de TV?</strong>
-        <p style="margin-top:.5vw">Menacor, Vitamet y Daozima lideran TV en junio pero no tienen Meta activa. Ampkok y Metasitol sí. ¿Conviene sincronizar ambas estrategias?</p>
+
+    <!-- Tema 03 -->
+    <div class="tm-card" style="display:flex;flex-direction:column;overflow:hidden">
+      <div class="tm-head" style="padding:1vw 1.4vw .6vw;flex-shrink:0">
+        <div class="pill gold" style="font-size:1.15vw;padding:.35vw 1.1vw;letter-spacing:.12em">Tema 03 · Pauta</div>
+      </div>
+      <div style="flex:1;padding:.7vw 1.4vw 1vw;font-family:'Inter';font-size:1.25vw;color:var(--ink-2);line-height:1.55;overflow:hidden">
+        <strong style="font-family:'Manrope';font-weight:800;font-size:1.55vw;color:var(--ink);display:block;margin-bottom:.6vw;line-height:1.25">¿Alinear inversión Meta con los productos top de TV?</strong>
+        <p style="font-size:1.25vw;line-height:1.6">Menacor, Vitamet y Daozima lideran TV en junio pero no tienen Meta activa. Ampkok y Metasitol sí. ¿Conviene sincronizar ambas estrategias?</p>
       </div>
     </div>
-    <div class="tm-card">
-      <div class="tm-head"><div class="pill" style="background:var(--canvas);color:var(--ink)">Tema 04 · Incentivos</div></div>
-      <div class="tm-body">
-        <strong>Pauta de incentivo a profesionales — lista junio</strong>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.4vw;margin-top:.5vw">
-          <div style="background:var(--canvas);border-radius:7px;padding:.4vw .6vw;font-family:'Manrope';font-weight:700;font-size:max(16px,.68vw);color:var(--ink)">1. Micaela Olivares</div>
-          <div style="background:var(--canvas);border-radius:7px;padding:.4vw .6vw;font-family:'Manrope';font-weight:700;font-size:max(16px,.68vw);color:var(--ink)">2. Evangelina Cueto</div>
-          <div style="background:var(--canvas);border-radius:7px;padding:.4vw .6vw;font-family:'Manrope';font-weight:700;font-size:max(16px,.68vw);color:var(--ink)">3. Karina Ramírez</div>
-          <div style="background:var(--canvas);border-radius:7px;padding:.4vw .6vw;font-family:'Manrope';font-weight:700;font-size:max(16px,.68vw);color:var(--ink)">4. Delfina Zimerman</div>
-          <div style="background:var(--canvas);border-radius:7px;padding:.4vw .6vw;font-family:'Manrope';font-weight:700;font-size:max(16px,.68vw);color:var(--ink)">5. Andrea Purita</div>
-          <div style="background:var(--canvas);border-radius:7px;padding:.4vw .6vw;font-family:'Manrope';font-weight:700;font-size:max(16px,.68vw);color:var(--ink)">6. G. Lapman</div>
+
+    <!-- Tema 04 -->
+    <div class="tm-card" style="display:flex;flex-direction:column;overflow:hidden">
+      <div class="tm-head" style="padding:1vw 1.4vw .6vw;flex-shrink:0">
+        <div class="pill" style="background:var(--canvas);color:var(--ink);font-size:1.15vw;padding:.35vw 1.1vw;letter-spacing:.12em">Tema 04 · Incentivos</div>
+      </div>
+      <div style="flex:1;padding:.7vw 1.4vw 1vw;font-family:'Inter';font-size:1.25vw;color:var(--ink-2);line-height:1.55;overflow:hidden">
+        <strong style="font-family:'Manrope';font-weight:800;font-size:1.55vw;color:var(--ink);display:block;margin-bottom:.7vw;line-height:1.25">Pauta de incentivo a profesionales — lista junio</strong>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.6vw">
+          <div style="background:var(--canvas);border-radius:8px;padding:.6vw .9vw;font-family:'Manrope';font-weight:700;font-size:1.2vw;color:var(--ink)">1. Micaela Olivares</div>
+          <div style="background:var(--canvas);border-radius:8px;padding:.6vw .9vw;font-family:'Manrope';font-weight:700;font-size:1.2vw;color:var(--ink)">2. Evangelina Cueto</div>
+          <div style="background:var(--canvas);border-radius:8px;padding:.6vw .9vw;font-family:'Manrope';font-weight:700;font-size:1.2vw;color:var(--ink)">3. Karina Ramírez</div>
+          <div style="background:var(--canvas);border-radius:8px;padding:.6vw .9vw;font-family:'Manrope';font-weight:700;font-size:1.2vw;color:var(--ink)">4. Delfina Zimerman</div>
+          <div style="background:var(--canvas);border-radius:8px;padding:.6vw .9vw;font-family:'Manrope';font-weight:700;font-size:1.2vw;color:var(--ink)">5. Andrea Purita</div>
+          <div style="background:var(--canvas);border-radius:8px;padding:.6vw .9vw;font-family:'Manrope';font-weight:700;font-size:1.2vw;color:var(--ink)">6. G. Lapman</div>
         </div>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -749,13 +894,13 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
     <div class="cline">Framingham Pharma · Marketing · Junio 2026</div>
     <h2>Junio: <span class="ac">más salidas,</span><br/>más eficiencia.</h2>
     <div class="cgrid">
-      <div class="cs"><div class="clbl">Total invertido</div><div class="cval mono">$111,6 <span class="ac" style="font-size:.6em">M</span></div><div class="csub">TV + Redes sin ADN</div></div>
-      <div class="cs"><div class="clbl">Salidas · costo/salida</div><div class="cval mono"><span class="ac">114</span> · <span class="ac" style="font-size:.65em">$0,89M</span></div><div class="csub">37% más eficiente que mayo</div></div>
+      <div class="cs"><div class="clbl">Total invertido</div><div class="cval mono">$111,4 <span class="ac" style="font-size:.6em">M</span></div><div class="csub">TV + Redes sin ADN</div></div>
+      <div class="cs"><div class="clbl">Salidas · costo/salida</div><div class="cval mono"><span class="ac">109</span> · <span class="ac" style="font-size:.65em">$0,93M</span></div><div class="csub">34% más eficiente que mayo</div></div>
       <div class="cs"><div class="clbl">Videos en redes</div><div class="cval mono"><span class="ac">623</span></div><div class="csub">345 IG + 278 TikTok</div></div>
     </div>
     <div class="cbullets">
-      <div>$101,2M en <strong style="color:#fff">TV · 114 salidas · 18 programas</strong>.</div>
-      <div class="r">Aprovechamiento: <strong style="color:#fff">85%</strong> — objetivo julio: 100%.</div>
+      <div>$101,0M en <strong style="color:#fff">TV · 109 salidas · 15 programas</strong>.</div>
+      <div class="r">Aprovechamiento: <strong style="color:#fff">84%</strong> — objetivo julio: 100%.</div>
       <div>$10,4M en <strong style="color:#fff">Meta Ads · 21 cuentas · 3,6M alcance</strong>.</div>
       <div class="r">Gabriel Lapman: <strong style="color:#fff">49 apariciones</strong> — pilar del mes.</div>
     </div>
@@ -780,15 +925,15 @@ const PRODUCTOS=[
   {name:"Menacor",       salidas:13, inv:14960000, apoyo:980000,  color:"#5C1018", logo:'<span class="lg-base lg-menacor">MENA<span>COR</span></span>'},
   {name:"Vitamet",       salidas:9,  inv:14240000, apoyo:940000,  color:"#1B2A6F", logo:'<span class="lg-base lg-vitamet"><b>Vita</b>met</span>'},
   {name:"Daozima",       salidas:11, inv:13560000, apoyo:1080000, color:"#0F4A2A", logo:'<span class="lg-base lg-daozima">DAOZIMA<small>PREMIUM</small></span>'},
-  {name:"Creatina HCL",  salidas:10, inv:11400000, apoyo:890000,  color:"#5C4033", logo:'<span class="lg-base lg-creatina">CREATINA<small>HCL</small></span>'},
-  {name:"Digecaps",      salidas:10, inv:9110000,  apoyo:910000,  color:"#1F7AB4", logo:'<span class="lg-base lg-digecaps">Digecaps</span>'},
+  {name:"Creatina HCL",  salidas:9,  inv:11400000, apoyo:820000,  color:"#5C4033", logo:'<span class="lg-base lg-creatina">CREATINA<small>HCL</small></span>'},
+  {name:"Digecaps",      salidas:9,  inv:9110000,  apoyo:840000,  color:"#1F7AB4", logo:'<span class="lg-base lg-digecaps">Digecaps</span>'},
   {name:"Telomerina",    salidas:13, inv:8640000,  apoyo:910000,  color:"#9E2A8C", logo:'<span class="lg-base lg-telomerina">Telomerina<sup>NAD+</sup></span>'},
-  {name:"Metasitol RI",  salidas:8,  inv:7480000,  apoyo:760000,  color:"#1565C0", logo:'<span class="lg-base lg-metasitol-ri"><span class="name">Metasitol<span class="ri">RI</span></span><small>RES. INSULÍNICA</small></span>'},
-  {name:"Serrapep",      salidas:13, inv:7220000,  apoyo:740000,  color:"#C12127", logo:'<span class="lg-base lg-serrapep">Serrapep</span>'},
+  {name:"Metasitol RI",  salidas:7,  inv:7480000,  apoyo:690000,  color:"#1565C0", logo:'<span class="lg-base lg-metasitol-ri"><span class="name">Metasitol<span class="ri">RI</span></span><small>RES. INSULÍNICA</small></span>'},
+  {name:"Serrapep",      salidas:12, inv:7220000,  apoyo:740000,  color:"#C12127", logo:'<span class="lg-base lg-serrapep">Serrapep</span>'},
   {name:"Metasitol",     salidas:4,  inv:4240000,  apoyo:260000,  color:"#185490", logo:'<span class="lg-base lg-metasitol">Metasitol</span>'},
   {name:"Goodskin",      salidas:6,  inv:3640000,  apoyo:480000,  color:"#1B6E3E", logo:'<span class="lg-base lg-goodskin">good<span>skin</span><small>Salud de la piel</small></span>'},
   {name:"Floragut",      salidas:4,  inv:3130000,  apoyo:260000,  color:"#F47C2A", logo:'<span class="lg-base lg-floragut"><span>Flora</span>gut</span>'},
-  {name:"Satial Food",   salidas:8,  inv:2800000,  apoyo:510000,  color:"#E45A0F", logo:'<span class="lg-base lg-satial-food">Satial<small>FOOD</small></span>'},
+  {name:"Satial Food",   salidas:7,  inv:2800000,  apoyo:510000,  color:"#E45A0F", logo:'<span class="lg-base lg-satial-food">Satial<small>FOOD</small></span>'},
   {name:"Capskrill",     salidas:2,  inv:440000,   apoyo:190000,  color:"#C0392B", logo:'<span class="lg-base lg-capskrill">CAPSKRILL</span>'},
   {name:"AMPK Protein",  salidas:2,  inv:270000,   apoyo:270000,  color:"#0078C0", logo:'<span class="lg-base lg-ampk-bb"><span class="nm">AMPK</span><small>PROTEIN</small></span>'},
   {name:"Sele200",       salidas:1,  inv:70000,    apoyo:70000,   color:"#E65100", logo:'<span class="lg-base lg-sele200">Sele<span>200</span></span>'},
@@ -814,9 +959,9 @@ const PROGRAMAS=[
 
 const PROFESIONALES=[
   {name:"Gabriel Lapman",     salidas:49, apoyo:5880000, inv:60890000},
-  {name:"Micaela Olivares",   salidas:10, apoyo:700000,  inv:9700000},
+  {name:"Micaela Olivares",   salidas:8,  apoyo:560000,  inv:9700000},
   {name:"Delfina Zimerman",   salidas:6,  apoyo:600000,  inv:7350000},
-  {name:"Evangelina Cueto",   salidas:9,  apoyo:630000,  inv:6430000},
+  {name:"Evangelina Cueto",   salidas:8,  apoyo:560000,  inv:6430000},
   {name:"Andrea Purita",      salidas:6,  apoyo:1020000, inv:4480000},
   {name:"Karina Ramírez",     salidas:6,  apoyo:420000,  inv:3760000},
 ];
