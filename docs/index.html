@@ -314,24 +314,49 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
 .ckv .cv{font-family:'Manrope';font-weight:800;font-size:1.7vw;color:var(--ink);letter-spacing:-.025em;line-height:1}
 
 /* ── S7 pauta rows auto-scale ── */
-#s7 .grid-2{height:calc(56.25vw - 16vw)}
-#s7 .card{display:flex;flex-direction:column}
-#s7 .pauta-rank{flex:1;overflow:hidden;display:flex;flex-direction:column;justify-content:space-evenly}
-#s7 .prk{padding:.7vw 1vw}
-#s7 .prk .px{font-size:1.8vw}
-#s7 .prk .pname{font-size:1.25vw}
-#s7 .prk .pval{font-size:1.1vw}
-#s7 .prk .pval small{font-size:.85vw;letter-spacing:.1em}
-#s7 .prk .pbar{height:10px}
+#s7{display:flex;flex-direction:column}
+#s7 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:.7vw;align-items:stretch;flex:1;min-height:0}
+#s7 .grid-2>.card{display:flex;flex-direction:column;min-height:0;height:100%}
+#s7 .pauta-rank{flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;justify-content:flex-start;gap:.3vw;padding-right:.6vw}
+#s7 .prk{padding:.35vw .7vw}
+#s7 .prk .px{font-size:1.6vw}
+#s7 .prk .pname{font-size:1.1vw}
+#s7 .prk .pval{font-size:1vw}
+#s7 .prk .pval small{font-size:.75vw;letter-spacing:.1em}
+#s7 .prk .pbar{height:8px}
 #s7 .grid-2>div>div:first-child{font-size:1.1vw !important;margin-bottom:.8vw !important}
 
+/* ── S10 expandable professionals table ── */
+#s10{display:flex;flex-direction:column;min-height:0}
+#s10 .card.lg{flex:0 0 auto}
+#s10 details.expand{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;overflow:hidden;margin-top:1.1vw}
+#s10 .det-body{flex:1 1 auto;min-height:0;overflow:auto;padding:0 1.3vw 1.3vw}
+#s10 .det-body table{width:100%;min-width:0}
+#s10 summary{cursor:pointer}
+
+/* ── S10b table slide ── */
+#s10b{display:flex;flex-direction:column;min-height:0;font-size:16px}
+#s10b .card.lg{display:flex;flex-direction:column;flex:1 1 auto;min-height:0;overflow:hidden;padding:.8vw 1vw}
+#s10b .card.lg > div{flex:1 1 auto;min-height:0;overflow:auto}
+#s10b .card.lg .tbl{width:100%;min-width:0}
+#s10b .card-title.left{font-size:1rem}
+#s10b .tbl thead th,#s10b .tbl tbody td{padding:.35vw .6vw}
+#s10b .tbl tbody td{font-size:max(15px,0.9vw);line-height:1.35}
+#s10b .tbl thead th{font-size:max(15px,0.85vw)}
+
 /* ── S11 adaptable ── */
-#s11 .grid-3{height:calc(56.25vw - 25vw)}
-#s11 .card{display:flex;flex-direction:column}
-#s11 .card ul{font-size:1.25vw !important;line-height:1.75}
-#s11 .card .pill{font-size:1vw}
-#s11 .card-title{font-size:1vw !important}
-#s11 .cmp-table td,#s11 .cmp-table th{font-size:1.15vw !important;padding:.55vw .9vw !important}
+#s11{display:flex;flex-direction:column;min-height:0}
+#s11 .slide-head{margin-bottom:.85vw}
+#s11 .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.9vw;flex:0 0 auto;margin-bottom:.9vw;height:22vw;overflow:hidden;align-items:stretch}
+#s11 .grid-3 .card{height:100%;display:flex;flex-direction:column;min-height:0}
+#s11 .card ul{font-size:.95vw !important;line-height:1.35}
+#s11 .card .pill{font-size:.8vw}
+#s11 .card-title{font-size:.85vw !important}
+#s11 .cmp-table td,#s11 .cmp-table th{font-size:.95vw !important;padding:.3vw .55vw !important}
+#s11 .card:last-child{flex:1 1 auto;min-height:0;max-height:23.8vw;overflow:hidden}
+#s11 .table-wrap{flex:1 1 auto;min-height:0;overflow:auto}
+#s11 .card:last-child .cmp-table{min-width:0}
+#s11 .card .table-wrap{padding:0}
 
 /* ── S12 metas ── */
 .metas-wrap{height:calc(56.25vw - 14vw);display:flex;flex-direction:column;gap:1vw}
@@ -619,14 +644,14 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
     </div>
     <div class="marker"><span class="num">07</span><span>Redes II</span></div>
   </div>
-  <div class="grid-2" style="height:calc(56.25vw - 16vw)">
+  <div class="grid-2" style="align-items:stretch">
     <div class="card" style="display:flex;flex-direction:column">
       <div style="font-family:'Manrope';font-weight:800;font-size:1.1vw;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2);margin-bottom:.7vw;flex-shrink:0;display:flex;align-items:center;gap:.6vw"><span class="ps-dot prof"></span>Profesionales · médicos</div>
-      <div class="pauta-rank" id="pautaProf" style="flex:1;overflow:hidden;display:flex;flex-direction:column;justify-content:space-evenly"></div>
+      <div class="pauta-rank" id="pautaProf" style="flex:1"></div>
     </div>
     <div class="card" style="display:flex;flex-direction:column">
       <div style="font-family:'Manrope';font-weight:800;font-size:1.1vw;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2);margin-bottom:.7vw;flex-shrink:0;display:flex;align-items:center;gap:.6vw"><span class="ps-dot prod"></span>Productos</div>
-      <div class="pauta-rank" id="pautaProd" style="flex:1;overflow:hidden;display:flex;flex-direction:column;justify-content:space-evenly"></div>
+      <div class="pauta-rank" id="pautaProd" style="flex:1"></div>
     </div>
   </div>
 </section>
@@ -684,15 +709,26 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
     <h3 class="card-title">Apariciones por profesional</h3>
     <div class="chart-wrap" style="height:24vw"><canvas id="cProfCnt"></canvas></div>
   </div>
-  <details class="expand">
-    <summary><span>Ver tabla completa de profesionales</span><span>▾</span></summary>
-    <div class="det-body">
+</section>
+
+<!-- S10b · PROFESIONALES TABLA COMPLETA -->
+<section class="slide slide-cream fade slide-anchor" id="s10b">
+  <div class="slide-head">
+    <div class="meta">
+      <span class="eyebrow">10 · Profesionales · Tabla completa</span>
+      <h2 class="display">Profesionales al aire y sus métricas.</h2>
+    </div>
+    <div class="marker"><span class="num">10</span><span>Tabla</span></div>
+  </div>
+  <div class="card lg" style="display:flex;flex-direction:column;height:100%;">
+    <h3 class="card-title left">Profesionales · detalle completo</h3>
+    <div style="flex:1;min-height:0;overflow:auto;">
       <table class="tbl">
         <thead><tr><th style="width:46px">#</th><th>Profesional</th><th class="num">Salidas</th><th class="num">Apoyo</th><th class="num">Inversión total</th></tr></thead>
         <tbody id="tblProf"></tbody>
       </table>
     </div>
-  </details>
+  </div>
 </section>
 
 <!-- S11 · DIAGNÓSTICO + COMPARATIVO -->
@@ -704,7 +740,7 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
     </div>
     <div class="marker"><span class="num">11</span><span>Diag.</span></div>
   </div>
-  <div class="grid-3" style="height:calc(56.25vw - 25vw);margin-bottom:1vw">
+  <div class="grid-3">
     <div class="card" style="border-top:4px solid var(--good);display:flex;flex-direction:column">
       <div class="pill good" style="margin-bottom:.7vw;font-size:1vw">Funciona</div>
       <h3 class="card-title left" style="font-size:1vw">Producción</h3>
@@ -737,19 +773,21 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
       </ul>
     </div>
   </div>
-  <div class="card" style="padding:1vw 1.4vw">
+  <div class="card" style="padding:1vw 1.4vw;display:flex;flex-direction:column;min-height:0;overflow:hidden">
     <h3 class="card-title left" style="font-size:1vw">KPIs comparativos · Mayo vs Junio</h3>
-    <table class="cmp-table">
-      <thead><tr><th>Métrica</th><th>Mayo</th><th>Junio</th><th>Δ</th></tr></thead>
-      <tbody>
-        <tr><td>Inversión TV (sin ADN)</td><td class="val">$136,9 M</td><td class="val">$101,0 M</td><td class="delta-neg">−26%</td></tr>
-        <tr><td>Pauta Meta</td><td class="val">$9,2 M</td><td class="val">$10,4 M</td><td class="delta-pos">+13%</td></tr>
-        <tr><td>Salidas TV tomadas</td><td class="val">98</td><td class="val">109</td><td class="delta-pos">+11%</td></tr>
-        <tr><td>Aprovechamiento %</td><td class="val">98%</td><td class="val">84%</td><td class="delta-neg">−14pp</td></tr>
-        <tr><td>Costo / salida</td><td class="val">$1,40 M</td><td class="val">$0,93 M</td><td class="delta-pos">−34%</td></tr>
-        <tr><td>Alcance Meta</td><td class="val">3,4 M</td><td class="val">3,6 M</td><td class="delta-pos">+6%</td></tr>
-      </tbody>
-    </table>
+    <div class="table-wrap">
+      <table class="cmp-table">
+        <thead><tr><th>Métrica</th><th>Mayo</th><th>Junio</th><th>Δ</th></tr></thead>
+        <tbody>
+          <tr><td>Inversión TV (sin ADN)</td><td class="val">$136,9 M</td><td class="val">$101,0 M</td><td class="delta-neg">−26%</td></tr>
+          <tr><td>Pauta Meta</td><td class="val">$9,2 M</td><td class="val">$10,4 M</td><td class="delta-pos">+13%</td></tr>
+          <tr><td>Salidas TV tomadas</td><td class="val">98</td><td class="val">109</td><td class="delta-pos">+11%</td></tr>
+          <tr><td>Aprovechamiento %</td><td class="val">98%</td><td class="val">84%</td><td class="delta-neg">−14pp</td></tr>
+          <tr><td>Costo / salida</td><td class="val">$1,40 M</td><td class="val">$0,93 M</td><td class="delta-pos">−34%</td></tr>
+          <tr><td>Alcance Meta</td><td class="val">3,4 M</td><td class="val">3,6 M</td><td class="delta-pos">+6%</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </section>
 
