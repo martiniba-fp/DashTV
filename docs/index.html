@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Informe Ejecutivo · Junio 2026 · Framingham Pharma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4" crossorigin="anonymous"></script>
+<style>
+/* ─── RESET ─────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+:root {
+  --ink:    #0B1B2E;
+  --red:    #E63946;
+  --cyan:   #1FAFE0;
+  --white:  #FFFFFF;
+  --off:    #F7F9FC;
+  --slate:  #64748B;
+  --muted:  #94A3B8;
+  --border: rgba(255,255,255,0.10);
+  --borderl:#E2E8F0;
+}
+html, body {
+  width:100vw; height:56.25vw;
+  overflow:hidden; background:var(--ink);
+  font-family:'DM Sans',sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ─── PROGRESS BAR ───────────────────────────────────────────── */
+#prog {
+  position:fixed; top:0; left:0; z-index:100;
+  height:2px; background:var(--red);
+  transition:width 0.4s ease;
+}
+
+/* ─── DECK ───────────────────────────────────────────────────── */
+#deck { position:fixed; inset:0; width:100vw; height:56.25vw; }
+.slide {
+  position:absolute; inset:0;
+  width:100vw; height:56.25vw;
+  overflow:hidden;
+  transform:translateX(100%);
+  transition:transform 0.55s cubic-bezier(0.77,0,0.175,1);
+  padding:2.8vw 4vw 2.5vw;
+}
+.slide.active { transform:translateX(0); }
+.slide.prev   { transform:translateX(-100%); }
+.dark  { background:var(--ink);  color:var(--white); }
+.light { background:var(--white); color:var(--ink);  }
+.offbg { background:var(--off);  color:var(--ink);  }
+
+/* ─── GHOST WATERMARK ────────────────────────────────────────── */
+.ghost {
+  position:absolute; right:-1vw; bottom:-3vw;
+  font-family:'DM Serif Display',serif;
+  font-size:26vw; line-height:1;
+  pointer-events:none; user-select:none;
+  white-space:nowrap; overflow:hidden;
+}
+.dark  .ghost { color:var(--white); opacity:0.035; }
+.light .ghost { color:var(--ink);   opacity:0.04;  }
+.offbg .ghost { color:var(--ink);   opacity:0.04;  }
+
+/* ─── TYPOGRAPHY ─────────────────────────────────────────────── */
+.eyebrow {
+  font-size:0.6vw; font-weight:500; letter-spacing:0.22em;
+  text-transform:uppercase; opacity:0.45;
+  display:flex; align-items:center; gap:0.5vw;
+}
+.eyebrow::before {
+  content:''; display:inline-block;
+  width:1.4vw; height:2px; background:var(--red); flex-shrink:0;
+}
+.kpi-num {
+  font-family:'Space Grotesk',monospace;
+  font-weight:700; line-height:1;
+}
+.accent  { color:var(--red);  }
+.accent-c{ color:var(--cyan); }
+
+/* ─── LAYOUT ─────────────────────────────────────────────────── */
+.row   { display:flex; gap:2vw; }
+.col   { display:flex; flex-direction:column; }
+.flex1 { flex:1; }
+
+/* ─── CHART CONTAINER ────────────────────────────────────────── */
+.chart-wrap { position:relative; flex:1; min-height:0; }
+.chart-wrap canvas { display:block; width:100% !important; height:100% !important; }
+
+/* ─── RANK LIST ──────────────────────────────────────────────── */
+.rank-list { display:flex; flex-direction:column; gap:0.55vw; }
+.rank-item {
+  display:grid; align-items:center;
+  grid-template-columns:10vw 1fr 3.5vw;
+  gap:0.5vw; font-size:0.68vw;
+}
+.rank-item .nm { opacity:0.85; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.rank-bar-wrap { background:rgba(255,255,255,0.08); border-radius:1px; height:0.35vw; }
+.light .rank-bar-wrap,.offbg .rank-bar-wrap { background:rgba(11,27,46,0.08); }
+.rank-bar { height:100%; border-radius:1px; background:var(--red); }
+.rank-val { text-align:right; opacity:0.7; font-family:'Space Grotesk',monospace; font-weight:500; font-size:0.65vw; }
+
+/* ─── NAV DOTS ───────────────────────────────────────────────── */
+#dots {
+  position:fixed; bottom:1.6vw; left:50%; transform:translateX(-50%);
+  display:flex; gap:0.5vw; z-index:50;
+}
+.dot {
+  width:0.5vw; height:0.5vw; border-radius:50%;
+  background:rgba(255,255,255,0.3); cursor:pointer; border:none;
+  transition:all 0.3s;
+}
+.dot.on { background:var(--red); transform:scale(1.35); }
+
+/* ─── ARROW FABs ─────────────────────────────────────────────── */
+#arrows {
+  position:fixed; bottom:1.1vw; right:3vw;
+  display:flex; gap:0.6vw; z-index:50;
+}
+.arr {
+  width:2.2vw; height:2.2vw; border-radius:50%;
+  border:1px solid rgba(255,255,255,0.2);
+  background:rgba(255,255,255,0.06);
+  color:rgba(255,255,255,0.6);
+  font-size:0.9vw; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:all 0.2s;
+}
+.arr:hover { background:rgba(255,255,255,0.18); color:#fff; }
+
+/* ─── S1 PORTADA ─────────────────────────────────────────────── */
+#s1 { display:flex; flex-direction:column; justify-content:space-between; padding:3vw 5vw; }
+.s1-logo { height:3.5vw; object-fit:contain; object-position:left; }
+.s1-center { flex:1; display:flex; flex-direction:column; justify-content:center; }
+.s1-eyebrow { font-size:0.6vw; letter-spacing:0.3em; text-transform:uppercase; opacity:0.38; margin-bottom:0.6vw; }
+.s1-title {
+  font-family:'DM Serif Display',serif; font-size:6.2vw;
+  line-height:0.92; font-weight:400;
+}
+.s1-title em { font-style:italic; color:var(--red); display:block; }
+.s1-sub { margin-top:1.2vw; font-size:0.75vw; opacity:0.4; letter-spacing:0.06em; }
+.s1-kpis { display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid rgba(255,255,255,0.10); }
+.s1-kpi { padding:1.1vw 0; }
+.s1-kpi:not(:last-child) { border-right:1px solid rgba(255,255,255,0.08); padding-right:2vw; }
+.s1-kpi:not(:first-child) { padding-left:2vw; }
+.s1-kpi .n { font-family:'Space Grotesk',monospace; font-size:2.5vw; font-weight:700; line-height:1; }
+.s1-kpi .l { font-size:0.58vw; letter-spacing:0.18em; text-transform:uppercase; opacity:0.38; margin-top:0.3vw; }
+
+/* ─── S2 PANORAMA ────────────────────────────────────────────── */
+#s2 { display:flex; flex-direction:column; gap:1vw; }
+.s2-cols { display:grid; grid-template-columns:1fr 1fr; gap:2.5vw; flex:1; }
+.s2-panel { display:flex; flex-direction:column; }
+.s2-panel-hd {
+  font-size:0.58vw; letter-spacing:0.2em; text-transform:uppercase;
+  padding-bottom:0.7vw; border-bottom:2px solid;
+  display:flex; align-items:center; gap:0.5vw; margin-bottom:0.1vw;
+}
+.tv-c  { border-color:var(--red);  color:var(--red);  }
+.meta-c{ border-color:var(--cyan); color:var(--cyan); }
+.s2-grid { display:grid; grid-template-columns:1fr 1fr; flex:1; }
+.s2-kpi { padding:0.65vw 0.5vw; border-bottom:1px solid var(--borderl); }
+.s2-kpi .n { font-family:'Space Grotesk',monospace; font-size:2vw; font-weight:700; line-height:1; color:var(--ink); }
+.s2-kpi .l { font-size:0.54vw; letter-spacing:0.12em; text-transform:uppercase; color:var(--slate); margin-top:0.18vw; }
+
+/* ─── S3 TV PROGRAMAS ────────────────────────────────────────── */
+#s3 { display:flex; flex-direction:column; gap:0.6vw; }
+.s3-head { display:flex; justify-content:space-between; align-items:flex-end; }
+.s3-big { font-family:'Space Grotesk',monospace; font-size:3.6vw; font-weight:700; color:var(--red); line-height:1; }
+.s3-big-lbl { font-size:0.58vw; letter-spacing:0.1em; text-transform:uppercase; opacity:0.38; margin-top:0.3vw; }
+.s3-stats { display:flex; gap:2.5vw; }
+.s3-stat { text-align:right; }
+.s3-stat .n { font-family:'Space Grotesk',monospace; font-size:1.5vw; font-weight:700; }
+.s3-stat .l { font-size:0.52vw; letter-spacing:0.1em; text-transform:uppercase; opacity:0.4; margin-top:0.12vw; }
+.s3-stat .p { font-size:0.48vw; opacity:0.3; margin-top:0.08vw; }
+
+/* ─── S4 TV PRODUCTOS ────────────────────────────────────────── */
+#s4 { display:flex; flex-direction:column; gap:0.8vw; }
+.s4-kpis { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5vw; }
+.s4-kpi { border-left:2px solid var(--red); padding-left:0.7vw; }
+.s4-kpi .n { font-family:'Space Grotesk',monospace; font-size:2.5vw; font-weight:700; color:var(--ink); line-height:1; }
+.s4-kpi .sub { font-size:0.9vw; font-weight:400; opacity:0.5; margin-left:0.3vw; }
+.s4-kpi .l { font-size:0.55vw; letter-spacing:0.1em; text-transform:uppercase; color:var(--slate); margin-top:0.2vw; }
+
+/* ─── S5 META ────────────────────────────────────────────────── */
+#s5 { display:flex; flex-direction:column; gap:0.8vw; }
+.s5-body { display:grid; grid-template-columns:21vw 1fr; gap:2.5vw; flex:1; min-height:0; }
+.s5-kpis { display:flex; flex-direction:column; gap:0; border-right:1px solid var(--border); padding-right:2.5vw; }
+.s5-kpi { flex:1; display:flex; flex-direction:column; justify-content:center; border-top:1px solid var(--border); padding:0.4vw 0; }
+.s5-kpi:first-child { border-top:none; }
+.s5-kpi .n { font-family:'Space Grotesk',monospace; font-size:2.1vw; font-weight:700; }
+.s5-kpi .l { font-size:0.54vw; letter-spacing:0.12em; text-transform:uppercase; opacity:0.38; margin-top:0.18vw; }
+.s5-right { flex:1; min-height:0; display:flex; flex-direction:column; gap:0.4vw; overflow:hidden; }
+
+/* ─── S6 CONTENIDO ───────────────────────────────────────────── */
+#s6 { display:flex; flex-direction:column; gap:0.6vw; }
+.s6-hero { display:flex; align-items:baseline; gap:1vw; }
+.s6-hero .big { font-family:'Space Grotesk',monospace; font-size:5vw; font-weight:700; color:var(--ink); }
+.s6-hero .lbl { font-size:0.72vw; opacity:0.45; letter-spacing:0.08em; text-transform:uppercase; line-height:1.4; }
+.s6-platforms { display:grid; grid-template-columns:1fr 1fr; gap:2.5vw; flex:1; min-height:0; }
+.s6-plat { border-top:2px solid; padding-top:0.7vw; display:flex; flex-direction:column; gap:0.4vw; overflow:hidden; }
+.s6-plat.ig { border-color:#E1306C; }
+.s6-plat.tt { border-color:#000000; }
+.s6-plat .pnm { font-size:0.58vw; letter-spacing:0.2em; text-transform:uppercase; opacity:0.45; }
+.s6-plat .pn  { font-family:'Space Grotesk',monospace; font-size:2.6vw; font-weight:700; margin:0.15vw 0 0.4vw; }
+.s6-plat.ig .pn { color:#E1306C; }
+.s6-plat.tt .pn { color:var(--ink); }
+.s6-items { display:flex; flex-direction:column; gap:0.28vw; overflow:hidden; }
+.s6-row { display:grid; grid-template-columns:9vw 2.5vw 1fr; gap:0.4vw; align-items:center; font-size:0.62vw; }
+.s6-row .sn  { opacity:0.7; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.s6-row .sv  { font-family:'Space Grotesk',monospace; font-weight:600; }
+.s6-row .svi { opacity:0.38; font-size:0.56vw; }
+
+/* ─── S7 PROFESIONALES ───────────────────────────────────────── */
+#s7 { display:flex; flex-direction:column; gap:0.7vw; }
+.s7-body { display:grid; grid-template-columns:1fr 20vw; gap:3vw; flex:1; min-height:0; }
+.s7-left { display:flex; flex-direction:column; min-height:0; }
+.s7-hero { font-family:'DM Serif Display',serif; font-size:1.5vw; font-weight:400; line-height:1.2; margin-bottom:0.3vw; }
+.s7-hero strong { font-family:'Space Grotesk',monospace; font-size:3.5vw; color:var(--red); }
+.s7-sub { font-size:0.6vw; opacity:0.38; letter-spacing:0.05em; margin-bottom:0.7vw; }
+
+/* ─── S8 CIERRE ──────────────────────────────────────────────── */
+#s8 { display:flex; flex-direction:column; justify-content:space-between; padding:3.5vw 5vw; }
+.s8-logo { height:3vw; object-fit:contain; object-position:left; }
+.s8-center { display:flex; flex-direction:column; justify-content:center; flex:1; }
+.s8-lbl { font-size:0.6vw; letter-spacing:0.3em; text-transform:uppercase; opacity:0.32; margin-bottom:0.8vw; }
+.s8-total { font-family:'Space Grotesk',monospace; font-size:5.8vw; font-weight:700; color:var(--red); line-height:1; }
+.s8-sub { font-size:0.68vw; letter-spacing:0.15em; text-transform:uppercase; opacity:0.35; margin-top:0.5vw; }
+.s8-bullets { display:flex; flex-direction:column; gap:0.55vw; margin-top:2vw; }
+.s8-bullet { font-size:0.82vw; opacity:0.6; display:flex; align-items:center; gap:0.6vw; }
+.s8-bullet::before { content:''; width:0.28vw; height:0.28vw; border-radius:50%; background:var(--red); flex-shrink:0; }
+.s8-footer { display:flex; justify-content:space-between; align-items:center; opacity:0.22; font-size:0.58vw; letter-spacing:0.1em; }
+
+@media (prefers-reduced-motion:reduce) { .slide { transition:none; } }
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+<div id="deck">
+
+<!-- ═══════════════════════════════════════════════════════ S1 · PORTADA -->
+<section class="slide dark active" id="s1">
+  <span class="ghost">JUN</span>
+  <img class="s1-logo" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIALwAyAMBIgACEQEDEQH/xAAbAAEAAgMBAQAAAAAAAAAAAAAABgcBAgQFA//EAEkQAAECAwEJCwkFBgcAAAAAAAABAgMEBREGEhMWNVNzk7EHFCExNFFSVHSSshUXNkFVcXLR0jNhY4GRIjJCgqHBJCVDRIPC8P/EABsBAQADAQEBAQAAAAAAAAAAAAADBAUGAgEH/8QAMBEAAQMCAwcEAQMFAAAAAAAAAAECAwQRBRIxBhQVMlFhcSEzQYETNJGxFiIjU6H/2gAMAwEAAhEDEQA/ALxAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAGQYABkGAAZBgAGQYABkGB7wDIAAAAAAAAAAAAMAAyAAAAAD5R4zIEF8WItjGNVVPLxlpucfq1OusZMm9C/YV6WIYkenqZ9XUvhciNJvjLTum/VqMZad036tSEAm3ZhU4hL2JvjLTum/VqMZad036tSEAbswcQl7E3xlp3Tfq1GMtO6b9WpCAN2YOIS9ib4y07pv1ajGWndN+rUhAG7MHEJexYEhVZWfiOZLvVXNS1bUsOStXTU6ix2QZ6I9r3tvm2MVf/AHEeVcZy2Po02kc3U+CrytmY/wCylCq/w3ynQYMxK17WyfN9CU4/0HPxdS4Y/wBBz8XUuKhBn7286rgNN1Ut7H+g5+LqXDH+g5+LqXFQgb28cBpuqlvY/wBBz8XUuGP9Bz8XUuKhA3t44DTdVLex/oOfi6lwx/oOfi6lxUIG9vHAabqpbuP9Bz8XVOJFJzUOdlYUzAW2HFYj2KvrRU4ygC8rmETF6m9lh+FCeCZ0ircycVw+Kka1WX9T1gAWjGAAAOGsZLm9C/YV6WFWMlzehfsK9LlNopj4jzp4ABMIFzkjEgscuFtVqL++TSSIzUqQ075r5fgh4JpixIfi98YsSH4veI95aT8Pm7ELBNMWaf8Ai98Ys0/8XvjeWDh8vYhYPUr8jBkJtkKBfXqw75VVbfWp5ZM1yOS6FSRiscrVJBcZy2Po02kc3VMsSugXxKSO4zlsfRptI5uqZYldAviUycQ0U6/Zj3WfZCgCVXF3Myt0EKadNRY8NYLmo3Bq1LbbeO1DIYxXrZDu6ioZTxrI/RCKgtDzbUvrc53mfSPNvS+tzn6t+km3WQzuOUvf9irwWj5tqX1yc7zfpMebal9cnP1b9J93WQccpe/7FXgn9X3O8FKxI1LmnxXsaqpCioiq73KlnCQBfX9ykL43M5i9S1kVSirGugLzuY9HaZ2WH4UKMLzuY9HaZ2WH4ULNHqpj7QcjPJ6oAL5y4AABw1jJc3oX7CvSwqxkub0L9hXpcptFMfEedPALJlOGWg/AmwrYsmU5NB+BNh8qvg9Ybq48GtV2bkJ50CEyErURF/aRbTgxon83L9xfmZuklZiLVXPhS8V6Kxtjmw1VDy/J871SPq3fI9MZGrUuRzS1CSKiXsenjRP5uX7q/UMaJ/Ny/dX5njxZePBsw0CIy+tsvmKnN8z5kiRMX4IFqp01U66jUI1QjJFmEa1zW2fstVE/qcgTg4gSIiIlkIHOVy3UkFxnLY+jTaRzdUyxK6BfEpI7jOWx9Gm0jm6pliV0C+JTIxDRTsNmPdZ9kKLG3Jvsqj8TNilcljbk32NR+JmxTNpvcQ63Gf0bvr+SRXYViZotJ31KshuiYRG2PRVT18xCPOPV8zI9x31Er3RZeNNUC8loESM/CtW9hsVy2fkVj5Hqns6c1DvkTzvka7+0zMKpqSSDNMiXuSPzj1fMyXdf9R10vdBqMeoy8GalpbBRYiMdg0cjktVEt4VIj5Hqfs6c1DvkdlFolViVWU/y+ZYiRWuVzoLmtREW1VW2wibLMqoXpqPDkYq+mnUuuxL3i9RQtXajKtOtRLESYeiJ/Mpff8P5FC1rLE9av+5icP8AMpNV6IZ+z/uP8HGXncx6O0zssPwoUYXncx6O0zssPwoeKPVSxtByM8nqgAvnLgAAHDWMlzehfsK9LCrGS5vQv2Felym0Ux8R508AsmU5NB+BNhWxZMpyaD8CbD5VfB6w3Vxs57EWxzkT+hnCQ+m39UIVdRwVd6JwJetPIPLafMiLckkr8j1bl0JLdk5r96Xqov7338xGh7+H3gtRsyNsZk0n5Xq8AA9kRILjOWx9Gm0jm6pliV0C+JSR3Gctj6NNpHN1TLEroF8SmPiGinZbMe6z7IUWNuTfYVD4mbFK5LG3Jvsaj8TNimbTe4h1uM/o3fX8k6mZiBLw8JMxYcNnFfRFREObyzSvaMprW/M8DdO9HP8Anb/cqctTVH43WsYeH4UlXF+RXW9S9/LNK9oSmub8zXyxSvaEnrm/MooEW+L0L39PN/2f8LjrF2FKkJVzoM3CmY6ot5ChOR1q+9OJCnor3RYjoj1te5yucvOq8ZqvDxghlmWQ1KHD46NFyrdVBedzHo7TOyw/ChRhedzHo7TOyw/ChNR6qZm0HIzyeqAC+cuAAAcNYyXN6F+wr0sKsZLm9C/YV6XKbRTHxHnTwCyJVf8ADQvVYxNhW52JVJ9rUak1FRESzjPc0SvtYhpKhsKrf5Ou6nK7+H+BNh5B9I8aJMRFiRnq96pZap8yViWaiFeV+d6uAAPRGAAASC4zlsfRptI5uqZYldAviUkdxnLY+jTaRzdUyxK6BfEpj4hop2WzHus+yFFjblC2Qal9zmbFK5OmUn5ySa5spNRoCOsvsG9W22e4yonox11O2r6Z1TAsbV9VLO3TFtucTh/1m/3KoOuaqlQnIWCmp2YjQ7bb2JFVUOQ+zSJI66HjDqR1LDkct/UAAiL4AAALzuY9HaZ2WH4UKMLzuY9HaZ2WH4ULlHqpzu0HIzyeqAC+cuAAAcNYyXN6F+wr0sOrIrqbNI1LVWE5LPyIBgYubf3VLdMqIimRiKKr0sfMG+Ai5t/dUYCLm391S1dDOyr0NAb4CLm391RgIubf3VF0GVehoDfARc2/uqMBFzb+6ougyr0NAb4CLm391RgIubf3VF0GVeh7txnLY+jTaRzdUyxK6BfEpJbj2PZORlcxWosNLFXg9ZHt1CDFiVaWWHDe5EgWKqNXjvjJr/VFsdhsyuWVl+5Bgfbekx1eLq1G9Jjq8XVqY1lP0DO3qfEH23pMdXi6tRvSY6vF1aiyjO3qfEH23pMdXi6tRvSY6vF1aiyjO3qfEH23pMdXi6tRvSY6vF1aiyjO3qfEvO5j0dpnZYfhQpLekx1ePq1LtuZRzaBTmuRUVJaGioqWWfsoXKRFRVOex9yKxllPVABeOYAAANVRF4xYnMbAAxYnMLE5jIB8sYsTmFicxkAWMWJzCxOYyALGLE5hYnMZAFjWxArUVbVRDYA+mt43ooLxvRQ2B8sDW8b0UF43oobAWBreN6KC8b0UNgLA1vG9FBeN6KGwFga3qcyBEREsROA2B9AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB/9k=" alt="Framingham Pharma">
+  <div class="s1-center">
+    <div class="s1-eyebrow">Informe Ejecutivo de Marketing</div>
+    <div class="s1-title">
+      <em>Junio</em>
+      2026
+    </div>
+    <div class="s1-sub">01 — 29 Junio 2026 &nbsp;·&nbsp; TV + Meta Ads + Contenido Orgánico</div>
+  </div>
+  <div class="s1-kpis">
+    <div class="s1-kpi">
+      <div class="n accent">$111.6M</div>
+      <div class="l">Inversión Total ARS</div>
+    </div>
+    <div class="s1-kpi">
+      <div class="n">114</div>
+      <div class="l">Salidas en TV</div>
+    </div>
+    <div class="s1-kpi">
+      <div class="n">623</div>
+      <div class="l">Videos Publicados</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ S2 · PANORAMA -->
+<section class="slide offbg" id="s2">
+  <span class="ghost">2</span>
+  <div class="eyebrow" style="margin-bottom:1vw">Panorama General · Junio 2026</div>
+  <div class="s2-cols">
+    <div class="s2-panel">
+      <div class="s2-panel-hd tv-c">&#11044;&ensp;Televisión</div>
+      <div class="s2-grid">
+        <div class="s2-kpi"><div class="n" style="color:var(--red)">114</div><div class="l">Salidas totales</div></div>
+        <div class="s2-kpi"><div class="n">$101.2M</div><div class="l">Inversión ARS</div></div>
+        <div class="s2-kpi"><div class="n">96</div><div class="l">Notas médicas</div></div>
+        <div class="s2-kpi"><div class="n">18</div><div class="l">PNT</div></div>
+        <div class="s2-kpi"><div class="n">15</div><div class="l">Programas distintos</div></div>
+        <div class="s2-kpi"><div class="n">6</div><div class="l">Profesionales</div></div>
+      </div>
+    </div>
+    <div class="s2-panel">
+      <div class="s2-panel-hd meta-c">&#11044;&ensp;Meta Ads + Contenido</div>
+      <div class="s2-grid">
+        <div class="s2-kpi"><div class="n" style="color:var(--cyan)">$10.4M</div><div class="l">Gasto Meta ARS</div></div>
+        <div class="s2-kpi"><div class="n">3.6M</div><div class="l">Alcance único</div></div>
+        <div class="s2-kpi"><div class="n">211K</div><div class="l">Clicks totales</div></div>
+        <div class="s2-kpi"><div class="n">4.27%</div><div class="l">CTR promedio</div></div>
+        <div class="s2-kpi"><div class="n">345</div><div class="l">Videos Instagram</div></div>
+        <div class="s2-kpi"><div class="n">278</div><div class="l">Videos TikTok</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════ S3 · TV — INVERSIÓN PROGRAMAS -->
+<section class="slide dark" id="s3">
+  <span class="ghost">TV</span>
+  <div class="eyebrow" style="margin-bottom:0.6vw">Televisión · Inversión por Programa</div>
+  <div class="s3-head">
+    <div>
+      <div class="s3-big">ARS 101.2M</div>
+      <div class="s3-big-lbl">Inversión total en TV · Junio 2026</div>
+    </div>
+    <div class="s3-stats">
+      <div class="s3-stat">
+        <div class="n" style="color:var(--red)">11</div><div class="l">Salidas</div><div class="p">Desayuno Americano</div>
+      </div>
+      <div class="s3-stat">
+        <div class="n">10</div><div class="l">Salidas</div><div class="p">Todo Cocinado</div>
+      </div>
+      <div class="s3-stat">
+        <div class="n">9</div><div class="l">Salidas</div><div class="p">Lape Club Social</div>
+      </div>
+    </div>
+  </div>
+  <div class="chart-wrap" style="height:33vw;margin-top:0.3vw;">
+    <canvas id="chartProg"></canvas>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════ S4 · TV — SALIDAS PRODUCTOS -->
+<section class="slide light" id="s4">
+  <span class="ghost">114</span>
+  <div class="eyebrow" style="margin-bottom:0.9vw">Televisión · Salidas por Producto</div>
+  <div class="s4-kpis" style="margin-bottom:0.9vw">
+    <div class="s4-kpi">
+      <div class="n">114<span class="sub">salidas</span></div>
+      <div class="l">Total Tomado=TRUE</div>
+    </div>
+    <div class="s4-kpi">
+      <div class="n">96<span class="sub">NOTAS</span></div>
+      <div class="l">Notas médicas con profesional</div>
+    </div>
+    <div class="s4-kpi">
+      <div class="n accent">18<span class="sub">PNT</span></div>
+      <div class="l">Publicidad No Tradicional</div>
+    </div>
+  </div>
+  <div class="chart-wrap" style="height:33vw;">
+    <canvas id="chartProd"></canvas>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ S5 · META ADS -->
+<section class="slide dark" id="s5">
+  <span class="ghost">21</span>
+  <div class="eyebrow" style="margin-bottom:0.8vw">Meta Ads · Performance Junio 2026</div>
+  <div class="s5-body">
+    <div class="s5-kpis">
+      <div class="s5-kpi"><div class="n accent-c">$10.4M</div><div class="l">Gasto total ARS</div></div>
+      <div class="s5-kpi"><div class="n">3,621,064</div><div class="l">Alcance único</div></div>
+      <div class="s5-kpi"><div class="n">211,173</div><div class="l">Clicks totales</div></div>
+      <div class="s5-kpi"><div class="n accent">4.27%</div><div class="l">CTR promedio</div></div>
+      <div class="s5-kpi"><div class="n">21</div><div class="l">Cuentas activas</div></div>
+    </div>
+    <div class="s5-right">
+      <div style="font-size:0.56vw;letter-spacing:0.18em;text-transform:uppercase;opacity:0.38;">Top cuentas por gasto</div>
+      <div id="metaList" class="rank-list" style="overflow:hidden;flex:1;"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════ S6 · CONTENIDO ORGÁNICO -->
+<section class="slide light" id="s6">
+  <span class="ghost">623</span>
+  <div class="eyebrow" style="margin-bottom:0.6vw">Contenido Orgánico · Mayo–Junio 2026</div>
+  <div class="s6-hero">
+    <div class="big">623</div>
+    <div class="lbl">videos publicados<br>en todas las plataformas</div>
+  </div>
+  <div class="s6-platforms">
+    <div class="s6-plat ig">
+      <div class="pnm">Instagram</div>
+      <div class="pn">345</div>
+      <div class="s6-items" id="igItems"></div>
+    </div>
+    <div class="s6-plat tt">
+      <div class="pnm">TikTok</div>
+      <div class="pn">278</div>
+      <div class="s6-items" id="ttItems"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ S7 · PROFESIONALES -->
+<section class="slide dark" id="s7">
+  <span class="ghost">49</span>
+  <div class="eyebrow" style="margin-bottom:0.6vw">Profesionales · Apariciones en TV</div>
+  <div class="s7-body">
+    <div class="s7-left">
+      <div class="s7-hero"><strong>49</strong> apariciones<br>Gabriel Lapman</div>
+      <div class="s7-sub">Principal médico de la cartera · Junio 2026</div>
+      <div class="chart-wrap" style="height:26vw;">
+        <canvas id="chartProfs"></canvas>
+      </div>
+    </div>
+    <div class="col" style="gap:0.4vw;">
+      <div style="font-size:0.56vw;letter-spacing:0.18em;text-transform:uppercase;opacity:0.38;margin-bottom:0.4vw;">Inversión en apoyo</div>
+      <div id="profApoyo" class="rank-list"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ S8 · CIERRE -->
+<section class="slide dark" id="s8">
+  <span class="ghost" style="font-size:18vw;opacity:0.025;">FP</span>
+  <img class="s8-logo" src="data:image/jpeg;base64,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" alt="Framingham Pharma">
+  <div class="s8-center">
+    <div class="s8-lbl">Inversión Total · Junio 2026</div>
+    <div class="s8-total">$111,566,146</div>
+    <div class="s8-sub">ARS invertidos en TV + Meta Ads</div>
+    <div class="s8-bullets">
+      <div class="s8-bullet">114 salidas en televisión nacional · 15 programas · 6 profesionales</div>
+      <div class="s8-bullet">21 cuentas activas en Meta Ads · 211K clicks · 4.27% CTR</div>
+      <div class="s8-bullet">623 videos publicados entre Instagram y TikTok</div>
+    </div>
+  </div>
+  <div class="s8-footer">
+    <span>Framingham Pharma · Marketing</span>
+    <span>Junio 2026</span>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<nav id="dots"></nav>
+<div id="arrows">
+  <button class="arr" onclick="go(-1)">&#8592;</button>
+  <button class="arr" onclick="go(1)">&#8594;</button>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════════
+// DATOS — ACTUALIZAR CADA MES · solo este bloque
+// ═══════════════════════════════════════════════════════════════════════
+const DATA = {
+  mes:"Junio", año:2026, periodo:"01 – 29 Junio 2026",
+
+  tv_salidas:114, tv_notas:96, tv_pnt:18, tv_total:101208340,
+
+  meta_total:10357806, meta_alcance:3621064,
+  meta_impr:4944769, meta_clicks:211173, meta_ctr:4.27, meta_cuentas:21,
+
+  videos_ig:345, videos_tt:278,
+
+  programas:[
+    { n:"Desayuno Americano",    s:11, inv:20800000 },
+    { n:"Lape Club Social",      s:9,  inv:17190000 },
+    { n:"Todo Cocinado",         s:10, inv:10930000 },
+    { n:"Los prof. con Flor",    s:6,  inv:8311200  },
+    { n:"La mañana de Moria",    s:4,  inv:7280000  },
+    { n:"TL 9 al Mediodía",      s:4,  inv:6634800  },
+    { n:"Con Carmen",            s:5,  inv:6420500  },
+    { n:"La Cocina Rebelde",     s:3,  inv:4390000  },
+    { n:"TL 9 al Amanecer",      s:4,  inv:3564480  },
+    { n:"Las mañanas c/Andino",  s:8,  inv:2910000  },
+  ],
+
+  productos:[
+    { n:"Menacor",       s:13, inv:14964000 },
+    { n:"Telomerina",    s:13, inv:8637440  },
+    { n:"Serrapep",      s:13, inv:7218100  },
+    { n:"Daozima",       s:11, inv:13563640 },
+    { n:"Creatina HCL",  s:10, inv:11404430 },
+    { n:"Digecaps",      s:10, inv:9114730  },
+    { n:"Vitamet",       s:9,  inv:14240000 },
+    { n:"Metasitol R1",  s:8,  inv:7478400  },
+    { n:"Satial Food",   s:8,  inv:2795200  },
+    { n:"Goodskin",      s:6,  inv:3643300  },
+    { n:"Floragut",      s:4,  inv:3131000  },
+    { n:"Metasitol",     s:4,  inv:4238100  },
+  ],
+
+  profesionales:[
+    { n:"Gabriel Lapman",   s:49, apoyo:5880000 },
+    { n:"Micaela Olivares", s:12, apoyo:700000  },
+    { n:"Evangelina Cueto", s:9,  apoyo:630000  },
+    { n:"Karina Ramírez",   s:8,  apoyo:420000  },
+    { n:"Delfina Zimerman", s:7,  apoyo:600000  },
+    { n:"Andrea Purita",    s:6,  apoyo:1020000 },
+  ],
+
+  cuentas_meta:[
+    { n:"ADN Buena Salud", g:1471569, clicks:12514, ctr:2.66 },
+    { n:"Endocrinólogo",   g:960409,  clicks:34829, ctr:5.49 },
+    { n:"Ampkok",          g:893532,  clicks:26053, ctr:5.20 },
+    { n:"Metasitol",       g:886668,  clicks:20591, ctr:3.61 },
+    { n:"Telomerina NAD+", g:759235,  clicks:13611, ctr:3.70 },
+    { n:"Floragut",        g:741200,  clicks:11953, ctr:2.93 },
+    { n:"Satial",          g:741019,  clicks:6903,  ctr:3.29 },
+    { n:"Nutri 100",       g:704461,  clicks:11327, ctr:3.84 },
+    { n:"Sacle",           g:682956,  clicks:23762, ctr:7.00 },
+    { n:"Dr. Milton Dan",  g:481320,  clicks:3250,  ctr:2.56 },
+  ],
+
+  ig_top:[
+    { c:"sacle.ar",           v:56, vis:"2.7M"  },
+    { c:"medicosconsultores", v:39, vis:"445K"  },
+    { c:"supleunico.ar",      v:38, vis:"13.1K" },
+    { c:"EnFocoSalud",        v:35, vis:"116K"  },
+    { c:"adnbuenasalud",      v:29, vis:"53.9K" },
+    { c:"medicos.clips",      v:27, vis:"53.9K" },
+    { c:"ampkprotein",        v:24, vis:"886K"  },
+    { c:"framinghampharma",   v:19, vis:"178K"  },
+  ],
+
+  tt_top:[
+    { c:"sacle.ok",           v:55, vis:"1.1M"   },
+    { c:"suplementosunicos",  v:55, vis:"46.6K"  },
+    { c:"adn.buena.salud",    v:54, vis:"35.3K"  },
+    { c:"medicos.clips",      v:54, vis:"221.9K" },
+    { c:"medicosconsultores", v:48, vis:"8.1K"   },
+    { c:"ampkprotein",        v:12, vis:"6.9K"   },
+  ],
+};
+DATA.total = DATA.tv_total + DATA.meta_total;
+// ═══════════════════════════════════════════════════════════════════════
+
+// ─── NAVIGATION ─────────────────────────────────────────────────────
+const slides = Array.from(document.querySelectorAll('.slide'));
+const N = slides.length;
+let cur = 0;
+
+function go(dir) {
+  const prev = cur;
+  cur = (cur + dir + N) % N;
+  slides[prev].classList.remove('active');
+  if (dir > 0) slides[prev].classList.add('prev');
+  else slides[prev].classList.remove('prev');
+  slides.forEach((s,i) => { if (i !== cur && i !== prev) { s.classList.remove('active','prev'); } });
+  slides[cur].classList.remove('prev');
+  slides[cur].classList.add('active');
+  updateNav();
+}
+
+function goTo(i) {
+  if (i === cur) return;
+  slides.forEach(s => s.classList.remove('active','prev'));
+  slides[i].classList.add('active');
+  cur = i;
+  updateNav();
+}
+
+function updateNav() {
+  document.getElementById('prog').style.width = ((cur+1)/N*100) + '%';
+  document.querySelectorAll('.dot').forEach((d,i) => d.classList.toggle('on', i===cur));
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key==='ArrowRight'||e.key==='PageDown') go(1);
+  if (e.key==='ArrowLeft' ||e.key==='PageUp')   go(-1);
+});
+
+const dotsEl = document.getElementById('dots');
+slides.forEach((_,i) => {
+  const d = document.createElement('button');
+  d.className = 'dot'+(i===0?' on':'');
+  d.onclick = () => goTo(i);
+  dotsEl.appendChild(d);
+});
+updateNav();
+
+// ─── CHART DEFAULTS ─────────────────────────────────────────────────
+Chart.defaults.font.family = "'DM Sans', sans-serif";
+Chart.defaults.color = 'rgba(255,255,255,0.5)';
+
+const RED='#E63946', INK='#0B1B2E', WH='rgba(255,255,255,0.72)', WG='rgba(255,255,255,0.07)';
+
+function hBarDark(id, labels, values, maxVal) {
+  const fs = Math.max(9, window.innerWidth * 0.0062);
+  new Chart(document.getElementById(id), {
+    type:'bar',
+    data:{ labels, datasets:[{ data:values, backgroundColor:RED, borderRadius:3, borderSkipped:false }] },
+    options:{
+      indexAxis:'y', responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{display:false}, tooltip:{enabled:false} },
+      scales:{
+        x:{ display:false, max:maxVal },
+        y:{ ticks:{ color:WH, font:{size:fs}, padding:4 }, grid:{display:false}, border:{display:false} }
+      },
+      layout:{ padding:{right:50} },
+      animation:{ duration:700, easing:'easeOutQuart' },
+    },
+    plugins:[{ id:'vl', afterDatasetsDraw(chart) {
+      const {ctx} = chart;
+      chart.data.datasets[0].data.forEach((val,i) => {
+        const bar = chart.getDatasetMeta(0).data[i];
+        ctx.save();
+        ctx.fillStyle = WH;
+        ctx.font = `600 ${fs}px 'Space Grotesk'`;
+        ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+        const lbl = val >= 1000000 ? '$'+(val/1000000).toFixed(1)+'M' : val;
+        ctx.fillText(lbl, bar.x+6, bar.y);
+        ctx.restore();
+      });
+    }}]
+  });
+}
+
+function hBarLight(id, labels, values, maxVal) {
+  const fs = Math.max(9, window.innerWidth * 0.006);
+  const IC = 'rgba(11,27,46,0.75)', IG = 'rgba(11,27,46,0.07)';
+  new Chart(document.getElementById(id), {
+    type:'bar',
+    data:{ labels, datasets:[{ data:values, backgroundColor:RED, borderRadius:3, borderSkipped:false }] },
+    options:{
+      indexAxis:'y', responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{display:false}, tooltip:{enabled:false} },
+      scales:{
+        x:{ display:false, max:maxVal },
+        y:{ ticks:{ color:IC, font:{size:fs}, padding:4 }, grid:{display:false}, border:{display:false} }
+      },
+      layout:{ padding:{right:35} },
+      animation:{ duration:700 },
+    },
+    plugins:[{ id:'vl', afterDatasetsDraw(chart) {
+      const {ctx} = chart;
+      chart.data.datasets[0].data.forEach((val,i) => {
+        const bar = chart.getDatasetMeta(0).data[i];
+        ctx.save();
+        ctx.fillStyle = IC;
+        ctx.font = `600 ${Math.round(window.innerWidth*0.006)}px 'Space Grotesk'`;
+        ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+        ctx.fillText(val, bar.x+5, bar.y);
+        ctx.restore();
+      });
+    }}]
+  });
+}
+
+// S3: Programas
+const prog = DATA.programas;
+hBarDark('chartProg', prog.map(p=>p.n), prog.map(p=>p.inv), Math.max(...prog.map(p=>p.inv))*1.3);
+
+// S4: Productos (ordenados por salidas)
+const prods = [...DATA.productos].sort((a,b)=>b.s-a.s);
+hBarLight('chartProd', prods.map(p=>p.n), prods.map(p=>p.s), Math.max(...prods.map(p=>p.s))*1.35);
+
+// S5: Meta rank list
+const maxG = DATA.cuentas_meta[0].g;
+document.getElementById('metaList').innerHTML = DATA.cuentas_meta.map(c=>`
+  <div class="rank-item">
+    <div class="nm">${c.n}</div>
+    <div class="rank-bar-wrap"><div class="rank-bar" style="width:${(c.g/maxG*100).toFixed(1)}%"></div></div>
+    <div class="rank-val">${(c.g/1000).toFixed(0)}K</div>
+  </div>`).join('');
+
+// S6: Content lists
+document.getElementById('igItems').innerHTML = DATA.ig_top.map(a=>`
+  <div class="s6-row"><div class="sn">${a.c}</div><div class="sv">${a.v}</div><div class="svi">${a.vis}</div></div>`).join('');
+document.getElementById('ttItems').innerHTML = DATA.tt_top.map(a=>`
+  <div class="s6-row"><div class="sn">${a.c}</div><div class="sv">${a.v}</div><div class="svi">${a.vis}</div></div>`).join('');
+
+// S7: Profesionales bar
+const prfs = DATA.profesionales;
+new Chart(document.getElementById('chartProfs'), {
+  type:'bar',
+  data:{
+    labels: prfs.map(p=>p.n.split(' ').slice(0,2).join(' ')),
+    datasets:[{ data:prfs.map(p=>p.s), backgroundColor:[RED,...Array(5).fill('rgba(255,255,255,0.15)')], borderRadius:3, borderSkipped:false }]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{display:false}, tooltip:{enabled:false} },
+    scales:{
+      y:{ ticks:{color:WH,font:{size:Math.max(9,window.innerWidth*0.006)}}, grid:{color:WG}, border:{display:false} },
+      x:{ ticks:{color:WH,font:{size:Math.max(9,window.innerWidth*0.007)}}, grid:{display:false}, border:{display:false} }
+    },
+    animation:{ duration:600 }
+  },
+  plugins:[{ id:'vl2', afterDatasetsDraw(chart) {
+    const {ctx}=chart;
+    chart.data.datasets[0].data.forEach((val,i) => {
+      const bar=chart.getDatasetMeta(0).data[i];
+      ctx.save();
+      ctx.fillStyle='rgba(255,255,255,0.75)';
+      ctx.font=`600 ${Math.round(window.innerWidth*0.007)}px 'Space Grotesk'`;
+      ctx.textAlign='center'; ctx.textBaseline='bottom';
+      ctx.fillText(val, bar.x, bar.y-4);
+      ctx.restore();
+    });
+  }}]
+});
+
+// S7: Apoyo list
+const maxA = DATA.profesionales[0].apoyo;
+document.getElementById('profApoyo').innerHTML = DATA.profesionales.map(p=>`
+  <div class="rank-item">
+    <div class="nm">${p.n.split(' ')[0]}</div>
+    <div class="rank-bar-wrap"><div class="rank-bar" style="width:${(p.apoyo/maxA*100).toFixed(1)}%"></div></div>
+    <div class="rank-val">${(p.apoyo/1000).toFixed(0)}K</div>
+  </div>`).join('');
+
+</script>
+</body>
+</html>
