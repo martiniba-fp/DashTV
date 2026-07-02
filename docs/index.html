@@ -1107,7 +1107,8 @@ function buildDataModel(tvText, metaText, metaPastText, metricasText, config){
     ...p,
     color:['#5C1018','#1B2A6F','#0F4A2A','#5C4033','#1F7AB4','#9E2A8C','#1565C0','#C12127','#1B6E3E','#F47C2A','#E45A0F','#C0392B'][i%12]
   }));
-  const profesionales = Object.values(byProf).sort((a,b)=>b.salidas-a.salidas).slice(0,12);
+  const profesionalesAll = Object.values(byProf).sort((a,b)=>b.salidas-a.salidas);
+  const profesionales = profesionalesAll.slice(0,12);
 
   const metaRows = Papa.parse(metaText,{header:true,skipEmptyLines:true}).data;
   const metaPrevRows = Papa.parse(metaPastText,{header:true,skipEmptyLines:true}).data;
@@ -1162,7 +1163,7 @@ function buildDataModel(tvText, metaText, metaPastText, metricasText, config){
 
   return {
     config,
-    tv:{rows:takenRows, totalProgramInv, totalSupport, totalTv, notas, pnt, notaTotal, pntTotal, editedCount, salidas:takenRows.length, numProgramas, programas, productos, profesionales, iluminadas:{salidas:ilumSalidas, inv:ilumInv, apoyo:ilumApoyo, total:ilumInv+ilumApoyo}, prev:{programInv:prevProgramInv, apoyo:prevApoyo, totalTv:prevProgramInv+prevApoyo, salidas:prevTvRows.length, editedCount:prevEditedCount}},
+    tv:{rows:takenRows, totalProgramInv, totalSupport, totalTv, notas, pnt, notaTotal, pntTotal, editedCount, salidas:takenRows.length, numProgramas, programas, productos, profesionales, profesionalesAll, iluminadas:{salidas:ilumSalidas, inv:ilumInv, apoyo:ilumApoyo, total:ilumInv+ilumApoyo}, prev:{programInv:prevProgramInv, apoyo:prevApoyo, totalTv:prevProgramInv+prevApoyo, salidas:prevTvRows.length, editedCount:prevEditedCount}},
     meta:{rows:metaRows, byCategory:metaByCategory, prevByCategory:metaPrevByCategory, institu, profes, productos:productosMeta, pautaInst, pautaProf, pautaProd},
     social,
     comparison:{
@@ -1311,6 +1312,11 @@ function renderDashboard(data){
 
   const instBody = document.getElementById('tblInstitucional');
   instBody.innerHTML = data.meta.institu.slice(0,3).map(row=>`<tr><td><strong>${row.Cuenta}</strong></td><td class="num">${money(parseNumber(row.Gasto_ARS))}</td><td class="num">${shortNumber(parseNumber(row.Alcance))}</td><td class="num">${shortNumber(parseNumber(row.Clicks))}</td><td class="num">${pctFmt(parseNumber(row['CTR (%)']))}</td></tr>`).join('');
+
+  const tblProfBody = document.getElementById('tblProf');
+  if(tblProfBody){
+    tblProfBody.innerHTML = data.tv.profesionalesAll.map((p,i)=>`<tr><td>${String(i+1).padStart(2,'0')}</td><td><strong>${p.name}</strong></td><td class="num">${p.salidas}</td><td class="num">${money(p.apoyo)}</td><td class="num">${money(p.inv)}</td></tr>`).join('');
+  }
 
   document.getElementById('s8Salidas').textContent = String(data.tv.salidas);
   document.getElementById('s8SalidasSub').textContent = `+${Math.max(0, data.tv.salidas - prevTv.salidas)} vs mayo (${prevTv.salidas} sal.)`;
