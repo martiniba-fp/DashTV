@@ -203,7 +203,7 @@ function getMonthData(sheetName) {
 function _aggregate(rows) {
   const byProducto = {}, byProf = {}, byProg = {}, byFecha = {};
   let totalInvProg = 0, totalInvApoyo = 0, total = 0, tomadas = 0;
-  let editJuli = 0, editLukas = 0, editNoSub = 0, editOther = 0;
+  let editJuli = 0, editLukas = 0, editCande = 0, editNoSub = 0, editOther = 0;
   let pnt = 0, nota = 0;
   const notTaken = [];
 
@@ -218,6 +218,7 @@ function _aggregate(rows) {
     const el = r.editado.toLowerCase();
     if      (el === 'juli')           editJuli++;
     else if (el === 'lukas')          editLukas++;
+    else if (el === 'cande')          editCande++;
     else if (el.includes('no sub'))   editNoSub++;
     else                              editOther++;
 
@@ -259,7 +260,7 @@ function _aggregate(rows) {
     total, tomadas,
     totalInvProg, totalInvApoyo,
     totalInv: totalInvProg + totalInvApoyo,
-    editJuli, editLukas, editNoSub, editOther,
+    editJuli, editLukas, editCande, editNoSub, editOther,
     pnt, nota, notTaken,
     byProducto : toArr(byProducto),
     byProf     : toArr(byProf),
@@ -350,7 +351,7 @@ function initializeSheets() {
     // Dropdown for Editado (col F = 6)
     looker.getRange('F2:F3000').setDataValidation(
       SpreadsheetApp.newDataValidation()
-        .requireValueInList(['Juli', 'Lukas', 'No subieron a YT'], true)
+        .requireValueInList(['Juli', 'Lukas', 'Cande', 'No subieron a YT'], true)
         .setAllowInvalid(true)
         .build()
     );

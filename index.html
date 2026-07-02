@@ -331,8 +331,8 @@ function renderKPIs(d) {
   const cm  = d.cmp;
   const hasCmp = !!cm;
 
-  const editadas = m.editJuli + m.editLukas;
-  const cmpEdit  = hasCmp ? cm.editJuli + cm.editLukas : null;
+  const editadas = m.editJuli + m.editLukas + m.editCande;
+  const cmpEdit  = hasCmp ? cm.editJuli + cm.editLukas + cm.editCande : null;
   const ejec = fmtPct(m.totalInvProg, d.totalSinADN);
 
   const cards = [
@@ -373,7 +373,7 @@ function renderKPIs(d) {
       label : 'Salidas Editadas',
       value : editadas,
       delta : hasCmp ? delta(editadas, cmpEdit) : '',
-      sub   : 'Juli: ' + m.editJuli + '  |  Lukas: ' + m.editLukas,
+      sub   : 'Juli: ' + m.editJuli + '  |  Lukas: ' + m.editLukas + '  |  Cande: ' + m.editCande,
       accent: 'var(--yellow)',
     },
   ];
@@ -598,17 +598,17 @@ function renderAllCharts(d) {
 
   // 5 — Editores (doughnut)
   const noEditLabel = m.editOther + m.editNoSub > 0
-    ? ['Juli', 'Lukas', 'Sin editar / No subieron']
-    : ['Juli', 'Lukas'];
+    ? ['Juli', 'Lukas', 'Cande', 'Sin editar / No subieron']
+    : ['Juli', 'Lukas', 'Cande'];
   const noEditData = m.editOther + m.editNoSub > 0
-    ? [m.editJuli, m.editLukas, m.editOther + m.editNoSub]
-    : [m.editJuli, m.editLukas];
+    ? [m.editJuli, m.editLukas, m.editCande, m.editOther + m.editNoSub]
+    : [m.editJuli, m.editLukas, m.editCande];
 
   mkChart('chartEditores', {
     type: 'doughnut',
     data: {
       labels: noEditLabel,
-      datasets: [{ data: noEditData, backgroundColor: ['#5BBFD6','#FBBF24','#8890AA'], borderWidth: 2, borderColor: 'transparent' }]
+      datasets: [{ data: noEditData, backgroundColor: ['#5BBFD6','#FBBF24','#A78BFA','#8890AA'], borderWidth: 2, borderColor: 'transparent' }]
     },
     options: donutDefaults('bottom')
   });
