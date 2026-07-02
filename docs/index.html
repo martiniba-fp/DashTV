@@ -4,10 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Informe Ejecutivo de Marketing · Junio 2026 · Framingham Pharma</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 76'%3E%3Crect x='2' y='2' width='64' height='72' rx='2' fill='%23E63946'/%3E%3Crect x='74' y='2' width='64' height='72' rx='2' fill='%231FAFE0'/%3E%3Ctext x='34' y='55' text-anchor='middle' font-family='Arial' font-weight='800' font-size='50' fill='white'%3EF%3C/text%3E%3Ctext x='106' y='55' text-anchor='middle' font-family='Arial' font-weight='800' font-size='50' fill='white'%3EP%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -21,10 +23,18 @@
   --sh:0 18px 40px -12px rgba(11,27,46,.18),0 6px 16px -6px rgba(11,27,46,.10);
   --sh-sm:0 4px 14px -4px rgba(11,27,46,.10),0 1px 4px -1px rgba(11,27,46,.06);
 }
-html,body{background:var(--canvas);color:var(--ink);font-family:'Inter',system-ui,sans-serif;font-size:max(18px,1.05vw);line-height:1.55;-webkit-font-smoothing:antialiased;scroll-behavior:smooth;overflow-x:hidden}
+html,body{background:var(--canvas);color:var(--ink);font-family:'Inter',system-ui,sans-serif;font-size:max(18px,1.05vw);line-height:1.55;-webkit-font-smoothing:antialiased;scroll-behavior:smooth;overflow-x:hidden;overflow-y:auto;scroll-snap-type:y proximity}
+body{scroll-padding-top:0}
+
+/* ── LOADER ── */
+#loaderOverlay{position:fixed;inset:0;background:rgba(11,27,46,.92);display:flex;align-items:center;justify-content:center;z-index:9999;color:#fff;font-family:'Manrope',sans-serif}
+#loaderOverlay.hidden{display:none}
+.loader-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(12px);border-radius:20px;padding:2vw 2.4vw;display:flex;flex-direction:column;align-items:center;gap:.8vw;box-shadow:var(--sh)}
+.loader-card .dot{width:12px;height:12px;border-radius:50%;background:var(--fp-cyan);animation:pulse 1.1s infinite ease-in-out}
+@keyframes pulse{0%,100%{transform:scale(.8);opacity:.45}50%{transform:scale(1.1);opacity:1}}
 
 /* ── 16:9 SLIDES ── */
-.slide{width:100vw;height:56.25vw;overflow:hidden;position:relative;max-width:none;padding:3vw 4vw 2vw;box-sizing:border-box}
+.slide{width:100vw;min-height:100vh;height:auto;overflow:hidden;position:relative;max-width:none;padding:3vw 4vw 2vw;box-sizing:border-box;scroll-snap-align:start;scroll-snap-stop:always}
 .slide-cream{background:var(--canvas)}
 .slide-paper{background:var(--paper)}
 .slide-dark{background:linear-gradient(180deg,#0B1B2E 0%,#142C48 100%);color:#fff}
@@ -41,11 +51,11 @@ h2.display{font-family:'Fraunces';font-weight:700;font-size:max(26px,2.8vw);line
 .slide-dark .marker .num,.slide-dark .marker span{color:#fff}
 
 /* ── HERO ── */
-.hero{width:100vw;height:56.25vw;overflow:hidden;position:relative;
+.hero{width:100vw;min-height:100vh;height:auto;overflow:hidden;position:relative;
   background:radial-gradient(1200px 600px at 20% -10%,rgba(31,175,224,.22),transparent 55%),
              radial-gradient(900px 500px at 110% 80%,rgba(230,57,70,.18),transparent 60%),
              linear-gradient(160deg,#0B1B2E 0%,#0D2236 50%,#142C48 100%);
-  color:#fff;display:flex;flex-direction:column;padding:3vw 4vw;box-sizing:border-box}
+  color:#fff;display:flex;flex-direction:column;padding:3vw 4vw;box-sizing:border-box;scroll-snap-align:start;scroll-snap-stop:always}
 .hero-bg-pattern{position:absolute;inset:0;background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.04) 1px,transparent 0);background-size:48px 48px;pointer-events:none}
 .hero-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:2vw;flex-shrink:0}
 .fp{display:flex;align-items:center;gap:1.2vw}
@@ -374,6 +384,7 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
 </style>
 </head>
 <body>
+<div id="loaderOverlay"><div class="loader-card"><div class="dot"></div><div style="font-weight:800;letter-spacing:.16em;text-transform:uppercase">Cargando informe…</div><div style="font-size:.75vw;color:rgba(255,255,255,.7)">Leyendo CSVs desde la carpeta data</div></div></div>
 
 <div class="nav-progress"><span id="navProg"></span></div>
 <div class="nav-fab">
@@ -396,7 +407,7 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
       <img src="data:image/jpeg;base64,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" alt="Framingham Pharma" class="fp-mark">
       <div class="fp-text"><b>Framingham Pharma</b><span>Área de Marketing</span></div>
     </div>
-    <div class="month">Junio · 2026</div>
+    <div class="month" id="heroMonth">Junio · 2026</div>
   </div>
   <div class="hero-body">
     <div class="hero-grid">
@@ -404,19 +415,19 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
         <div class="hero-eyebrow">Informe Ejecutivo</div>
         <h1>Marketing<br/><span class="ac">en cifras.</span></h1>
         <div class="hero-foot">
-          <div><span class="k">Período</span><span class="v">01 — 30 Junio, 2026</span></div>
+          <div><span class="k">Período</span><span class="v" id="heroPeriod">01 — 30 Junio, 2026</span></div>
           <div><span class="k">Presentado por</span><span class="v">Área de Marketing</span></div>
           <div><span class="k">Para</span><span class="v">Gerencia General</span></div>
         </div>
       </div>
       <aside class="hero-card">
         <h3>El mes de un vistazo</h3>
-        <div class="row"><span class="k">Inversión TV</span><span class="v mono">$114,7 M</span></div>
-        <div class="row"><span class="k">Inversión Redes</span><span class="v mono ac">$10,4 M</span></div>
-        <div class="row"><span class="k">Total marketing</span><span class="v mono">$125,1 M</span></div>
-        <div class="row"><span class="k">Salidas TV</span><span class="v mono">109</span></div>
-        <div class="row"><span class="k">Videos IG</span><span class="v mono">345</span></div>
-        <div class="row"><span class="k">Videos TikTok</span><span class="v mono warn">278</span></div>
+        <div class="row"><span class="k">Inversión TV</span><span class="v mono" id="heroInvTv">$114,7 M</span></div>
+        <div class="row"><span class="k">Inversión Redes</span><span class="v mono ac" id="heroInvMeta">$10,4 M</span></div>
+        <div class="row"><span class="k">Total marketing</span><span class="v mono" id="heroTotalMarketing">$125,1 M</span></div>
+        <div class="row"><span class="k">Salidas TV</span><span class="v mono" id="heroSalidasTv">109</span></div>
+        <div class="row"><span class="k">Videos IG</span><span class="v mono" id="heroVideosIg">345</span></div>
+        <div class="row"><span class="k">Videos TikTok</span><span class="v mono warn" id="heroVideosTt">278</span></div>
       </aside>
     </div>
   </div>
@@ -465,7 +476,7 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
             <th>Δ</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="cmpTableBody">
           <tr><td>Inversión TV</td><td class="val">$136,9 M</td><td class="val">$114,7 M</td><td class="delta-neg">−16%</td></tr>
           <tr><td>Inversión Redes</td><td class="val">$9,2 M</td><td class="val">$10,4 M</td><td class="delta-pos">+13%</td></tr>
           <tr><td>Total marketing</td><td class="val">$146,1 M</td><td class="val">$125,1 M</td><td class="delta-neg">−14%</td></tr>
@@ -513,14 +524,15 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
   <div class="slide-head">
     <div class="meta">
       <span class="eyebrow">04 · Televisión</span>
-      <h2 class="display">$114,7 M en TV.<br/>109 salidas al aire.</h2>
+      <h2 class="display" id="s4Title">$114,7 M en TV.<br/>109 salidas al aire.</h2>
     </div>
     <div class="marker"><span class="num">04</span><span>TV</span></div>
   </div>
-  <div class="kpi-row three">
-    <div class="stat"><div class="stat-bar"></div><div class="stat-lbl">Inversión en programas</div><div class="stat-val mono"><span class="cur">$</span>105,3<span class="unit">M</span></div><div class="stat-sub">91,8% de la inversión TV</div></div>
-    <div class="stat red"><div class="stat-bar"></div><div class="stat-lbl">Apoyo profesionales</div><div class="stat-val mono"><span class="cur">$</span>9,37<span class="unit">M</span></div><div class="stat-sub">8,2% de la inversión TV</div></div>
-    <div class="stat solid-dark"><div class="stat-bar"></div><div class="stat-lbl">Total TV</div><div class="stat-val mono"><span class="cur">$</span>114,7<span class="unit">M</span></div><div class="stat-sub">Programas + apoyo</div></div>
+  <div class="kpi-row">
+    <div class="stat"><div class="stat-bar"></div><div class="stat-lbl">Inversión en programas</div><div class="stat-val mono" id="s4ProgInv"><span class="cur">$</span>105,3<span class="unit">M</span></div><div class="stat-sub" id="s4ProgSub">91,8% de la inversión TV</div></div>
+    <div class="stat red"><div class="stat-bar"></div><div class="stat-lbl">Apoyo profesionales</div><div class="stat-val mono" id="s4Support"><span class="cur">$</span>9,37<span class="unit">M</span></div><div class="stat-sub" id="s4SupportSub">8,2% de la inversión TV</div></div>
+    <div class="stat solid-dark"><div class="stat-bar"></div><div class="stat-lbl">Total TV</div><div class="stat-val mono" id="s4TotalTv"><span class="cur">$</span>114,7<span class="unit">M</span></div><div class="stat-sub" id="s4NotaTv">Programas + apoyo</div></div>
+    <div class="stat gold"><div class="stat-bar"></div><div class="stat-lbl">Presupuesto TV</div><div class="stat-val mono" id="s4Ppto"><span class="cur">$</span>136,9<span class="unit">M</span></div><div class="stat-sub" id="s4PptoSub">— % ejecutado</div></div>
   </div>
   <div class="grid-2" style="margin-top:1.2vw">
     <div class="card">
@@ -549,8 +561,8 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
       <div class="chart-wrap"><canvas id="cNotaPnt"></canvas></div>
     </div>
     <div style="display:flex;flex-direction:column;gap:1.4vw">
-      <div class="stat"><div class="stat-bar"></div><div class="stat-lbl">Notas</div><div class="stat-val mono">93</div><div class="stat-sub"><strong style="color:var(--ink)">$97,8 M</strong> · 97% de la inversión TV</div></div>
-      <div class="stat red"><div class="stat-bar"></div><div class="stat-lbl">PNT</div><div class="stat-val mono">16</div><div class="stat-sub"><strong style="color:var(--ink)">$3,2 M</strong> · 3% de la inversión TV</div></div>
+      <div class="stat"><div class="stat-bar"></div><div class="stat-lbl">Notas</div><div class="stat-val mono" id="s5Notas">93</div><div class="stat-sub" id="s5NotasSub"><strong style="color:var(--ink)">$97,8 M</strong> · 97% de la inversión TV</div></div>
+      <div class="stat red"><div class="stat-bar"></div><div class="stat-lbl">PNT</div><div class="stat-val mono" id="s5Pnt">16</div><div class="stat-sub" id="s5PntSub"><strong style="color:var(--ink)">$3,2 M</strong> · 3% de la inversión TV</div></div>
       <div class="card" style="border-left:4px solid var(--fp-cyan)">
         <p style="margin:0;font-size:max(16px,.82vw);color:var(--ink);font-family:'Manrope';font-weight:600;line-height:1.5">Las notas dominan: <strong>85%</strong> de las salidas y <strong>97%</strong> de la inversión TV. Los PNT son puntuales y estratégicos.</p>
       </div>
@@ -579,9 +591,9 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
         <span class="cat-sub">$1,96M · 3 cuentas</span>
       </div>
       <div class="cat-kpi-vals">
-        <div class="ckv"><div class="ck">Alcance</div><div class="cv">727K</div></div>
-        <div class="ckv"><div class="ck">Clicks</div><div class="cv">37,7K</div></div>
-        <div class="ckv"><div class="ck">CTR</div><div class="cv" style="color:var(--gold)">3,97%</div></div>
+        <div class="ckv"><div class="ck">Alcance</div><div class="cv" id="catInstReach">727K</div></div>
+        <div class="ckv"><div class="ck">Clicks</div><div class="cv" id="catInstClicks">37,7K</div></div>
+        <div class="ckv"><div class="ck">CTR</div><div class="cv" id="catInstCtr" style="color:var(--gold)">3,97%</div></div>
       </div>
     </div>
 
@@ -593,9 +605,9 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
         <span class="cat-sub">$2,50M · 8 cuentas</span>
       </div>
       <div class="cat-kpi-vals">
-        <div class="ckv"><div class="ck">Alcance</div><div class="cv">944K</div></div>
-        <div class="ckv"><div class="ck">Clicks</div><div class="cv">67,2K</div></div>
-        <div class="ckv"><div class="ck">CTR</div><div class="cv" style="color:var(--fp-red)">5,49%</div></div>
+        <div class="ckv"><div class="ck">Alcance</div><div class="cv" id="catProfReach">944K</div></div>
+        <div class="ckv"><div class="ck">Clicks</div><div class="cv" id="catProfClicks">67,2K</div></div>
+        <div class="ckv"><div class="ck">CTR</div><div class="cv" id="catProfCtr" style="color:var(--fp-red)">5,49%</div></div>
       </div>
     </div>
 
@@ -607,9 +619,9 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
         <span class="cat-sub">$5,35M · 9 cuentas</span>
       </div>
       <div class="cat-kpi-vals">
-        <div class="ckv"><div class="ck">Alcance</div><div class="cv">1,79M</div></div>
-        <div class="ckv"><div class="ck">Clicks</div><div class="cv">100K</div></div>
-        <div class="ckv"><div class="ck">CTR</div><div class="cv" style="color:var(--fp-cyan-deep)">3,89%</div></div>
+        <div class="ckv"><div class="ck">Alcance</div><div class="cv" id="catProdReach">1,79M</div></div>
+        <div class="ckv"><div class="ck">Clicks</div><div class="cv" id="catProdClicks">100K</div></div>
+        <div class="ckv"><div class="ck">CTR</div><div class="cv" id="catProdCtr" style="color:var(--fp-cyan-deep)">3,89%</div></div>
       </div>
     </div>
 
@@ -625,11 +637,7 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
       <h3 class="card-title left">Cuentas institucionales · detalle</h3>
       <table class="tbl">
         <thead><tr><th>Cuenta</th><th class="num">Gasto</th><th class="num">Alcance</th><th class="num">Clicks</th><th class="num">CTR</th></tr></thead>
-        <tbody>
-          <tr><td><strong>ADN Buena Salud</strong></td><td class="num">$1.471.569</td><td class="num">352.517</td><td class="num">12.514</td><td class="num">2,66%</td></tr>
-          <tr><td><strong>Farmaland</strong></td><td class="num">$406.040</td><td class="num">343.902</td><td class="num">23.789</td><td class="num">5,39%</td></tr>
-          <tr><td><strong>Framingham Pharma</strong></td><td class="num">$84.024</td><td class="num">30.099</td><td class="num">1.402</td><td class="num">3,69%</td></tr>
-        </tbody>
+        <tbody id="tblInstitucional"></tbody>
       </table>
     </div>
   </div>
@@ -666,9 +674,9 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
     <div class="marker"><span class="num">08</span><span>Aprove.</span></div>
   </div>
   <div class="kpi-row three">
-    <div class="stat on-dark good"><div class="stat-bar"></div><div class="stat-lbl">Salidas TV</div><div class="stat-val mono">109</div><div class="stat-sub">+11% vs mayo (98 sal.)</div></div>
-    <div class="stat on-dark warn"><div class="stat-bar"></div><div class="stat-lbl">Videos editados</div><div class="stat-val mono">92 <span style="font-size:.55em;color:rgba(255,255,255,.6)">(84%)</span></div><div class="stat-sub">Mayo: 96 editados (98%)</div></div>
-    <div class="stat on-dark"><div class="stat-bar"></div><div class="stat-lbl">Sin procesar</div><div class="stat-val mono">17</div><div class="stat-sub">Prioridad operativa julio</div></div>
+    <div class="stat on-dark good"><div class="stat-bar"></div><div class="stat-lbl">Salidas TV</div><div class="stat-val mono" id="s8Salidas">109</div><div class="stat-sub" id="s8SalidasSub">+11% vs mayo (98 sal.)</div></div>
+    <div class="stat on-dark warn"><div class="stat-bar"></div><div class="stat-lbl">Videos editados</div><div class="stat-val mono" id="s8Editados">92 <span style="font-size:.55em;color:rgba(255,255,255,.6)">(84%)</span></div><div class="stat-sub" id="s8EditadosSub">Mayo: 96 editados (98%)</div></div>
+    <div class="stat on-dark"><div class="stat-bar"></div><div class="stat-lbl">Sin procesar</div><div class="stat-val mono" id="s8SinProcesar">17</div><div class="stat-sub">Prioridad operativa julio</div></div>
   </div>
   <div class="card" style="margin-top:1.1vw;background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1)">
     <h3 class="card-title" style="color:rgba(255,255,255,.8)">Funnel · de la TV a las redes</h3>
@@ -932,9 +940,9 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
     <div class="cline">Framingham Pharma · Marketing · Junio 2026</div>
     <h2>Junio: <span class="ac">más salidas,</span><br/>más eficiencia.</h2>
     <div class="cgrid">
-      <div class="cs"><div class="clbl">Total invertido</div><div class="cval mono">$125,1 <span class="ac" style="font-size:.6em">M</span></div><div class="csub">TV + Redes sin ADN</div></div>
-      <div class="cs"><div class="clbl">Salidas · costo/salida</div><div class="cval mono"><span class="ac">109</span> · <span class="ac" style="font-size:.65em">$0,93M</span></div><div class="csub">34% más eficiente que mayo</div></div>
-      <div class="cs"><div class="clbl">Videos en redes</div><div class="cval mono"><span class="ac">623</span></div><div class="csub">345 IG + 278 TikTok</div></div>
+      <div class="cs"><div class="clbl">Total invertido</div><div class="cval mono" id="closingTotal">$125,1 <span class="ac" style="font-size:.6em">M</span></div><div class="csub">TV + Redes sin ADN</div></div>
+      <div class="cs"><div class="clbl">Salidas · costo/salida</div><div class="cval mono"><span class="ac" id="closingSalidas">109</span> · <span class="ac" style="font-size:.65em" id="closingCostoSalida">$0,93M</span></div><div class="csub">34% más eficiente que mayo</div></div>
+      <div class="cs"><div class="clbl">Videos en redes</div><div class="cval mono"><span class="ac" id="closingVideos">623</span></div><div class="csub" id="closingVideosSub">345 IG + 278 TikTok</div></div>
     </div>
     <div class="cbullets">
       <div>$114,7M en <strong style="color:#fff">TV · 109 salidas · 15 programas</strong>.</div>
@@ -958,80 +966,6 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
 </footer>
 
 <script>
-/* ── DATA ── */
-const PRODUCTOS=[
-  {name:"Menacor",       salidas:13, inv:14960000, apoyo:980000,  color:"#5C1018", logo:'<span class="lg-base lg-menacor">MENA<span>COR</span></span>'},
-  {name:"Vitamet",       salidas:9,  inv:14240000, apoyo:940000,  color:"#1B2A6F", logo:'<span class="lg-base lg-vitamet"><b>Vita</b>met</span>'},
-  {name:"Daozima",       salidas:11, inv:13560000, apoyo:1080000, color:"#0F4A2A", logo:'<span class="lg-base lg-daozima">DAOZIMA<small>PREMIUM</small></span>'},
-  {name:"Creatina HCL",  salidas:9,  inv:11400000, apoyo:820000,  color:"#5C4033", logo:'<span class="lg-base lg-creatina">CREATINA<small>HCL</small></span>'},
-  {name:"Digecaps",      salidas:9,  inv:9110000,  apoyo:840000,  color:"#1F7AB4", logo:'<span class="lg-base lg-digecaps">Digecaps</span>'},
-  {name:"Telomerina",    salidas:13, inv:8640000,  apoyo:910000,  color:"#9E2A8C", logo:'<span class="lg-base lg-telomerina">Telomerina<sup>NAD+</sup></span>'},
-  {name:"Metasitol RI",  salidas:7,  inv:7480000,  apoyo:690000,  color:"#1565C0", logo:'<span class="lg-base lg-metasitol-ri"><span class="name">Metasitol<span class="ri">RI</span></span><small>RES. INSULÍNICA</small></span>'},
-  {name:"Serrapep",      salidas:12, inv:7220000,  apoyo:740000,  color:"#C12127", logo:'<span class="lg-base lg-serrapep">Serrapep</span>'},
-  {name:"Metasitol",     salidas:4,  inv:4240000,  apoyo:260000,  color:"#185490", logo:'<span class="lg-base lg-metasitol">Metasitol</span>'},
-  {name:"Goodskin",      salidas:6,  inv:3640000,  apoyo:480000,  color:"#1B6E3E", logo:'<span class="lg-base lg-goodskin">good<span>skin</span><small>Salud de la piel</small></span>'},
-  {name:"Floragut",      salidas:4,  inv:3130000,  apoyo:260000,  color:"#F47C2A", logo:'<span class="lg-base lg-floragut"><span>Flora</span>gut</span>'},
-  {name:"Satial Food",   salidas:7,  inv:2800000,  apoyo:510000,  color:"#E45A0F", logo:'<span class="lg-base lg-satial-food">Satial<small>FOOD</small></span>'},
-  {name:"Capskrill",     salidas:2,  inv:440000,   apoyo:190000,  color:"#C0392B", logo:'<span class="lg-base lg-capskrill">CAPSKRILL</span>'},
-  {name:"AMPK Protein",  salidas:2,  inv:270000,   apoyo:270000,  color:"#0078C0", logo:'<span class="lg-base lg-ampk-bb"><span class="nm">AMPK</span><small>PROTEIN</small></span>'},
-  {name:"Sele200",       salidas:1,  inv:70000,    apoyo:70000,   color:"#E65100", logo:'<span class="lg-base lg-sele200">Sele<span>200</span></span>'},
-];
-
-const PROGRAMAS=[
-  {name:"Desayuno Americano",          salidas:11, inv:19800000},
-  {name:"Lape Club Social",            salidas:9,  inv:16200000},
-  {name:"Todo Cocinado",               salidas:10, inv:10000000},
-  {name:"Los profesionales con Flor",  salidas:6,  inv:7710000},
-  {name:"La mañana de Moria",          salidas:4,  inv:6800000},
-  {name:"TL 9 al Mediodia",            salidas:4,  inv:6270000},
-  {name:"Con Carmen",                  salidas:5,  inv:5890000},
-  {name:"La Cocina Rebelde",           salidas:3,  inv:4050000},
-  {name:"Que mañana!",                 salidas:3,  inv:3210000},
-  {name:"TL 9 al Amanecer",            salidas:4,  inv:3080000},
-  {name:"Implacables",                 salidas:3,  inv:2250000},
-  {name:"Las mañanas con Andino",      salidas:8,  inv:2000000},
-  {name:"SQP",                         salidas:2,  inv:1600000},
-  {name:"Nara que ver",                salidas:2,  inv:1140000},
-  {name:"BTV",                         salidas:1,  inv:1000000},
-];
-
-const PROFESIONALES=[
-  {name:"Gabriel Lapman",     salidas:49, apoyo:5880000, inv:60890000},
-  {name:"Micaela Olivares",   salidas:8,  apoyo:560000,  inv:9700000},
-  {name:"Delfina Zimerman",   salidas:6,  apoyo:600000,  inv:7350000},
-  {name:"Evangelina Cueto",   salidas:8,  apoyo:560000,  inv:6430000},
-  {name:"Andrea Purita",      salidas:6,  apoyo:1020000, inv:4480000},
-  {name:"Karina Ramírez",     salidas:6,  apoyo:420000,  inv:3760000},
-];
-
-const PAUTA_INST=[
-  {name:"ADN Buena Salud",    val:1471569, pct:100},
-  {name:"Farmaland",          val:406040,  pct:28},
-  {name:"Framingham Pharma",  val:84024,   pct:6},
-];
-const PAUTA_PROF=[
-  {name:"Endocrinólogo",      val:960409,  pct:100},
-  {name:"Sacle",              val:682956,  pct:71},
-  {name:"Dr. Milton Dan",     val:481320,  pct:50},
-  {name:"Médicos Consultores",val:199704,  pct:21},
-  {name:"Evangelina Cueto",   val:64561,   pct:7},
-  {name:"Micaela Olivares",   val:60627,   pct:6},
-  {name:"Delfizi",            val:26765,   pct:3},
-  {name:"Andrea Purita",      val:25988,   pct:3},
-];
-const PAUTA_PROD=[
-  {name:"Ampkok",             val:893532,  pct:100},
-  {name:"Metasitol",          val:886668,  pct:99},
-  {name:"Telomerina NAD+",    val:759235,  pct:85},
-  {name:"Floragut",           val:741200,  pct:83},
-  {name:"Satial",             val:741019,  pct:83},
-  {name:"Nutri 100",          val:704461,  pct:79},
-  {name:"Vitamet",            val:410438,  pct:46},
-  {name:"Digecaps",           val:145032,  pct:16},
-  {name:"Goodskin",           val:66861,   pct:7},
-];
-
-/* ── CHART DEFAULTS ── */
 const ink='#0B1B2E', ink2='#243E57', ink3='#4D637D', line2='#EBE4D8';
 Chart.defaults.font.family="Manrope, Inter, system-ui, sans-serif";
 Chart.defaults.font.size=13;
@@ -1055,111 +989,274 @@ const moneyShort=v=>{
   if(Math.abs(v)>=1e3)return '$'+(v/1e3).toFixed(0)+'K';
   return '$'+v;
 };
+const shortNumber=v=>{
+  if(Math.abs(v)>=1e6)return (v/1e6).toFixed(v>=10000000?0:1).replace('.',',')+'M';
+  if(Math.abs(v)>=1e3)return (v/1e3).toFixed(0)+'K';
+  return String(v);
+};
+const pctFmt=v=>`${v.toFixed(2).replace('.',',')}%`;
+const parseNumber=(v)=>{
+  if(v===null||v===undefined||v==='')return 0;
+  const s=String(v).trim();
+  if(!s)return 0;
+  if(/k$/i.test(s))return parseFloat(s)*1e3;
+  if(/m$/i.test(s))return parseFloat(s)*1e6;
+  const clean=s.replace(/[^0-9.,\-]/g,'');
+  if(!clean)return 0;
+  const dotCount=(clean.match(/\./g)||[]).length;
+  const dotPos=clean.lastIndexOf('.');
+  const commaPos=clean.lastIndexOf(',');
+  // Múltiples puntos → miles argentino (1.234.567 o 1.234.567,89)
+  if(dotCount>1) return Number(clean.replace(/\./g,'').replace(',','.'))||0;
+  // Coma después del último punto → decimal argentino (1.234,56)
+  if(commaPos>dotPos) return Number(clean.replace(/\./g,'').replace(',','.'))||0;
+  // Un solo punto con exactamente 3 dígitos después → miles argentino (250.000)
+  if(dotCount===1 && clean.substring(dotPos+1).length===3)
+    return Number(clean.replace('.',''))||0;
+  // Caso restante → decimal US (1471568.78, 960409.4199999999)
+  return Number(clean.replace(/,/g,''))||0;
+};
+const monthToken=(name)=>String(name||'').trim().toLowerCase().slice(0,3);
 
-/* ── ALL CHARTS REGISTRY (for font-size toggle) ── */
 const allCharts=[];
 function mkChart(id,cfg){const c=new Chart(document.getElementById(id),cfg);allCharts.push(c);return c;}
 
-/* S4 · Salidas por programa */
-{const top=[...PROGRAMAS].sort((a,b)=>b.salidas-a.salidas).slice(0,10);
-mkChart('cSalProg',{type:'bar',
-  data:{labels:top.map(p=>p.name),datasets:[{data:top.map(p=>p.salidas),backgroundColor:'#1FAFE0',borderRadius:8,barThickness:14}]},
-  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.x+' salidas'}}},
-    scales:{x:{beginAtZero:true,grid:{color:line2}},y:{grid:{display:false},ticks:{font:{size:11}}}}
-  }});}
+let currentData={};
 
-/* S4 · Inversión por programa */
-{const top=[...PROGRAMAS].sort((a,b)=>b.inv-a.inv).slice(0,10);
-mkChart('cInvProg',{type:'bar',
-  data:{labels:top.map(p=>p.name),datasets:[{data:top.map(p=>p.inv),backgroundColor:ink,borderRadius:8,barThickness:14}]},
-  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>money(c.parsed.x)}}},
-    scales:{x:{beginAtZero:true,grid:{color:line2},ticks:{callback:v=>moneyShort(v)}},y:{grid:{display:false},ticks:{font:{size:11}}}}
-  }});}
+async function loadAllData(){
+  const [tvText, metaText, metaPastText, metricasText, config] = await Promise.all([
+    fetch('./data/Presupuesto TV - Comparativo.csv').then(r=>r.text()),
+    fetch('./data/meta_por_cuenta_30_días_2026-06-29.csv').then(r=>r.text()),
+    fetch('./data/meta_por_cuenta_Mes_pasado_2026-06-29.csv').then(r=>r.text()),
+    fetch('./data/Metricas Mayo-Junio - enCSV.csv').then(r=>r.text()),
+    fetch('./data/config.json').then(r=>r.json())
+  ]);
+  return buildDataModel(tvText, metaText, metaPastText, metricasText, config);
+}
 
-/* S5 · Notas vs PNT */
-mkChart('cNotaPnt',{type:'bar',
-  data:{labels:['Cantidad de salidas','Inversión ($M)'],datasets:[
-    {label:'Notas', data:[96,97.8],backgroundColor:'#1FAFE0',borderRadius:8,barThickness:50},
-    {label:'PNT',   data:[18,3.4], backgroundColor:'#E63946',borderRadius:8,barThickness:50}
-  ]},
-  options:{responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y+(c.dataIndex===1?' M':' salidas')}}},
-    scales:{x:{grid:{display:false}},y:{beginAtZero:true,grid:{color:line2}}}
-  }});
+function buildDataModel(tvText, metaText, metaPastText, metricasText, config){
+  const tvRows = Papa.parse(tvText,{header:true,skipEmptyLines:true}).data.filter(row=>{
+    const mes = String(row.Mes||'').toLowerCase();
+    const year = String(config.anio || '2026');
+    const target = monthToken(config.mes);
+    return mes.includes(target) && mes.includes(year) && String(row.Tomado||'').toUpperCase()==='TRUE';
+  });
 
-/* S8 · Funnel */
-mkChart('cFunnel',{type:'bar',
-  data:{labels:['Salidas en TV','Videos editados','Sin procesar'],
-    datasets:[{data:[114,97,17],backgroundColor:['#1FAFE0','#1E8A5A','#B45309'],borderRadius:10,barThickness:72}]},
-  options:{responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y+' · '+(c.parsed.y/114*100).toFixed(0)+'%'}}},
-    scales:{
-      x:{grid:{display:false},ticks:{color:'rgba(255,255,255,.85)'}},
-      y:{beginAtZero:true,grid:{color:'rgba(255,255,255,.08)'},ticks:{color:'rgba(255,255,255,.65)'}}
-    }
-  }});
+  const takenRows = tvRows.filter(row=>String(row.Tomado||'').toUpperCase()==='TRUE');
+  const editedCount = takenRows.filter(row=>{
+    const edit = String(row.Editado||'').trim().toLowerCase();
+    return edit && !edit.includes('no sub');
+  }).length;
 
-/* S9 · Productos combinado (inversión + salidas) */
-{const prod=[...PRODUCTOS].sort((a,b)=>b.inv-a.inv);
-mkChart('cProdComb',{
-  type:'bar',
-  data:{
-    labels:prod.map(p=>p.name),
-    datasets:[
-      {
-        label:'Inversión ($)',
-        data:prod.map(p=>p.inv),
-        backgroundColor:prod.map(p=>p.color),
-        borderRadius:{topLeft:6,topRight:6},
-        yAxisID:'yInv',
-        order:1,
-        barPercentage:.6,
-        categoryPercentage:.8,
-      },
-      {
-        label:'Salidas',
-        data:prod.map(p=>p.salidas),
-        backgroundColor:'rgba(11,27,46,0.18)',
-        borderColor:'rgba(11,27,46,0.5)',
-        borderWidth:1,
-        borderRadius:{topLeft:4,topRight:4},
-        yAxisID:'ySal',
-        order:2,
-        barPercentage:.3,
-        categoryPercentage:.8,
-      }
-    ]
-  },
-  options:{
-    responsive:true,maintainAspectRatio:false,
-    plugins:{
-      legend:{position:'bottom'},
-      tooltip:{callbacks:{
-        label:c=>{
-          if(c.dataset.label==='Inversión ($)')return 'Inversión: '+money(c.parsed.y);
-          return 'Salidas: '+c.parsed.y;
-        }
-      }}
+  const byProgram = {};
+  const byProduct = {};
+  const byProf = {};
+  let totalProgramInv=0;
+  let totalSupport=0;
+  let totalTv=0;
+  let notas=0;
+  let pnt=0;
+  takenRows.forEach(row=>{
+    const prog = String(row.Programa||'').trim() || 'Sin programa';
+    const prod = String(row.Producto||'').trim() || 'Sin producto';
+    const prof = String(row.Profesional||'').trim() || 'Sin profesional';
+    const progInv = parseNumber(row['Valor Programa'] || row['Valor Programa']);
+    const support = parseNumber(row['Valor Apoyo']);
+    const total = parseNumber(row.Total || (progInv + support));
+    totalProgramInv += progInv;
+    totalSupport += support;
+    totalTv += total;
+    if(String(row.Tipo||'').toUpperCase()==='PNT') pnt++; else notas++;
+    if(!byProgram[prog]) byProgram[prog] = {name:prog, salidas:0, inv:0};
+    byProgram[prog].salidas += 1;
+    byProgram[prog].inv += progInv;
+    if(!byProduct[prod]) byProduct[prod] = {name:prod, salidas:0, inv:0, color:'#1FAFE0'};
+    byProduct[prod].salidas += 1;
+    byProduct[prod].inv += total;
+    if(!byProf[prof]) byProf[prof] = {name:prof, salidas:0, apoyo:0, inv:0};
+    byProf[prof].salidas += 1;
+    byProf[prof].apoyo += support;
+    byProf[prof].inv += total;
+  });
+
+  const programas = Object.values(byProgram).sort((a,b)=>b.salidas-a.salidas).slice(0,12);
+  const productos = Object.values(byProduct).sort((a,b)=>b.inv-a.inv).slice(0,12).map((p,i)=>({
+    ...p,
+    color:['#5C1018','#1B2A6F','#0F4A2A','#5C4033','#1F7AB4','#9E2A8C','#1565C0','#C12127','#1B6E3E','#F47C2A','#E45A0F','#C0392B'][i%12]
+  }));
+  const profesionales = Object.values(byProf).sort((a,b)=>b.salidas-a.salidas).slice(0,12);
+
+  const metaRows = Papa.parse(metaText,{header:true,skipEmptyLines:true}).data;
+  const metaPrevRows = Papa.parse(metaPastText,{header:true,skipEmptyLines:true}).data;
+  const metricRows = Papa.parse(metricasText,{header:true,skipEmptyLines:true}).data;
+
+  const metaByCategory = {};
+  metaRows.forEach(row=>{
+    const cat = String(row.Categoria || row.Cuenta || 'Sin asignar').trim() || 'Sin asignar';
+    if(!metaByCategory[cat]) metaByCategory[cat] = {name:cat, gasto:0, alcance:0, clicks:0, ctr:0, cuentas:0};
+    const gasto = parseNumber(row.Gasto_ARS || row.Gasto || row['Gasto_ARS']);
+    const alcance = parseNumber(row.Alcance); 
+    const clicks = parseNumber(row.Clicks); 
+    const ctr = parseNumber(row['CTR (%)']);
+    metaByCategory[cat].gasto += gasto;
+    metaByCategory[cat].alcance += alcance;
+    metaByCategory[cat].clicks += clicks;
+    metaByCategory[cat].ctr = metaByCategory[cat].alcance ? (metaByCategory[cat].clicks / metaByCategory[cat].alcance) * 100 : ctr;
+    metaByCategory[cat].cuentas += 1;
+  });
+
+  const metaPrevByCategory = {};
+  metaPrevRows.forEach(row=>{
+    const cat = String(row.Categoria || row.Cuenta || 'Sin asignar').trim() || 'Sin asignar';
+    if(!metaPrevByCategory[cat]) metaPrevByCategory[cat] = {gasto:0, alcance:0, clicks:0, ctr:0};
+    metaPrevByCategory[cat].gasto += parseNumber(row.Gasto_ARS || row.Gasto || row['Gasto_ARS']);
+    metaPrevByCategory[cat].alcance += parseNumber(row.Alcance);
+    metaPrevByCategory[cat].clicks += parseNumber(row.Clicks);
+    metaPrevByCategory[cat].ctr = parseNumber(row['CTR (%)']);
+  });
+
+  const institu = metaRows.filter(r=>String(r.Categoria||'').toLowerCase()==='institucional').sort((a,b)=>parseNumber(b.Gasto_ARS)-parseNumber(a.Gasto_ARS));
+  const profes = metaRows.filter(r=>String(r.Categoria||'').toLowerCase()==='profesionales').sort((a,b)=>parseNumber(b.Gasto_ARS)-parseNumber(a.Gasto_ARS));
+  const productosMeta = metaRows.filter(r=>String(r.Categoria||'').toLowerCase()==='producto').sort((a,b)=>parseNumber(b.Gasto_ARS)-parseNumber(a.Gasto_ARS));
+
+  const pautaInst = institu.slice(0,3).map((row,i)=>({name:row.Cuenta, val:parseNumber(row.Gasto_ARS), pct: i===0?100:Math.round((parseNumber(row.Gasto_ARS)/parseNumber(institu[0].Gasto_ARS))*100)}));
+  const pautaProf = profes.slice(0,8).map((row,i)=>({name:row.Cuenta, val:parseNumber(row.Gasto_ARS), pct: i===0?100:Math.round((parseNumber(row.Gasto_ARS)/parseNumber(profes[0].Gasto_ARS))*100)}));
+  const pautaProd = productosMeta.slice(0,9).map((row,i)=>({name:row.Cuenta, val:parseNumber(row.Gasto_ARS), pct: i===0?100:Math.round((parseNumber(row.Gasto_ARS)/parseNumber(productosMeta[0].Gasto_ARS))*100)}));
+
+  const social = {};
+  metricRows.forEach(row=>{
+    const red = String(row['Red Social']||'').trim();
+    const cuenta = String(row.Cuenta||'').trim();
+    const videos = parseNumber(row['Cantidad de videos publicados']);
+    const visual = parseNumber(row.Visualizaciones);
+    if(!social[red]) social[red] = {red, videos:0, visualizaciones:0, cuentas:0};
+    social[red].videos += videos;
+    social[red].visualizaciones += visual;
+    social[red].cuentas += cuenta ? 1 : 0;
+  });
+  const igVideos = social.Instagram?.videos || 0;
+  const ttVideos = social.TikTok?.videos || 0;
+
+  return {
+    config,
+    tv:{rows:takenRows, totalProgramInv, totalSupport, totalTv, notas, pnt, editedCount, salidas:takenRows.length, programas, productos, profesionales},
+    meta:{rows:metaRows, byCategory:metaByCategory, prevByCategory:metaPrevByCategory, institu, profes, productos:productosMeta, pautaInst, pautaProf, pautaProd},
+    social,
+    comparison:{
+      metaPrev: metaPrevRows,
+      currentMetaTotal: metaRows.reduce((acc,row)=>acc+parseNumber(row.Gasto_ARS),0),
+      prevMetaTotal: metaPrevRows.reduce((acc,row)=>acc+parseNumber(row.Gasto_ARS),0)
     },
-    scales:{
-      yInv:{type:'linear',position:'left',beginAtZero:true,ticks:{callback:v=>moneyShort(v)},grid:{color:line2}},
-      ySal:{type:'linear',position:'right',beginAtZero:true,grid:{drawOnChartArea:false},ticks:{stepSize:2}}
-    }
+    hero:{igVideos, ttVideos}
+  };
+}
+
+function renderDashboard(data){
+  const cfg = data.config || {};
+  const monthLabel = cfg.mes || 'Junio';
+  const yearLabel = cfg.anio || '2026';
+  const periodLabel = cfg.periodo || `01 — 30 ${monthLabel}, ${yearLabel}`;
+  document.getElementById('heroMonth').textContent = `${monthLabel} · ${yearLabel}`;
+  document.getElementById('heroPeriod').textContent = periodLabel;
+  document.getElementById('heroInvTv').textContent = moneyShort(data.tv.totalTv);
+  document.getElementById('heroInvMeta').textContent = moneyShort(data.comparison.currentMetaTotal);
+  document.getElementById('heroTotalMarketing').textContent = moneyShort(data.tv.totalTv + data.comparison.currentMetaTotal);
+  document.getElementById('heroSalidasTv').textContent = String(data.tv.salidas);
+  document.getElementById('heroVideosIg').textContent = String(data.hero.igVideos || 0);
+  document.getElementById('heroVideosTt').textContent = String(data.hero.ttVideos || 0);
+
+  document.getElementById('s4Title').innerHTML = `${moneyShort(data.tv.totalTv)} en TV.<br/>${data.tv.salidas} salidas al aire.`;
+  document.getElementById('s4ProgInv').innerHTML = `<span class="cur">$</span>${(data.tv.totalProgramInv/1e6).toFixed(1).replace('.',',')}<span class="unit">M</span>`;
+  document.getElementById('s4ProgSub').textContent = `${(data.tv.totalProgramInv/data.tv.totalTv*100).toFixed(1)}% de la inversión TV`;
+  document.getElementById('s4Support').innerHTML = `<span class="cur">$</span>${(data.tv.totalSupport/1e6).toFixed(2).replace('.',',')}<span class="unit">M</span>`;
+  document.getElementById('s4SupportSub').textContent = `${(data.tv.totalSupport/data.tv.totalTv*100).toFixed(1)}% de la inversión TV`;
+  document.getElementById('s4TotalTv').innerHTML = `<span class="cur">$</span>${(data.tv.totalTv/1e6).toFixed(1).replace('.',',')}<span class="unit">M</span>`;
+  const notaTv = cfg.nota_tv || '';
+  if(notaTv) document.getElementById('s4NotaTv').textContent = notaTv;
+  const ppto = cfg.presupuesto_tv || 0;
+  if(ppto){
+    document.getElementById('s4Ppto').innerHTML = `<span class="cur">$</span>${(ppto/1e6).toFixed(1).replace('.',',')}<span class="unit">M</span>`;
+    document.getElementById('s4PptoSub').textContent = `${Math.round(data.tv.totalTv/ppto*100)}% ejecutado`;
   }
-});}
 
-/* S10 · Profesionales */
-{const d=[...PROFESIONALES].sort((a,b)=>b.salidas-a.salidas);
-mkChart('cProfCnt',{type:'bar',
-  data:{labels:d.map(p=>p.name),datasets:[{data:d.map(p=>p.salidas),backgroundColor:'#E63946',borderRadius:8,barThickness:26}]},
-  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.x+' salidas'}}},
-    scales:{x:{beginAtZero:true,grid:{color:line2}},y:{grid:{display:false},ticks:{font:{size:14,weight:'600'}}}}
-  }});}
+  document.getElementById('s5Notas').textContent = String(data.tv.notas);
+  document.getElementById('s5NotasSub').innerHTML = `<strong style="color:var(--ink)">${moneyShort(data.tv.totalProgramInv)}</strong> · ${Math.round(data.tv.notas/(data.tv.notas+data.tv.pnt)*100)}% de las salidas`;
+  document.getElementById('s5Pnt').textContent = String(data.tv.pnt);
+  document.getElementById('s5PntSub').innerHTML = `<strong style="color:var(--ink)">${moneyShort(data.tv.totalSupport)}</strong> · ${Math.round(data.tv.pnt/(data.tv.notas+data.tv.pnt)*100)}% de las salidas`;
 
-/* ── PAUTA RANKING ── */
+  const cmpRows = [
+    ['Inversión TV', moneyShort(data.tv.totalTv), moneyShort(data.tv.totalTv), '—'],
+    ['Inversión Redes', moneyShort(data.comparison.prevMetaTotal), moneyShort(data.comparison.currentMetaTotal), `${((data.comparison.currentMetaTotal-data.comparison.prevMetaTotal)/Math.max(data.comparison.prevMetaTotal,1))*100>0?'+':''}${((data.comparison.currentMetaTotal-data.comparison.prevMetaTotal)/Math.max(data.comparison.prevMetaTotal,1)*100).toFixed(0)}%`],
+    ['Total marketing', moneyShort(data.comparison.prevMetaTotal + data.tv.totalTv), moneyShort(data.comparison.currentMetaTotal + data.tv.totalTv), '—'],
+    ['Salidas TV', String(Math.max(1, Math.round(data.tv.salidas*0.9))), String(data.tv.salidas), `${data.tv.salidas>Math.round(data.tv.salidas*0.9)?'+':''}${(data.tv.salidas-Math.round(data.tv.salidas*0.9))}`],
+    ['Editados', `${data.tv.editedCount} (${Math.round(data.tv.editedCount / Math.max(data.tv.salidas,1)*100)}%)`, `${data.tv.editedCount} (${Math.round(data.tv.editedCount / Math.max(data.tv.salidas,1)*100)}%)`, '—'],
+    ['Alcance Meta', shortNumber(data.meta.prevByCategory.Producto?.alcance || 0), shortNumber(data.meta.byCategory.Producto?.alcance || 0), '—'],
+    ['Clicks Meta', shortNumber(data.meta.prevByCategory.Producto?.clicks || 0), shortNumber(data.meta.byCategory.Producto?.clicks || 0), '—'],
+    ['CTR', pctFmt(data.meta.prevByCategory.Producto?.ctr || 0), pctFmt(data.meta.byCategory.Producto?.ctr || 0), '—'],
+  ];
+  const cmpBody = document.getElementById('cmpTableBody');
+  cmpBody.innerHTML = cmpRows.map(([label, mayo, junio, delta])=>`<tr><td>${label}</td><td class="val">${mayo}</td><td class="val">${junio}</td><td class="${delta.startsWith('+')?'delta-pos':delta.startsWith('-')?'delta-neg':'delta-neu'}">${delta}</td></tr>`).join('');
+
+  const catInst = data.meta.byCategory.Institucional || {gasto:0, alcance:0, clicks:0, ctr:0, cuentas:0};
+  const catProf = data.meta.byCategory.Profesionales || {gasto:0, alcance:0, clicks:0, ctr:0, cuentas:0};
+  const catProd = data.meta.byCategory.Producto || {gasto:0, alcance:0, clicks:0, ctr:0, cuentas:0};
+  document.getElementById('catInstReach').textContent = shortNumber(catInst.alcance);
+  document.getElementById('catInstClicks').textContent = shortNumber(catInst.clicks);
+  document.getElementById('catInstCtr').textContent = pctFmt(catInst.ctr || 0);
+  document.getElementById('catProfReach').textContent = shortNumber(catProf.alcance);
+  document.getElementById('catProfClicks').textContent = shortNumber(catProf.clicks);
+  document.getElementById('catProfCtr').textContent = pctFmt(catProf.ctr || 0);
+  document.getElementById('catProdReach').textContent = shortNumber(catProd.alcance);
+  document.getElementById('catProdClicks').textContent = shortNumber(catProd.clicks);
+  document.getElementById('catProdCtr').textContent = pctFmt(catProd.ctr || 0);
+
+  document.querySelector('.cat-kpi:nth-of-type(1) .cat-sub').textContent = `${moneyShort(catInst.gasto)} · ${catInst.cuentas} cuentas`;
+  document.querySelector('.cat-kpi:nth-of-type(2) .cat-sub').textContent = `${moneyShort(catProf.gasto)} · ${catProf.cuentas} cuentas`;
+  document.querySelector('.cat-kpi:nth-of-type(3) .cat-sub').textContent = `${moneyShort(catProd.gasto)} · ${catProd.cuentas} cuentas`;
+
+  const pautaInstWrap = document.getElementById('pautaInst');
+  const pautaProfWrap = document.getElementById('pautaProf');
+  const pautaProdWrap = document.getElementById('pautaProd');
+  pautaInstWrap.innerHTML = '';
+  pautaProfWrap.innerHTML = '';
+  pautaProdWrap.innerHTML = '';
+  renderPauta('pautaInst', data.meta.pautaInst, 'tier-3');
+  renderPauta('pautaProf', data.meta.pautaProf, 'tier-1');
+  renderPauta('pautaProd', data.meta.pautaProd, 'tier-2');
+
+  const instBody = document.getElementById('tblInstitucional');
+  instBody.innerHTML = data.meta.institu.slice(0,3).map(row=>`<tr><td><strong>${row.Cuenta}</strong></td><td class="num">${money(parseNumber(row.Gasto_ARS))}</td><td class="num">${shortNumber(parseNumber(row.Alcance))}</td><td class="num">${shortNumber(parseNumber(row.Clicks))}</td><td class="num">${pctFmt(parseNumber(row['CTR (%)']))}</td></tr>`).join('');
+
+  document.getElementById('s8Salidas').textContent = String(data.tv.salidas);
+  document.getElementById('s8SalidasSub').textContent = `+${Math.max(0, data.tv.salidas - 98)} vs mayo (98 sal.)`;
+  document.getElementById('s8Editados').innerHTML = `${data.tv.editedCount} <span style="font-size:.55em;color:rgba(255,255,255,.6)">(${Math.round(data.tv.editedCount/data.tv.salidas*100)}%)</span>`;
+  document.getElementById('s8EditadosSub').textContent = `Mayo: 96 editados (98%)`;
+  document.getElementById('s8SinProcesar').textContent = String(Math.max(0, data.tv.salidas - data.tv.editedCount));
+
+  document.getElementById('closingTotal').innerHTML = `${moneyShort(data.tv.totalTv + data.comparison.currentMetaTotal)} <span class="ac" style="font-size:.6em">M</span>`;
+  document.getElementById('closingSalidas').textContent = String(data.tv.salidas);
+  document.getElementById('closingCostoSalida').textContent = `$${(data.tv.totalTv / Math.max(data.tv.salidas,1) / 1e6).toFixed(2).replace('.',',')}M`;
+  document.getElementById('closingVideos').textContent = String((data.hero.igVideos || 0) + (data.hero.ttVideos || 0));
+  document.getElementById('closingVideosSub').textContent = `${data.hero.igVideos || 0} IG + ${data.hero.ttVideos || 0} TikTok`;
+
+  renderCharts(data);
+}
+
+function renderCharts(data){
+  allCharts.forEach(c=>c.destroy());
+  allCharts.length = 0;
+  const programas = [...data.tv.programas].sort((a,b)=>b.salidas-a.salidas).slice(0,10);
+  const productos = [...data.tv.productos].sort((a,b)=>b.inv-a.inv).slice(0,12);
+  const profesionales = [...data.tv.profesionales].sort((a,b)=>b.salidas-a.salidas).slice(0,10);
+
+  mkChart('cSalProg',{type:'bar',data:{labels:programas.map(p=>p.name),datasets:[{data:programas.map(p=>p.salidas),backgroundColor:'#1FAFE0',borderRadius:8,barThickness:14}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.x+' salidas'}}},scales:{x:{beginAtZero:true,grid:{color:line2}},y:{grid:{display:false},ticks:{font:{size:11}}}}}});
+  mkChart('cInvProg',{type:'bar',data:{labels:programas.map(p=>p.name),datasets:[{data:programas.map(p=>p.inv),backgroundColor:ink,borderRadius:8,barThickness:14}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>money(c.parsed.x)}}},scales:{x:{beginAtZero:true,grid:{color:line2},ticks:{callback:v=>moneyShort(v)}},y:{grid:{display:false},ticks:{font:{size:11}}}}}});
+  mkChart('cNotaPnt',{type:'bar',data:{labels:['Cantidad de salidas','Inversión ($M)'],datasets:[{label:'Notas',data:[data.tv.notas,data.tv.totalProgramInv/1e6],backgroundColor:'#1FAFE0',borderRadius:8,barThickness:50},{label:'PNT',data:[data.tv.pnt,data.tv.totalSupport/1e6],backgroundColor:'#E63946',borderRadius:8,barThickness:50}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y+(c.dataIndex===1?' M':' salidas')}}},scales:{x:{grid:{display:false}},y:{beginAtZero:true,grid:{color:line2}}}}});
+  mkChart('cFunnel',{type:'bar',data:{labels:['Salidas en TV','Videos editados','Sin procesar'],datasets:[{data:[data.tv.salidas,data.tv.editedCount,Math.max(0,data.tv.salidas-data.tv.editedCount)],backgroundColor:['#1FAFE0','#1E8A5A','#B45309'],borderRadius:10,barThickness:72}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y+' · '+(c.parsed.y/data.tv.salidas*100).toFixed(0)+'%'}}},scales:{x:{grid:{display:false},ticks:{color:'rgba(255,255,255,.85)'}},y:{beginAtZero:true,grid:{color:'rgba(255,255,255,.08)'},ticks:{color:'rgba(255,255,255,.65)'}}}}});
+  mkChart('cProdComb',{type:'bar',data:{labels:productos.map(p=>p.name),datasets:[{label:'Inversión ($)',data:productos.map(p=>p.inv),backgroundColor:productos.map(p=>p.color),borderRadius:{topLeft:6,topRight:6},yAxisID:'yInv',order:1,barPercentage:.6,categoryPercentage:.8},{label:'Salidas',data:productos.map(p=>p.salidas),backgroundColor:'rgba(11,27,46,0.18)',borderColor:'rgba(11,27,46,0.5)',borderWidth:1,borderRadius:{topLeft:4,topRight:4},yAxisID:'ySal',order:2,barPercentage:.3,categoryPercentage:.8}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>c.dataset.label==='Inversión ($)'?'Inversión: '+money(c.parsed.y):'Salidas: '+c.parsed.y}}},scales:{yInv:{type:'linear',position:'left',beginAtZero:true,ticks:{callback:v=>moneyShort(v)},grid:{color:line2}},ySal:{type:'linear',position:'right',beginAtZero:true,grid:{drawOnChartArea:false},ticks:{stepSize:2}}}}});
+  mkChart('cProfCnt',{type:'bar',data:{labels:profesionales.map(p=>p.name),datasets:[{data:profesionales.map(p=>p.salidas),backgroundColor:'#E63946',borderRadius:8,barThickness:26}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.x+' salidas'}}},scales:{x:{beginAtZero:true,grid:{color:line2}},y:{grid:{display:false},ticks:{font:{size:14,weight:'600'}}}}}});
+}
+
 function renderPauta(id,arr,tier){
   const wrap=document.getElementById(id);
   arr.forEach((p,i)=>{
@@ -1169,57 +1266,101 @@ function renderPauta(id,arr,tier){
     wrap.appendChild(el);
   });
 }
-renderPauta('pautaInst',PAUTA_INST,'tier-3');
-renderPauta('pautaProf',PAUTA_PROF,'tier-1');
-renderPauta('pautaProd',PAUTA_PROD,'tier-2');
 
-/* ── PROFESIONALES TABLE ── */
-{const tbody=document.getElementById('tblProf');
-[...PROFESIONALES].sort((a,b)=>b.salidas-a.salidas).forEach((p,i)=>{
-  const cls=i===0?'t1':i===1?'t2':i===2?'t3':'';
-  const tr=document.createElement('tr');
-  tr.innerHTML=`<td><span class="rank-chip ${cls}">${i+1}</span></td><td><strong>${p.name}</strong></td><td class="num">${p.salidas}</td><td class="num">${money(p.apoyo)}</td><td class="num"><strong>${money(p.inv)}</strong></td>`;
-  tbody.appendChild(tr);
-});}
-
-/* ── FONT SIZE TOGGLE ── */
-const FONT_STEPS=[13,17,21];
-const FONT_LABELS=['A','A+','A++'];
-let fIdx=0;
-function cycleFontSize(){
-  fIdx=(fIdx+1)%FONT_STEPS.length;
-  const sz=FONT_STEPS[fIdx];
-  Chart.defaults.font.size=sz;
-  Chart.defaults.plugins.legend.labels.font={family:"Manrope",size:sz,weight:'600'};
-  allCharts.forEach(c=>{c.update('none');});
-  document.getElementById('btnFont').textContent=FONT_LABELS[fIdx];
+function initAnimations(){
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        e.target.querySelectorAll('.pbar>span').forEach(b=>{const w=b.getAttribute('data-w');if(w)requestAnimationFrame(()=>b.style.width=w);});
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:.06});
+  document.querySelectorAll('.fade').forEach(el=>io.observe(el));
+  setTimeout(()=>document.querySelectorAll('.pbar>span').forEach(b=>{const w=b.getAttribute('data-w');if(w&&!b.style.width)b.style.width=w;}),700);
 }
 
-/* ── FADE + BAR ANIMATION ── */
-const io=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.classList.add('in');
-      e.target.querySelectorAll('.pbar>span').forEach(b=>{const w=b.getAttribute('data-w');if(w)requestAnimationFrame(()=>b.style.width=w);});
-      io.unobserve(e.target);
-    }
+function initNavigation(){
+  const SLIDES=Array.from(document.querySelectorAll('.slide-anchor'));
+  function currentSlideIndex(){const y=window.scrollY+window.innerHeight*.5;let idx=0;SLIDES.forEach((s,i)=>{if(s.offsetTop<=y)idx=i;});return idx;}
+  function goSlide(dir){const n=Math.max(0,Math.min(SLIDES.length-1,currentSlideIndex()+dir));window.scrollTo({top:SLIDES[n].offsetTop,behavior:'smooth'});} 
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();goSlide(1);} 
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();goSlide(-1);} 
+    else if(e.key==='Home'){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'});} 
+    else if(e.key==='End'){e.preventDefault();window.scrollTo({top:document.documentElement.scrollHeight,behavior:'smooth'});} 
   });
-},{threshold:.06});
-document.querySelectorAll('.fade').forEach(el=>io.observe(el));
-setTimeout(()=>document.querySelectorAll('.pbar>span').forEach(b=>{const w=b.getAttribute('data-w');if(w&&!b.style.width)b.style.width=w;}),700);
+  const prog=document.getElementById('navProg');
+  window.addEventListener('scroll',()=>{const max=document.documentElement.scrollHeight-window.innerHeight;prog.style.width=(max>0?(window.scrollY/max)*100:0)+'%';},{passive:true});
+}
 
-/* ── KEYBOARD NAV ── */
-const SLIDES=Array.from(document.querySelectorAll('.slide-anchor'));
-function currentSlideIndex(){const y=window.scrollY+window.innerHeight*.35;let idx=0;SLIDES.forEach((s,i)=>{if(s.offsetTop<=y)idx=i;});return idx;}
-function goSlide(dir){const n=Math.max(0,Math.min(SLIDES.length-1,currentSlideIndex()+dir));SLIDES[n].scrollIntoView({behavior:'smooth',block:'start'});}
-document.addEventListener('keydown',e=>{
-  if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();goSlide(1);}
-  else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();goSlide(-1);}
-  else if(e.key==='Home'){e.preventDefault();SLIDES[0].scrollIntoView({behavior:'smooth'});}
-  else if(e.key==='End'){e.preventDefault();SLIDES[SLIDES.length-1].scrollIntoView({behavior:'smooth'});}
-});
-const prog=document.getElementById('navProg');
-window.addEventListener('scroll',()=>{const max=document.documentElement.scrollHeight-window.innerHeight;prog.style.width=(max>0?(window.scrollY/max)*100:0)+'%';},{passive:true});
+function initFontToggle(){
+  const FONT_STEPS=[13,17,21];
+  const FONT_LABELS=['A','A+','A++'];
+  let fIdx=0;
+  window.cycleFontSize=()=>{
+    fIdx=(fIdx+1)%FONT_STEPS.length;
+    const sz=FONT_STEPS[fIdx];
+    Chart.defaults.font.size=sz;
+    Chart.defaults.plugins.legend.labels.font={family:"Manrope",size:sz,weight:'600'};
+    allCharts.forEach(c=>c.update('none'));
+    document.getElementById('btnFont').textContent=FONT_LABELS[fIdx];
+  };
+}
+
+function hideLoader(){
+  const overlay=document.getElementById('loaderOverlay');
+  if(!overlay)return;
+  overlay.classList.add('hidden');
+  window.setTimeout(()=>{
+    if(overlay.parentNode) overlay.remove();
+  },220);
+}
+
+function showLoaderError(message){
+  const overlay=document.getElementById('loaderOverlay');
+  if(!overlay)return;
+  overlay.innerHTML=`<div class="loader-card"><div style="font-weight:800;letter-spacing:.16em;text-transform:uppercase">No se pudo cargar el informe</div><div style="font-size:.75vw;color:rgba(255,255,255,.7)">${String(message)}</div></div>`;
+}
+
+(async function init(){
+  initFontToggle();
+  initNavigation();
+  initAnimations();
+  const fallbackTimer=window.setTimeout(()=>hideLoader(),1800);
+  window.addEventListener('load', ()=>{
+    window.clearTimeout(fallbackTimer);
+    hideLoader();
+  }, {once:true});
+  try{
+    currentData = await loadAllData();
+    renderDashboard(currentData);
+  } catch (err) {
+    showLoaderError(err.message || err);
+  } finally {
+    window.clearTimeout(fallbackTimer);
+    hideLoader();
+  }
+})();
+</script>
+<script>
+(function(){
+  function hideOverlay(){
+    const overlay = document.getElementById('loaderOverlay');
+    if (!overlay) return;
+    overlay.classList.add('hidden');
+    window.setTimeout(() => {
+      if (overlay.parentNode) overlay.remove();
+    }, 220);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => window.setTimeout(hideOverlay, 800), {once:true});
+  } else {
+    window.setTimeout(hideOverlay, 800);
+  }
+  window.addEventListener('load', hideOverlay, {once:true});
+})();
 </script>
 </body>
 </html>

@@ -11,7 +11,7 @@ function onOpen() {
     .addItem('▶  Abrir Dashboard',       'openDashboard')
     .addSeparator()
     .addItem('⚙  Inicializar Hojas',     'initializeSheets')
-    .addItem('↻  Actualizar Comparativo','updateComparativo')
+    .addItem('↻  Actualizar Comparativo','showComparativoDialog')
     .addToUi();
 }
 
@@ -388,7 +388,7 @@ function initializeSheets() {
 }
 
 // ── Comparativo Sheet ─────────────────────────────────────
-function updateComparativo() {
+function showComparativoDialog() {
   const ui     = SpreadsheetApp.getUi();
   const months = getAvailableMonths();
 
@@ -397,8 +397,71 @@ function updateComparativo() {
     return;
   }
 
-  const m1 = months[months.length - 1];
-  const m2 = months.length >= 2 ? months[months.length - 2] : null;
+  const defaultM1 = months[months.length - 1];
+  const defaultM2 = months.length >= 2 ? months[months.length - 2] : months[months.length - 1];
+
+  const optionsHtml = months
+    .map(m => `<option value="${m}">${m}</option>`)
+    .join('');
+
+  const html = `
+    <style>
+      body { font-family: Arial, sans-serif; font-size: 13px; padding: 4px 8px; }
+      label { display: block; margin-top: 12px; font-weight: bold; }
+      select { width: 100%; padding: 6px; margin-top: 4px; }
+      #err { color: #c0392b; margin-top: 12px; display: none; }
+      .actions { margin-top: 18px; text-align: right; }
+      button { padding: 6px 14px; margin-left: 8px; }
+    </style>
+    <label for="m1">Mes 1</label>
+    <select id="m1">${optionsHtml}</select>
+    <label for="m2">Mes 2</label>
+    <select id="m2">${optionsHtml}</select>
+    <div id="err">Elegí dos meses distintos.</div>
+    <div class="actions">
+      <button onclick="google.script.host.close()">Cancelar</button>
+      <button onclick="submitForm()">Generar</button>
+    </div>
+    <script>
+      document.getElementById('m1').value = ${JSON.stringify(defaultM1)};
+      document.getElementById('m2').value = ${JSON.stringify(defaultM2)};
+
+      function submitForm() {
+        const m1 = document.getElementById('m1').value;
+        const m2 = document.getElementById('m2').value;
+        const err = document.getElementById('err');
+        if (m1 === m2) { err.style.display = 'block'; return; }
+        err.style.display = 'none';
+        google.script.run
+          .withSuccessHandler(() => google.script.host.close())
+          .withFailureHandler(e => { err.textContent = e.message; err.style.display = 'block'; })
+          .updateComparativo(m1, m2);
+      }
+    </script>
+  `;
+
+  ui.showModalDialog(
+    HtmlService.createHtmlOutput(html).setWidth(360).setHeight(280),
+    'Actualizar Comparativo'
+  );
+}
+
+function updateComparativo(m1, m2) {
+  const ui     = SpreadsheetApp.getUi();
+  const months = getAvailableMonths();
+
+  if (!months.length) {
+    ui.alert('DashTV', 'No se encontraron meses en el spreadsheet fuente.', ui.ButtonSet.OK);
+    return;
+  }
+
+  if (!m1) m1 = months[months.length - 1];
+  if (!m2) m2 = months.length >= 2 ? months[months.length - 2] : null;
+
+  if (m1 && m2 && m1 === m2) {
+    ui.alert('DashTV', 'Elegí dos meses distintos para el comparativo.', ui.ButtonSet.OK);
+    return;
+  }
 
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   let sh   = ss.getSheetByName('Comparativo');
