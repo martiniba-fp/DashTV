@@ -496,24 +496,24 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:1vw;margin-top:.3vw">
           <div>
             <div style="font-family:'Manrope';font-weight:800;font-size:max(16px,.58vw);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);margin-bottom:.3vw">Costo / salida · Mayo</div>
-            <div style="font-family:'Fraunces';font-weight:700;font-size:max(28px,2.6vw);color:var(--ink-2);letter-spacing:-.025em;line-height:1">$1,40<span style="font-size:.55em;font-weight:600;color:var(--ink-3)"> M</span></div>
+            <div id="s3CostoMayo" style="font-family:'Fraunces';font-weight:700;font-size:max(28px,2.6vw);color:var(--ink-2);letter-spacing:-.025em;line-height:1">$1,40<span style="font-size:.55em;font-weight:600;color:var(--ink-3)"> M</span></div>
           </div>
           <div>
             <div style="font-family:'Manrope';font-weight:800;font-size:max(16px,.58vw);letter-spacing:.16em;text-transform:uppercase;color:var(--good);margin-bottom:.3vw">Costo / salida · Junio</div>
-            <div style="font-family:'Fraunces';font-weight:700;font-size:max(28px,2.6vw);color:var(--good);letter-spacing:-.025em;line-height:1">$0,93<span style="font-size:.55em;font-weight:600"> M</span></div>
+            <div id="s3CostoJunio" style="font-family:'Fraunces';font-weight:700;font-size:max(28px,2.6vw);color:var(--good);letter-spacing:-.025em;line-height:1">$0,93<span style="font-size:.55em;font-weight:600"> M</span></div>
           </div>
         </div>
-        <p style="font-family:'Inter';font-size:max(16px,.78vw);color:var(--ink);margin-top:.8vw;line-height:1.5">En junio se logró un <strong>34% más de eficiencia</strong> por salida frente a mayo.</p>
+        <p id="s3EficienciaTexto" style="font-family:'Inter';font-size:max(16px,.78vw);color:var(--ink);margin-top:.8vw;line-height:1.5">En junio se logró un <strong>34% más de eficiencia</strong> por salida frente a mayo.</p>
       </div>
       <div class="card" style="border-top:4px solid var(--fp-red)">
         <div class="pill red" style="margin-bottom:.7vw">A mejorar</div>
-        <p style="font-family:'Inter';font-size:max(16px,.78vw);color:var(--ink);line-height:1.5">Mayo tenía <strong>98% de aprovechamiento</strong> (96/98 salidas editadas). Junio bajó a <strong>85%</strong> (97/114). El volumen creció pero el equipo de edición aún no escala al mismo ritmo.</p>
+        <p id="s3AMejorarTexto" style="font-family:'Inter';font-size:max(16px,.78vw);color:var(--ink);line-height:1.5">Mayo tenía <strong>98% de aprovechamiento</strong> (96/98 salidas editadas). Junio bajó a <strong>85%</strong> (97/114). El volumen creció pero el equipo de edición aún no escala al mismo ritmo.</p>
       </div>
       <div class="stat solid-dark">
         <div class="stat-bar"></div>
         <div class="stat-lbl">Meta relevante</div>
         <div style="font-family:'Manrope';font-weight:800;font-size:max(16px,1.5vw);color:#fff;line-height:1.2;margin-top:.3vw">100% edición en julio</div>
-        <div class="stat-sub">Llevar de 85% → 100% de aprovechamiento</div>
+        <div class="stat-sub" id="s3MetaSub">Llevar de 85% → 100% de aprovechamiento</div>
       </div>
     </div>
   </div>
@@ -544,6 +544,7 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
       <div class="chart-wrap"><canvas id="cInvProg"></canvas></div>
     </div>
   </div>
+  <p id="s4IluminadasNote" style="font-family:'Inter';font-size:max(13px,.7vw);color:var(--ink-3);margin-top:.8vw;display:none"></p>
 </section>
 
 <!-- S5 · NOTAS vs PNT -->
@@ -934,14 +935,14 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
     <h2>Junio: <span class="ac">más salidas,</span><br/>más eficiencia.</h2>
     <div class="cgrid">
       <div class="cs"><div class="clbl">Total invertido</div><div class="cval mono" id="closingTotal">$125,1 <span class="ac" style="font-size:.6em">M</span></div><div class="csub">TV + Redes sin ADN</div></div>
-      <div class="cs"><div class="clbl">Salidas · costo/salida</div><div class="cval mono"><span class="ac" id="closingSalidas">109</span> · <span class="ac" style="font-size:.65em" id="closingCostoSalida">$0,93M</span></div><div class="csub">34% más eficiente que mayo</div></div>
+      <div class="cs"><div class="clbl">Salidas · costo/salida</div><div class="cval mono"><span class="ac" id="closingSalidas">109</span> · <span class="ac" style="font-size:.65em" id="closingCostoSalida">$0,93M</span></div><div class="csub" id="closingCostoSub">34% más eficiente que mayo</div></div>
       <div class="cs"><div class="clbl">Videos en redes</div><div class="cval mono"><span class="ac" id="closingVideos">623</span></div><div class="csub" id="closingVideosSub">345 IG + 278 TikTok</div></div>
     </div>
     <div class="cbullets">
       <div id="closingBulletTv">$119,8M en <strong style="color:#fff">TV · 109 salidas · 15 programas</strong>.</div>
-      <div class="r">Aprovechamiento: <strong style="color:#fff">84%</strong> — objetivo julio: 100%.</div>
+      <div class="r" id="closingAprovechamiento">Aprovechamiento: <strong style="color:#fff">84%</strong> — objetivo julio: 100%.</div>
       <div id="closingBulletMeta">$10,4M en <strong style="color:#fff">Meta Ads · 21 cuentas · 3,6M alcance</strong>.</div>
-      <div class="r">Gabriel Lapman: <strong style="color:#fff">49 apariciones</strong> — pilar del mes.</div>
+      <div class="r" id="closingTopProf">Gabriel Lapman: <strong style="color:#fff">49 apariciones</strong> — pilar del mes.</div>
     </div>
     <div class="csig">
       <svg viewBox="0 0 140 76" width="40" height="22"><rect x="2" y="2" width="64" height="72" rx="2" fill="#E63946"/><rect x="74" y="2" width="64" height="72" rx="2" fill="#1FAFE0"/><text x="34" y="55" text-anchor="middle" font-family="Arial" font-weight="800" font-size="50" fill="#fff">F</text><text x="106" y="55" text-anchor="middle" font-family="Arial" font-weight="800" font-size="50" fill="#fff">P</text></svg>
@@ -1029,17 +1030,20 @@ async function loadAllData(){
 
 function buildDataModel(tvText, metaText, metaPastText, metricasText, config){
   const allTvParsed = Papa.parse(tvText,{header:true,skipEmptyLines:true}).data;
+  // Se cuenta toda la pauta comprometida del mes (columna Mes/Año), esté o no
+  // ya subido el video: "Tomado" solo indica si el video ya se subió a YouTube,
+  // no si la inversión fue realizada.
   const tvRows = allTvParsed.filter(row=>{
     const mes = String(row.Mes||'').toLowerCase();
     const year = String(config.anio || '2026');
     const target = monthToken(config.mes);
-    return mes.includes(target) && mes.includes(year) && String(row.Tomado||'').toUpperCase()==='TRUE';
+    return mes.includes(target) && mes.includes(year);
   });
   const prevTarget = monthToken(config.mesAnterior || 'Mayo');
   const prevTvRows = allTvParsed.filter(row=>{
     const mes = String(row.Mes||'').toLowerCase();
     const year = String(config.anio || '2026');
-    return mes.includes(prevTarget) && mes.includes(year) && String(row.Tomado||'').toUpperCase()==='TRUE';
+    return mes.includes(prevTarget) && mes.includes(year);
   });
   let prevProgramInv=0, prevApoyo=0, prevEditedCount=0;
   prevTvRows.forEach(row=>{
@@ -1049,7 +1053,7 @@ function buildDataModel(tvText, metaText, metaPastText, metricasText, config){
     if(edit && !edit.includes('no sub')) prevEditedCount++;
   });
 
-  const takenRows = tvRows.filter(row=>String(row.Tomado||'').toUpperCase()==='TRUE');
+  const takenRows = tvRows;
   const editedCount = takenRows.filter(row=>{
     const edit = String(row.Editado||'').trim().toLowerCase();
     return edit && !edit.includes('no sub');
@@ -1063,6 +1067,8 @@ function buildDataModel(tvText, metaText, metaPastText, metricasText, config){
   let totalTv=0;
   let notas=0;
   let pnt=0;
+  let notaTotal=0, pntTotal=0;
+  let ilumSalidas=0, ilumInv=0, ilumApoyo=0;
   takenRows.forEach(row=>{
     const prog = String(row.Programa||'').trim() || 'Sin programa';
     const prod = String(row.Producto||'').trim() || 'Sin producto';
@@ -1073,10 +1079,19 @@ function buildDataModel(tvText, metaText, metaPastText, metricasText, config){
     totalProgramInv += progInv;
     totalSupport += support;
     totalTv += total;
-    const tipo=String(row.Tipo||'').toUpperCase(); if(tipo==='PNT') pnt++; else if(tipo==='NOTA') notas++;
-    if(!byProgram[prog]) byProgram[prog] = {name:prog, salidas:0, inv:0};
-    byProgram[prog].salidas += 1;
-    byProgram[prog].inv += progInv;
+    const tipo=String(row.Tipo||'').toUpperCase();
+    if(tipo==='PNT'){ pnt++; pntTotal+=total; } else if(tipo==='NOTA'){ notas++; notaTotal+=total; }
+    // "Iluminadas" es una categoría propia, no un programa: se excluye del ranking
+    // de programas para no distorsionarlo, pero su inversión sigue sumando a los totales de TV.
+    if(prog.toLowerCase()==='iluminadas'){
+      ilumSalidas += 1;
+      ilumInv += progInv;
+      ilumApoyo += support;
+    } else {
+      if(!byProgram[prog]) byProgram[prog] = {name:prog, salidas:0, inv:0};
+      byProgram[prog].salidas += 1;
+      byProgram[prog].inv += progInv;
+    }
     if(!byProduct[prod]) byProduct[prod] = {name:prod, salidas:0, inv:0, color:'#1FAFE0'};
     byProduct[prod].salidas += 1;
     byProduct[prod].inv += total;
@@ -1147,7 +1162,7 @@ function buildDataModel(tvText, metaText, metaPastText, metricasText, config){
 
   return {
     config,
-    tv:{rows:takenRows, totalProgramInv, totalSupport, totalTv, notas, pnt, editedCount, salidas:takenRows.length, numProgramas, programas, productos, profesionales, prev:{programInv:prevProgramInv, apoyo:prevApoyo, totalTv:prevProgramInv+prevApoyo, salidas:prevTvRows.length, editedCount:prevEditedCount}},
+    tv:{rows:takenRows, totalProgramInv, totalSupport, totalTv, notas, pnt, notaTotal, pntTotal, editedCount, salidas:takenRows.length, numProgramas, programas, productos, profesionales, iluminadas:{salidas:ilumSalidas, inv:ilumInv, apoyo:ilumApoyo, total:ilumInv+ilumApoyo}, prev:{programInv:prevProgramInv, apoyo:prevApoyo, totalTv:prevProgramInv+prevApoyo, salidas:prevTvRows.length, editedCount:prevEditedCount}},
     meta:{rows:metaRows, byCategory:metaByCategory, prevByCategory:metaPrevByCategory, institu, profes, productos:productosMeta, pautaInst, pautaProf, pautaProd},
     social,
     comparison:{
@@ -1184,13 +1199,23 @@ function renderDashboard(data){
   const ppto = cfg.presupuesto_tv || 0;
   if(ppto){
     document.getElementById('s4Ppto').innerHTML = `<span class="cur">$</span>${(ppto/1e6).toFixed(1).replace('.',',')}<span class="unit">M</span>`;
-    document.getElementById('s4PptoSub').textContent = `${Math.round(data.tv.totalProgramInv/ppto*100)}% ejecutado`;
+    document.getElementById('s4PptoSub').textContent = `${Math.round(data.tv.totalTv/ppto*100)}% ejecutado`;
+  }
+  const ilum = data.tv.iluminadas || {salidas:0, inv:0, apoyo:0, total:0};
+  const s4IlumNote = document.getElementById('s4IluminadasNote');
+  if(s4IlumNote){
+    if(ilum.salidas>0){
+      s4IlumNote.style.display='';
+      s4IlumNote.innerHTML = `<strong style="color:var(--ink-2)">Iluminadas</strong> (categoría aparte, no entra en el ranking de programas): ${ilum.salidas} salidas · ${moneyShort(ilum.total)} — ya incluido en los totales de TV de arriba.`;
+    } else {
+      s4IlumNote.style.display='none';
+    }
   }
 
   document.getElementById('s5Notas').textContent = String(data.tv.notas);
-  document.getElementById('s5NotasSub').innerHTML = `<strong style="color:var(--ink)">${moneyShort(data.tv.totalProgramInv)}</strong> · ${Math.round(data.tv.notas/(data.tv.notas+data.tv.pnt)*100)}% de las salidas`;
+  document.getElementById('s5NotasSub').innerHTML = `<strong style="color:var(--ink)">${moneyShort(data.tv.notaTotal)}</strong> · ${Math.round(data.tv.notas/(data.tv.notas+data.tv.pnt)*100)}% de las salidas`;
   document.getElementById('s5Pnt').textContent = String(data.tv.pnt);
-  document.getElementById('s5PntSub').innerHTML = `<strong style="color:var(--ink)">${moneyShort(data.tv.totalSupport)}</strong> · ${Math.round(data.tv.pnt/(data.tv.notas+data.tv.pnt)*100)}% de las salidas`;
+  document.getElementById('s5PntSub').innerHTML = `<strong style="color:var(--ink)">${moneyShort(data.tv.pntTotal)}</strong> · ${Math.round(data.tv.pnt/(data.tv.notas+data.tv.pnt)*100)}% de las salidas`;
 
   // S2 resumen — dinámico
   {
@@ -1214,12 +1239,37 @@ function renderDashboard(data){
   const junioEditPct=Math.round(data.tv.editedCount/Math.max(data.tv.salidas,1)*100);
   const mayoEditPct=Math.round(prevTv.editedCount/Math.max(prevTv.salidas,1)*100);
   const editDelta=(junioEditPct-mayoEditPct>=0?'+':'')+String(junioEditPct-mayoEditPct)+'pp';
+  const costoJ=data.tv.totalTv/Math.max(data.tv.salidas,1)/1e6;
+  const costoM=prevTv.totalTv/Math.max(prevTv.salidas,1)/1e6;
+  const costoDeltaPct=costoM?Math.round((costoJ-costoM)/costoM*100):0;
   const buildCmpHtml=rows=>rows.map(([lbl,m,j,d])=>lbl==='sep'?`<tr class="sep"><td colspan="4"></td></tr>`:`<tr><td>${lbl}</td><td class="val">${m}</td><td class="val">${j}</td><td class="${d.startsWith('+')?'delta-pos':d.startsWith('-')?'delta-neg':'delta-neu'}">${d}</td></tr>`).join('');
+
+  // S3 eficiencia / a mejorar — texto dinámico (antes hardcodeado)
+  {
+    const s3CostoMayoEl=document.getElementById('s3CostoMayo');
+    if(s3CostoMayoEl) s3CostoMayoEl.innerHTML = `$${costoM.toFixed(2).replace('.',',')}<span style="font-size:.55em;font-weight:600;color:var(--ink-3)"> M</span>`;
+    const s3CostoJunioEl=document.getElementById('s3CostoJunio');
+    if(s3CostoJunioEl) s3CostoJunioEl.innerHTML = `$${costoJ.toFixed(2).replace('.',',')}<span style="font-size:.55em;font-weight:600"> M</span>`;
+    const s3EficienciaEl=document.getElementById('s3EficienciaTexto');
+    if(s3EficienciaEl){
+      const mejoro=costoDeltaPct<=0;
+      s3EficienciaEl.innerHTML = mejoro
+        ? `En ${monthLabel.toLowerCase()} se logró un <strong>${Math.abs(costoDeltaPct)}% más de eficiencia</strong> por salida frente a ${cfg.mesAnterior||'el mes anterior'}.`
+        : `En ${monthLabel.toLowerCase()} el costo por salida subió <strong>${costoDeltaPct}%</strong> frente a ${cfg.mesAnterior||'el mes anterior'}.`;
+    }
+    const s3AMejorarEl=document.getElementById('s3AMejorarTexto');
+    if(s3AMejorarEl){
+      s3AMejorarEl.innerHTML = `${cfg.mesAnterior||'El mes anterior'} tenía <strong>${mayoEditPct}% de aprovechamiento</strong> (${prevTv.editedCount}/${prevTv.salidas} salidas editadas). ${monthLabel} ${junioEditPct>=mayoEditPct?'llegó a':'bajó a'} <strong>${junioEditPct}%</strong> (${data.tv.editedCount}/${data.tv.salidas}). ${junioEditPct<mayoEditPct?'El volumen creció pero el equipo de edición aún no escala al mismo ritmo.':'El equipo de edición absorbió el mayor volumen.'}`;
+    }
+    const s3MetaSubEl=document.getElementById('s3MetaSub');
+    if(s3MetaSubEl) s3MetaSubEl.textContent = `Llevar de ${junioEditPct}% → 100% de aprovechamiento`;
+  }
 
   // S3 comparativo — programa y apoyo por separado, Mayo desde CSV real
   const cmpRows = [
     ['Inv. programas TV', moneyShort(prevTv.programInv), moneyShort(data.tv.totalProgramInv), pDelta(data.tv.totalProgramInv, prevTv.programInv)],
     ['Apoyo profesionales', moneyShort(prevTv.apoyo), moneyShort(data.tv.totalSupport), pDelta(data.tv.totalSupport, prevTv.apoyo)],
+    ['Total TV', moneyShort(prevTv.totalTv), moneyShort(data.tv.totalTv), pDelta(data.tv.totalTv, prevTv.totalTv)],
     ['Inversión Redes', moneyShort(data.comparison.prevMetaTotal), moneyShort(data.comparison.currentMetaTotal), pDelta(data.comparison.currentMetaTotal, data.comparison.prevMetaTotal)],
     ['Total marketing', moneyShort(data.comparison.prevMetaTotal+prevTv.totalTv), moneyShort(data.comparison.currentMetaTotal+data.tv.totalTv), pDelta(data.comparison.currentMetaTotal+data.tv.totalTv, data.comparison.prevMetaTotal+prevTv.totalTv)],
     ['sep','','',''],
@@ -1272,11 +1322,10 @@ function renderDashboard(data){
   {
     const s11b=document.getElementById('s11CmpBody');
     if(s11b){
-      const costoJ=data.tv.totalTv/Math.max(data.tv.salidas,1)/1e6;
-      const costoM=prevTv.totalTv/Math.max(prevTv.salidas,1)/1e6;
       const s11Rows=[
         ['Inv. programas TV', moneyShort(prevTv.programInv), moneyShort(data.tv.totalProgramInv), pDelta(data.tv.totalProgramInv, prevTv.programInv)],
         ['Apoyo profesionales', moneyShort(prevTv.apoyo), moneyShort(data.tv.totalSupport), pDelta(data.tv.totalSupport, prevTv.apoyo)],
+        ['Total TV', moneyShort(prevTv.totalTv), moneyShort(data.tv.totalTv), pDelta(data.tv.totalTv, prevTv.totalTv)],
         ['Pauta Meta', moneyShort(data.comparison.prevMetaTotal), moneyShort(data.comparison.currentMetaTotal), pDelta(data.comparison.currentMetaTotal, data.comparison.prevMetaTotal)],
         ['Salidas TV', String(prevTv.salidas), String(data.tv.salidas), aDelta(data.tv.salidas, prevTv.salidas)],
         ['Aprovechamiento %', `${mayoEditPct}%`, `${junioEditPct}%`, editDelta],
@@ -1289,6 +1338,8 @@ function renderDashboard(data){
   document.getElementById('closingTotal').innerHTML = `${moneyShort(data.tv.totalTv + data.comparison.currentMetaTotal)} <span class="ac" style="font-size:.6em">M</span>`;
   document.getElementById('closingSalidas').textContent = String(data.tv.salidas);
   document.getElementById('closingCostoSalida').textContent = `$${(data.tv.totalTv / Math.max(data.tv.salidas,1) / 1e6).toFixed(2).replace('.',',')}M`;
+  const closingCostoSubEl=document.getElementById('closingCostoSub');
+  if(closingCostoSubEl) closingCostoSubEl.textContent = costoDeltaPct<=0 ? `${Math.abs(costoDeltaPct)}% más eficiente que ${cfg.mesAnterior||'el mes anterior'}` : `${costoDeltaPct}% menos eficiente que ${cfg.mesAnterior||'el mes anterior'}`;
   document.getElementById('closingVideos').textContent = String((data.hero.igVideos || 0) + (data.hero.ttVideos || 0));
   document.getElementById('closingVideosSub').textContent = `${data.hero.igVideos || 0} IG + ${data.hero.ttVideos || 0} TikTok`;
 
@@ -1296,10 +1347,17 @@ function renderDashboard(data){
   {
     const bTv=document.getElementById('closingBulletTv');
     if(bTv) bTv.innerHTML=`${moneyShort(data.tv.totalTv)} en <strong style="color:#fff">TV · ${data.tv.salidas} salidas · ${data.tv.numProgramas} programas</strong>.`;
+    const bAprov=document.getElementById('closingAprovechamiento');
+    if(bAprov) bAprov.innerHTML=`Aprovechamiento: <strong style="color:#fff">${junioEditPct}%</strong> — objetivo ${cfg.mesSiguiente||'próximo mes'}: 100%.`;
     const bMeta=document.getElementById('closingBulletMeta');
     if(bMeta){
       const totalAlcance=Object.values(data.meta.byCategory).reduce((a,c)=>a+(c.alcance||0),0);
       bMeta.innerHTML=`${moneyShort(data.comparison.currentMetaTotal)} en <strong style="color:#fff">Meta Ads · ${data.meta.rows.length} cuentas · ${shortNumber(totalAlcance)} alcance</strong>.`;
+    }
+    const bTopProf=document.getElementById('closingTopProf');
+    if(bTopProf && data.tv.profesionales && data.tv.profesionales[0]){
+      const top=data.tv.profesionales[0];
+      bTopProf.innerHTML=`${top.name}: <strong style="color:#fff">${top.salidas} apariciones</strong> — pilar del mes.`;
     }
   }
 
@@ -1315,7 +1373,7 @@ function renderCharts(data){
 
   mkChart('cSalProg',{type:'bar',data:{labels:programas.map(p=>p.name),datasets:[{data:programas.map(p=>p.salidas),backgroundColor:'#1FAFE0',borderRadius:8,barThickness:14}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.x+' salidas'}}},scales:{x:{beginAtZero:true,grid:{color:line2}},y:{grid:{display:false},ticks:{font:{size:11}}}}}});
   mkChart('cInvProg',{type:'bar',data:{labels:programas.map(p=>p.name),datasets:[{data:programas.map(p=>p.inv),backgroundColor:ink,borderRadius:8,barThickness:14}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>money(c.parsed.x)}}},scales:{x:{beginAtZero:true,grid:{color:line2},ticks:{callback:v=>moneyShort(v)}},y:{grid:{display:false},ticks:{font:{size:11}}}}}});
-  mkChart('cNotaPnt',{type:'bar',data:{labels:['Cantidad de salidas','Inversión ($M)'],datasets:[{label:'Notas',data:[data.tv.notas,data.tv.totalProgramInv/1e6],backgroundColor:'#1FAFE0',borderRadius:8,barThickness:50},{label:'PNT',data:[data.tv.pnt,data.tv.totalSupport/1e6],backgroundColor:'#E63946',borderRadius:8,barThickness:50}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y+(c.dataIndex===1?' M':' salidas')}}},scales:{x:{grid:{display:false}},y:{beginAtZero:true,grid:{color:line2}}}}});
+  mkChart('cNotaPnt',{type:'bar',data:{labels:['Cantidad de salidas','Inversión ($M)'],datasets:[{label:'Notas',data:[data.tv.notas,data.tv.notaTotal/1e6],backgroundColor:'#1FAFE0',borderRadius:8,barThickness:50},{label:'PNT',data:[data.tv.pnt,data.tv.pntTotal/1e6],backgroundColor:'#E63946',borderRadius:8,barThickness:50}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y+(c.dataIndex===1?' M':' salidas')}}},scales:{x:{grid:{display:false}},y:{beginAtZero:true,grid:{color:line2}}}}});
   mkChart('cFunnel',{type:'bar',data:{labels:['Salidas en TV','Videos editados','Sin procesar'],datasets:[{data:[data.tv.salidas,data.tv.editedCount,Math.max(0,data.tv.salidas-data.tv.editedCount)],backgroundColor:['#1FAFE0','#1E8A5A','#B45309'],borderRadius:10,barThickness:72}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y+' · '+(c.parsed.y/data.tv.salidas*100).toFixed(0)+'%'}}},scales:{x:{grid:{display:false},ticks:{color:'rgba(255,255,255,.85)'}},y:{beginAtZero:true,grid:{color:'rgba(255,255,255,.08)'},ticks:{color:'rgba(255,255,255,.65)'}}}}});
   mkChart('cProdComb',{type:'bar',data:{labels:productos.map(p=>p.name),datasets:[{label:'Inversión ($)',data:productos.map(p=>p.inv),backgroundColor:productos.map(p=>p.color),borderRadius:{topLeft:6,topRight:6},yAxisID:'yInv',order:1,barPercentage:.6,categoryPercentage:.8},{label:'Salidas',data:productos.map(p=>p.salidas),backgroundColor:'rgba(11,27,46,0.18)',borderColor:'rgba(11,27,46,0.5)',borderWidth:1,borderRadius:{topLeft:4,topRight:4},yAxisID:'ySal',order:2,barPercentage:.3,categoryPercentage:.8}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>c.dataset.label==='Inversión ($)'?'Inversión: '+money(c.parsed.y):'Salidas: '+c.parsed.y}}},scales:{yInv:{type:'linear',position:'left',beginAtZero:true,ticks:{callback:v=>moneyShort(v)},grid:{color:line2}},ySal:{type:'linear',position:'right',beginAtZero:true,grid:{drawOnChartArea:false},ticks:{stepSize:2}}}}});
   mkChart('cProfCnt',{type:'bar',data:{labels:profesionales.map(p=>p.name),datasets:[{data:profesionales.map(p=>p.salidas),backgroundColor:'#E63946',borderRadius:8,barThickness:26}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.x+' salidas'}}},scales:{x:{beginAtZero:true,grid:{color:line2}},y:{grid:{display:false},ticks:{font:{size:14,weight:'600'}}}}}});
