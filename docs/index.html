@@ -252,6 +252,12 @@ details.expand summary::-webkit-details-marker{display:none}
 .tbl tbody tr{border-bottom:1px solid var(--line-2)}
 .tbl tbody tr:last-child{border-bottom:none}
 .tbl tbody td{padding:.5vw .8vw;color:var(--ink-2);line-height:1.35}
+.net-ic{width:1em;height:1em;display:inline-block;vertical-align:-.15em;flex-shrink:0}
+h2.display .net-ic{width:.8em;height:.8em;margin-right:.12em;vertical-align:-.08em}
+.marker .net-ic{width:1.3em;height:1.3em;vertical-align:-.25em;margin-right:.15em}
+.vid-links{display:flex;gap:.35vw;flex-wrap:wrap}
+.vid-btn{display:inline-flex;align-items:center;padding:.22vw .6vw;border-radius:6px;background:var(--canvas);border:1px solid var(--line);font-family:'Manrope';font-weight:700;font-size:max(11px,.62vw);color:var(--ink-2);text-decoration:none;white-space:nowrap;transition:background .15s ease}
+.vid-btn:hover{background:var(--line-2)}
 .rank-chip{width:26px;height:26px;border-radius:8px;background:var(--canvas);display:flex;align-items:center;justify-content:center;font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);color:var(--ink)}
 .rank-chip.t1{background:#C9A227;color:#fff}
 .rank-chip.t2{background:var(--ink-3);color:#fff}
@@ -353,6 +359,13 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
 #s10b .tbl thead th,#s10b .tbl tbody td{padding:.35vw .6vw}
 #s10b .tbl tbody td{font-size:max(15px,0.9vw);line-height:1.35}
 #s10b .tbl thead th{font-size:max(15px,0.85vw)}
+#s8b .card.lg,#s8c .card.lg,#s8d .card.lg{display:flex;flex-direction:column;flex:1 1 auto;min-height:0;overflow:hidden;padding:.8vw 1vw}
+#s8b .card.lg>div,#s8c .card.lg>div,#s8d .card.lg>div{flex:1 1 auto;min-height:0;overflow:auto}
+#s8b .tbl,#s8c .tbl,#s8d .tbl{width:100%;min-width:0}
+#s8b .card-title.left,#s8c .card-title.left,#s8d .card-title.left{font-size:1rem}
+#s8b .tbl thead th,#s8c .tbl thead th,#s8d .tbl thead th,#s8b .tbl tbody td,#s8c .tbl tbody td,#s8d .tbl tbody td{padding:.35vw .6vw}
+#s8b .tbl tbody td,#s8c .tbl tbody td,#s8d .tbl tbody td{font-size:max(14px,0.85vw);line-height:1.35}
+#s8b .tbl thead th,#s8c .tbl thead th,#s8d .tbl thead th{font-size:max(13px,0.78vw)}
 
 /* ── S11 adaptable ── */
 #s11{display:flex;flex-direction:column;min-height:0}
@@ -384,6 +397,16 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="igGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFDD55"/>
+      <stop offset="30%" stop-color="#FF543E"/>
+      <stop offset="60%" stop-color="#C837AB"/>
+      <stop offset="100%" stop-color="#5851DB"/>
+    </linearGradient>
+  </defs>
+</svg>
 <div id="loaderOverlay"><div class="loader-card"><div class="dot"></div><div style="font-weight:800;letter-spacing:.16em;text-transform:uppercase">Cargando informe…</div><div style="font-size:.75vw;color:rgba(255,255,255,.7)">Leyendo CSVs desde la carpeta data</div></div></div>
 
 <div class="nav-progress"><span id="navProg"></span></div>
@@ -449,10 +472,10 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
     <div class="stat gold"><div class="stat-bar"></div><div class="stat-lbl">Salidas en TV</div><div class="stat-val mono" id="s2Salidas">109</div><div class="stat-sub" id="s2SalidasSub">15 programas · 6 profesionales</div></div>
   </div>
   <div class="kpi-row" style="margin-top:1.1vw">
-    <div class="stat"><div class="stat-bar"></div><div class="stat-lbl">Videos editados</div><div class="stat-val mono">92</div><div class="stat-sub">84% de las salidas TV</div></div>
-    <div class="stat good"><div class="stat-bar"></div><div class="stat-lbl">Videos en IG</div><div class="stat-val mono">345</div><div class="stat-sub">17 cuentas activas</div></div>
-    <div class="stat"><div class="stat-bar"></div><div class="stat-lbl">Videos en TikTok</div><div class="stat-val mono">278</div><div class="stat-sub">6 cuentas activas</div></div>
-    <div class="stat good"><div class="stat-bar"></div><div class="stat-lbl">Notas · PNT</div><div class="stat-val mono">93 / 16</div><div class="stat-sub">85% notas · 15% PNT</div></div>
+    <div class="stat"><div class="stat-bar"></div><div class="stat-lbl">Videos editados</div><div class="stat-val mono" id="s2Editados">92</div><div class="stat-sub" id="s2EditadosSub">84% de las salidas TV</div></div>
+    <div class="stat good"><div class="stat-bar"></div><div class="stat-lbl">Videos en IG</div><div class="stat-val mono" id="s2VideosIg">345</div><div class="stat-sub" id="s2VideosIgSub">17 cuentas activas</div></div>
+    <div class="stat"><div class="stat-bar"></div><div class="stat-lbl">Videos en TikTok</div><div class="stat-val mono" id="s2VideosTt">278</div><div class="stat-sub" id="s2VideosTtSub">6 cuentas activas</div></div>
+    <div class="stat good"><div class="stat-bar"></div><div class="stat-lbl">Notas · PNT</div><div class="stat-val mono" id="s2NotasPnt">93 / 16</div><div class="stat-sub" id="s2NotasPntSub">85% notas · 15% PNT</div></div>
   </div>
 </section>
 
@@ -686,7 +709,67 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
   <div class="card" style="margin-top:.8vw;background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1)">
     <div style="display:flex;align-items:center;gap:1.5vw;justify-content:center">
       <div class="pill cyan" style="background:rgba(31,175,224,.16)">Logro</div>
-      <p style="margin:0;font-size:max(16px,.85vw);color:rgba(255,255,255,.95);font-family:'Manrope';font-weight:600">El 100% de los videos editados fue publicado. 623 videos en redes (345 IG + 278 TikTok).</p>
+      <p id="s8LogroTexto" style="margin:0;font-size:max(16px,.85vw);color:rgba(255,255,255,.95);font-family:'Manrope';font-weight:600">El 100% de los videos editados fue publicado. 623 videos en redes (345 IG + 278 TikTok).</p>
+    </div>
+  </div>
+</section>
+
+<!-- S8b · REDES ORGÁNICAS · INSTAGRAM (1/2) -->
+<section class="slide slide-paper fade slide-anchor" id="s8b">
+  <div class="slide-head">
+    <div class="meta">
+      <span class="eyebrow">08 · Redes orgánicas · Instagram (1/2)</span>
+      <h2 class="display"><svg class="net-ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="url(#igGrad)" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> Instagram, cuenta por cuenta.</h2>
+    </div>
+    <div class="marker"><span class="num">08</span><span>IG · 1/2</span></div>
+  </div>
+  <div class="card lg" style="display:flex;flex-direction:column;height:100%;">
+    <h3 class="card-title left">Instagram · detalle por cuenta</h3>
+    <div style="flex:1;min-height:0;overflow:auto;">
+      <table class="tbl">
+        <thead><tr><th style="width:40px">#</th><th>Cuenta</th><th class="num">Visualizaciones</th><th class="num">Videos</th><th class="num">Δ vs mes ant.</th><th>Ver videos</th></tr></thead>
+        <tbody id="tblIg1"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- S8c · REDES ORGÁNICAS · INSTAGRAM (2/2) -->
+<section class="slide slide-cream fade slide-anchor" id="s8c">
+  <div class="slide-head">
+    <div class="meta">
+      <span class="eyebrow">08 · Redes orgánicas · Instagram (2/2)</span>
+      <h2 class="display"><svg class="net-ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="url(#igGrad)" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> Instagram, cuenta por cuenta.</h2>
+    </div>
+    <div class="marker"><span class="num">08</span><span>IG · 2/2</span></div>
+  </div>
+  <div class="card lg" style="display:flex;flex-direction:column;height:100%;">
+    <h3 class="card-title left">Instagram · detalle por cuenta (cont.)</h3>
+    <div style="flex:1;min-height:0;overflow:auto;">
+      <table class="tbl">
+        <thead><tr><th style="width:40px">#</th><th>Cuenta</th><th class="num">Visualizaciones</th><th class="num">Videos</th><th class="num">Δ vs mes ant.</th><th>Ver videos</th></tr></thead>
+        <tbody id="tblIg2"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- S8d · REDES ORGÁNICAS · TIKTOK -->
+<section class="slide slide-paper fade slide-anchor" id="s8d">
+  <div class="slide-head">
+    <div class="meta">
+      <span class="eyebrow">08 · Redes orgánicas · TikTok</span>
+      <h2 class="display"><svg class="net-ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="#25F4EE" transform="translate(-0.9,0.9)" d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/><path fill="#FE2C55" transform="translate(0.9,-0.9)" d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/><path fill="#010101" d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/></svg> TikTok, cuenta por cuenta.</h2>
+    </div>
+    <div class="marker"><span class="num">08</span><span>TikTok</span></div>
+  </div>
+  <div class="card lg" style="display:flex;flex-direction:column;height:100%;">
+    <h3 class="card-title left">TikTok · detalle por cuenta</h3>
+    <div style="flex:1;min-height:0;overflow:auto;">
+      <table class="tbl">
+        <thead><tr><th style="width:40px">#</th><th>Cuenta</th><th class="num">Visualizaciones</th><th class="num">Videos</th><th class="num">Δ vs mes ant.</th><th>Ver videos</th></tr></thead>
+        <tbody id="tblTt"></tbody>
+      </table>
     </div>
   </div>
 </section>
@@ -989,12 +1072,18 @@ const shortNumber=v=>{
   return String(v);
 };
 const pctFmt=v=>`${v.toFixed(2).replace('.',',')}%`;
+const viewsFmt=v=>{
+  const one=n=>{const r=Math.round(n*10)/10;return r%1===0?r.toFixed(0):r.toFixed(1).replace('.',',');};
+  if(Math.abs(v)>=1e6)return one(v/1e6)+'M';
+  if(Math.abs(v)>=1e3)return one(v/1e3)+'K';
+  return String(Math.round(v));
+};
 const parseNumber=(v)=>{
   if(v===null||v===undefined||v==='')return 0;
   const s=String(v).trim();
   if(!s)return 0;
-  if(/k$/i.test(s))return parseFloat(s)*1e3;
-  if(/m$/i.test(s))return parseFloat(s)*1e6;
+  if(/k$/i.test(s))return(parseFloat(s.slice(0,-1).replace(/\./g,'').replace(',','.'))||0)*1e3;
+  if(/m$/i.test(s))return(parseFloat(s.slice(0,-1).replace(/\./g,'').replace(',','.'))||0)*1e6;
   const clean=s.replace(/[^0-9.,\-]/g,'');
   if(!clean)return 0;
   const dotCount=(clean.match(/\./g)||[]).length;
@@ -1151,13 +1240,20 @@ function buildDataModel(tvText, metaText, metaPastText, metricasText, config){
   metricRows.forEach(row=>{
     const red = String(row['Red Social']||'').trim();
     const cuenta = String(row.Cuenta||'').trim();
+    if(!red || !cuenta) return;
     const videos = parseNumber(row['Cantidad de videos publicados']);
     const visual = parseNumber(row.Visualizaciones);
-    if(!social[red]) social[red] = {red, videos:0, visualizaciones:0, cuentas:0};
+    const prevVideos = parseNumber(row['Mes anterior']);
+    const links = String(row['Link del video']||'').split(/\r?\n/).map(l=>l.trim()).filter(l=>l && l!=='-');
+    const deltaPct = prevVideos>0 ? Math.round((videos-prevVideos)/prevVideos*100) : null;
+    if(!social[red]) social[red] = {red, videos:0, visualizaciones:0, cuentas:0, cuentasActivas:0, accounts:[]};
     social[red].videos += videos;
     social[red].visualizaciones += visual;
-    social[red].cuentas += cuenta ? 1 : 0;
+    social[red].cuentas += 1;
+    if(videos>0) social[red].cuentasActivas += 1;
+    social[red].accounts.push({cuenta, visual, videos, prevVideos, deltaPct, links});
   });
+  Object.values(social).forEach(s=>s.accounts.sort((a,b)=>b.visual-a.visual));
   const igVideos = social.Instagram?.videos || 0;
   const ttVideos = social.TikTok?.videos || 0;
 
@@ -1229,7 +1325,20 @@ function renderDashboard(data){
       document.getElementById('s2InvMetaSub').textContent=`${(metaT/mktT*100).toFixed(1)}% del total marketing`;
       document.getElementById('s2TotalMkt').innerHTML=`<span class="cur">$</span>${(mktT/1e6).toFixed(1).replace('.',',')}<span class="unit">M</span>`;
       document.getElementById('s2Salidas').textContent=String(data.tv.salidas);
-      document.getElementById('s2SalidasSub').textContent=`${data.tv.numProgramas} programas · 6 profesionales`;
+      const profActivos=data.tv.profesionalesAll.filter(p=>p.name!=='Sin profesional').length;
+      document.getElementById('s2SalidasSub').textContent=`${data.tv.numProgramas} programas · ${profActivos} profesionales`;
+
+      const igSocial=data.social.Instagram||{videos:0,cuentasActivas:0};
+      const ttSocial=data.social.TikTok||{videos:0,cuentasActivas:0};
+      document.getElementById('s2Editados').textContent=String(data.tv.editedCount);
+      document.getElementById('s2EditadosSub').textContent=`${Math.round(data.tv.editedCount/Math.max(data.tv.salidas,1)*100)}% de las salidas TV`;
+      document.getElementById('s2VideosIg').textContent=String(igSocial.videos);
+      document.getElementById('s2VideosIgSub').textContent=`${igSocial.cuentasActivas} cuentas activas`;
+      document.getElementById('s2VideosTt').textContent=String(ttSocial.videos);
+      document.getElementById('s2VideosTtSub').textContent=`${ttSocial.cuentasActivas} cuentas activas`;
+      document.getElementById('s2NotasPnt').textContent=`${data.tv.notas} / ${data.tv.pnt}`;
+      const notasPct=Math.round(data.tv.notas/Math.max(data.tv.notas+data.tv.pnt,1)*100);
+      document.getElementById('s2NotasPntSub').textContent=`${notasPct}% notas · ${100-notasPct}% PNT`;
     }
   }
 
@@ -1323,6 +1432,37 @@ function renderDashboard(data){
   document.getElementById('s8Editados').innerHTML = `${data.tv.editedCount} <span style="font-size:.55em;color:rgba(255,255,255,.6)">(${junioEditPct}%)</span>`;
   document.getElementById('s8EditadosSub').textContent = `Mayo: ${prevTv.editedCount} editados (${mayoEditPct}%)`;
   document.getElementById('s8SinProcesar').textContent = String(Math.max(0, data.tv.salidas - data.tv.editedCount));
+  const totalVideosRedes = (data.hero.igVideos||0) + (data.hero.ttVideos||0);
+  document.getElementById('s8LogroTexto').textContent = `El 100% de los videos editados fue publicado. ${totalVideosRedes} videos en redes (${data.hero.igVideos||0} IG + ${data.hero.ttVideos||0} TikTok).`;
+
+  // S8b/S8c/S8d — detalle por cuenta de Instagram y TikTok
+  {
+    const socialRowHtml = (a, i) => {
+      const deltaHtml = a.deltaPct === null
+        ? '<span style="color:var(--ink-3)">—</span>'
+        : `<span style="color:${a.deltaPct>=0?'var(--good)':'var(--fp-red)'};font-weight:700">${a.deltaPct>=0?'+':''}${a.deltaPct}%</span>`;
+      const btns = a.links.length
+        ? `<div class="vid-links">${a.links.map((url,j)=>`<a class="vid-btn" href="${url}" target="_blank" rel="noopener">Video ${j+1}</a>`).join('')}</div>`
+        : '<span style="color:var(--ink-3)">Sin videos</span>';
+      return `<tr>
+        <td>${String(i+1).padStart(2,'0')}</td>
+        <td><strong>${a.cuenta}</strong></td>
+        <td class="num">${a.visual ? viewsFmt(a.visual) : '—'}</td>
+        <td class="num">${a.videos}</td>
+        <td class="num">${deltaHtml}</td>
+        <td>${btns}</td>
+      </tr>`;
+    };
+    const igAccounts = data.social.Instagram?.accounts || [];
+    const ttAccounts = data.social.TikTok?.accounts || [];
+    const half = Math.ceil(igAccounts.length / 2);
+    const tblIg1 = document.getElementById('tblIg1');
+    const tblIg2 = document.getElementById('tblIg2');
+    const tblTt = document.getElementById('tblTt');
+    if(tblIg1) tblIg1.innerHTML = igAccounts.slice(0, half).map((a,i)=>socialRowHtml(a,i)).join('');
+    if(tblIg2) tblIg2.innerHTML = igAccounts.slice(half).map((a,i)=>socialRowHtml(a,i+half)).join('');
+    if(tblTt) tblTt.innerHTML = ttAccounts.map((a,i)=>socialRowHtml(a,i)).join('');
+  }
 
   // S11 tabla comparativa — mismos helpers que S3
   {
