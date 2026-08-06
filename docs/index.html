@@ -462,7 +462,7 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
   <div class="slide-head">
     <div class="meta">
       <span class="eyebrow">02 · Resumen ejecutivo · Cifras sin programa ADN</span>
-      <h2 class="display">Los números que<br/>definen junio.</h2>
+      <h2 class="display" id="s2Titulo">Los números que<br/>definen junio.</h2>
     </div>
     <div class="marker"><span class="num">02</span><span>Resumen</span></div>
   </div>
@@ -485,7 +485,7 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
   <div class="slide-head">
     <div class="meta">
       <span class="eyebrow">03 · Comparativo</span>
-      <h2 class="display">Mayo vs Junio:<br/>más salidas, menos inversión.</h2>
+      <h2 class="display" id="s3Titulo">Mayo vs Junio:<br/>más salidas, menos inversión.</h2>
     </div>
     <div class="marker"><span class="num">03</span><span>Compar.</span></div>
   </div>
@@ -495,8 +495,8 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
         <thead>
           <tr>
             <th>Métrica</th>
-            <th>Mayo</th>
-            <th>Junio</th>
+            <th id="s3ThPrev">Mayo</th>
+            <th id="s3ThCur">Junio</th>
             <th>Δ</th>
           </tr>
         </thead>
@@ -519,12 +519,12 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
         <div class="pill good" style="margin-bottom:.7vw">Eficiencia</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:1vw;margin-top:.3vw">
           <div>
-            <div style="font-family:'Manrope';font-weight:800;font-size:max(16px,.58vw);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);margin-bottom:.3vw">Costo / salida · Mayo</div>
-            <div id="s3CostoMayo" style="font-family:'Fraunces';font-weight:700;font-size:max(28px,2.6vw);color:var(--ink-2);letter-spacing:-.025em;line-height:1">$1,40<span style="font-size:.55em;font-weight:600;color:var(--ink-3)"> M</span></div>
+            <div style="font-family:'Manrope';font-weight:800;font-size:max(16px,.58vw);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);margin-bottom:.3vw" id="s3LblCostoPrev">Costo / salida · Mayo</div>
+            <div id="s3CostoPrev"style="font-family:'Fraunces';font-weight:700;font-size:max(28px,2.6vw);color:var(--ink-2);letter-spacing:-.025em;line-height:1">$1,40<span style="font-size:.55em;font-weight:600;color:var(--ink-3)"> M</span></div>
           </div>
           <div>
-            <div style="font-family:'Manrope';font-weight:800;font-size:max(16px,.58vw);letter-spacing:.16em;text-transform:uppercase;color:var(--good);margin-bottom:.3vw">Costo / salida · Junio</div>
-            <div id="s3CostoJunio" style="font-family:'Fraunces';font-weight:700;font-size:max(28px,2.6vw);color:var(--good);letter-spacing:-.025em;line-height:1">$0,93<span style="font-size:.55em;font-weight:600"> M</span></div>
+            <div style="font-family:'Manrope';font-weight:800;font-size:max(16px,.58vw);letter-spacing:.16em;text-transform:uppercase;color:var(--good);margin-bottom:.3vw" id="s3LblCostoCur">Costo / salida · Junio</div>
+            <div id="s3CostoCur"style="font-family:'Fraunces';font-weight:700;font-size:max(28px,2.6vw);color:var(--good);letter-spacing:-.025em;line-height:1">$0,93<span style="font-size:.55em;font-weight:600"> M</span></div>
           </div>
         </div>
         <p id="s3EficienciaTexto" style="font-family:'Inter';font-size:max(16px,.78vw);color:var(--ink);margin-top:.8vw;line-height:1.5">En junio se logró un <strong>34% más de eficiencia</strong> por salida frente a mayo.</p>
@@ -536,7 +536,7 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
       <div class="stat solid-dark">
         <div class="stat-bar"></div>
         <div class="stat-lbl">Meta relevante</div>
-        <div style="font-family:'Manrope';font-weight:800;font-size:max(16px,1.5vw);color:#fff;line-height:1.2;margin-top:.3vw">100% edición en julio</div>
+        <div id="s3MetaTitulo" style="font-family:'Manrope';font-weight:800;font-size:max(16px,1.5vw);color:#fff;line-height:1.2;margin-top:.3vw">100% edición en julio</div>
         <div class="stat-sub" id="s3MetaSub">Llevar de 85% → 100% de aprovechamiento</div>
       </div>
     </div>
@@ -694,14 +694,14 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
   <div class="slide-head">
     <div class="meta">
       <span class="eyebrow">08 · Aprovechamiento</span>
-      <h2 class="display">109 salidas TV.<br/>El mayor volumen del año.</h2>
+      <h2 class="display" id="s8Titulo">109 salidas TV.<br/>El mayor volumen del año.</h2>
     </div>
     <div class="marker"><span class="num">08</span><span>Aprove.</span></div>
   </div>
   <div class="kpi-row three">
     <div class="stat on-dark good"><div class="stat-bar"></div><div class="stat-lbl">Salidas TV</div><div class="stat-val mono" id="s8Salidas">109</div><div class="stat-sub" id="s8SalidasSub">+11% vs mayo (98 sal.)</div></div>
     <div class="stat on-dark warn"><div class="stat-bar"></div><div class="stat-lbl">Videos editados</div><div class="stat-val mono" id="s8Editados">92 <span style="font-size:.55em;color:rgba(255,255,255,.6)">(84%)</span></div><div class="stat-sub" id="s8EditadosSub">Mayo: 96 editados (98%)</div></div>
-    <div class="stat on-dark"><div class="stat-bar"></div><div class="stat-lbl">Sin procesar</div><div class="stat-val mono" id="s8SinProcesar">17</div><div class="stat-sub">Prioridad operativa julio</div></div>
+    <div class="stat on-dark"><div class="stat-bar"></div><div class="stat-lbl">Sin procesar</div><div class="stat-val mono" id="s8SinProcesar">17</div><div class="stat-sub" id="s8SinProcesarSub">Prioridad operativa julio</div></div>
   </div>
   <div class="card" style="margin-top:1.1vw;background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1)">
     <h3 class="card-title" style="color:rgba(255,255,255,.8)">Funnel · de la TV a las redes</h3>
@@ -780,7 +780,7 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
   <div class="slide-head">
     <div class="meta">
       <span class="eyebrow">09 · Productos</span>
-      <h2 class="display">Inversión y salidas<br/>por producto en junio.</h2>
+      <h2 class="display" id="s10Titulo">Inversión y salidas<br/>por producto en junio.</h2>
     </div>
     <div class="marker"><span class="num">09</span><span>Productos</span></div>
   </div>
@@ -828,7 +828,7 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
 <section class="slide slide-cream fade slide-anchor" id="s11">
   <div class="slide-head">
     <div class="meta">
-      <span class="eyebrow">11 · Diagnóstico · KPIs Mayo vs Junio</span>
+      <span class="eyebrow" id="s11Eyebrow">11 · Diagnóstico · KPIs Mayo vs Junio</span>
       <h2 class="display">Qué funciona y<br/>qué muestran los datos.</h2>
     </div>
     <div class="marker"><span class="num">11</span><span>Diag.</span></div>
@@ -837,7 +837,7 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
     <div class="card" style="border-top:4px solid var(--good);display:flex;flex-direction:column">
       <div class="pill good" style="margin-bottom:.7vw;font-size:1vw">Funciona</div>
       <h3 class="card-title left" style="font-size:1vw">Producción</h3>
-      <ul style="margin:0;padding-left:1.2vw;color:var(--ink);font-size:1.25vw;line-height:1.75;flex:1">
+      <ul id="s11ListFunciona" style="margin:0;padding-left:1.2vw;color:var(--ink);font-size:1.25vw;line-height:1.75;flex:1">
         <li><strong>109 salidas</strong> — el mayor volumen del año.</li>
         <li>18 programas activos, 6 médicos.</li>
         <li>92 editados, 0 sin publicar.</li>
@@ -848,7 +848,7 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
     <div class="card" style="border-top:4px solid var(--warn);display:flex;flex-direction:column">
       <div class="pill gold" style="margin-bottom:.7vw;font-size:1vw">A resolver</div>
       <h3 class="card-title left" style="font-size:1vw">Brechas</h3>
-      <ul style="margin:0;padding-left:1.2vw;color:var(--ink);font-size:1.25vw;line-height:1.75;flex:1">
+      <ul id="s11ListBrechas" style="margin:0;padding-left:1.2vw;color:var(--ink);font-size:1.25vw;line-height:1.75;flex:1">
         <li><strong>17 salidas</strong> sin editor (16%).</li>
         <li>Edición bajó de 98% a 84%.</li>
         <li>Lapman en el <strong>43%</strong> de las salidas.</li>
@@ -858,7 +858,7 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
     <div class="card" style="border-top:4px solid var(--fp-cyan);display:flex;flex-direction:column">
       <div class="pill cyan" style="margin-bottom:.7vw;font-size:1vw">Para escalar</div>
       <h3 class="card-title left" style="font-size:1vw">Oportunidades</h3>
-      <ul style="margin:0;padding-left:1.2vw;color:var(--ink);font-size:1.25vw;line-height:1.75;flex:1">
+      <ul id="s11ListOportunidades" style="margin:0;padding-left:1.2vw;color:var(--ink);font-size:1.25vw;line-height:1.75;flex:1">
         <li>Asignar editor al grabar la salida.</li>
         <li>Alinear pauta Meta con TV.</li>
         <li>Cada video en 3+ redes.</li>
@@ -867,10 +867,10 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
     </div>
   </div>
   <div class="card" style="padding:1vw 1.4vw;display:flex;flex-direction:column;min-height:0;overflow:hidden">
-    <h3 class="card-title left" style="font-size:1vw">KPIs comparativos · Mayo vs Junio</h3>
+    <h3 class="card-title left" style="font-size:1vw" id="s11CmpTitulo">KPIs comparativos · Mayo vs Junio</h3>
     <div class="table-wrap">
       <table class="cmp-table">
-        <thead><tr><th>Métrica</th><th>Mayo</th><th>Junio</th><th>Δ</th></tr></thead>
+        <thead><tr><th>Métrica</th><th id="s11ThPrev">Mayo</th><th id="s11ThCur">Junio</th><th>Δ</th></tr></thead>
         <tbody id="s11CmpBody"></tbody>
       </table>
     </div>
@@ -881,7 +881,7 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
 <section class="slide slide-paper fade slide-anchor" id="s12">
   <div class="slide-head">
     <div class="meta">
-      <span class="eyebrow">12 · Metas · Julio 2026</span>
+      <span class="eyebrow" id="s12Eyebrow">12 · Metas · Julio 2026</span>
       <h2 class="display">Lo que viene<br/>en los próximos meses.</h2>
     </div>
     <div class="marker"><span class="num">12</span><span>Metas</span></div>
@@ -890,8 +890,8 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
     <div class="meta-hero">
       <div class="star">★</div>
       <div>
-        <h3>Llevar el aprovechamiento al <span class="ac">100%</span> en julio</h3>
-        <div class="ctx">Junio cerró en 84%. Mayo estaba en 98%. La brecha de 17 salidas sin editor es el principal cuello de botella. El objetivo: cero salidas sin procesar.</div>
+        <h3 id="s12MetaTitulo">Llevar el aprovechamiento al <span class="ac">100%</span> en julio</h3>
+        <div class="ctx" id="s12MetaCtx">Junio cerró en 84%. Mayo estaba en 98%. La brecha de 17 salidas sin editor es el principal cuello de botella. El objetivo: cero salidas sin procesar.</div>
       </div>
     </div>
     <div class="meta-goals">
@@ -987,7 +987,7 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
       </div>
       <div style="flex:1;padding:.7vw 1.4vw 1vw;font-family:'Inter';font-size:1.25vw;color:var(--ink-2);line-height:1.55;overflow:hidden">
         <strong style="font-family:'Manrope';font-weight:800;font-size:1.55vw;color:var(--ink);display:block;margin-bottom:.6vw;line-height:1.25">¿Alinear inversión Meta con los productos top de TV?</strong>
-        <p style="font-size:1.25vw;line-height:1.6">Menacor, Vitamet y Daozima lideran TV en junio pero no tienen Meta activa. Ampkok y Metasitol sí. ¿Conviene sincronizar ambas estrategias?</p>
+        <p style="font-size:1.25vw;line-height:1.6" id="s13Tema03Texto">Menacor, Vitamet y Daozima lideran TV en junio pero no tienen Meta activa. Ampkok y Metasitol sí. ¿Conviene sincronizar ambas estrategias?</p>
       </div>
     </div>
 
@@ -997,7 +997,7 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
         <div class="pill" style="background:var(--canvas);color:var(--ink);font-size:1.15vw;padding:.35vw 1.1vw;letter-spacing:.12em">Tema 04 · Incentivos</div>
       </div>
       <div style="flex:1;padding:.7vw 1.4vw 1vw;font-family:'Inter';font-size:1.25vw;color:var(--ink-2);line-height:1.55;overflow:hidden">
-        <strong style="font-family:'Manrope';font-weight:800;font-size:1.55vw;color:var(--ink);display:block;margin-bottom:.7vw;line-height:1.25">Pauta de incentivo a profesionales — lista junio</strong>
+        <strong style="font-family:'Manrope';font-weight:800;font-size:1.55vw;color:var(--ink);display:block;margin-bottom:.7vw;line-height:1.25" id="s13Tema04Titulo">Pauta de incentivo a profesionales — lista junio</strong>
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.6vw">
           <div style="background:var(--canvas);border-radius:8px;padding:.6vw .9vw;font-family:'Manrope';font-weight:700;font-size:1.2vw;color:var(--ink)">1. Micaela Olivares</div>
           <div style="background:var(--canvas);border-radius:8px;padding:.6vw .9vw;font-family:'Manrope';font-weight:700;font-size:1.2vw;color:var(--ink)">2. Evangelina Cueto</div>
@@ -1015,8 +1015,8 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
 <!-- S14 · CIERRE -->
 <section class="slide slide-dark fade slide-anchor" id="s14">
   <div class="closing">
-    <div class="cline">Framingham Pharma · Marketing · Junio 2026</div>
-    <h2>Junio: <span class="ac">más salidas,</span><br/>más eficiencia.</h2>
+    <div class="cline" id="closingCline">Framingham Pharma · Marketing · Junio 2026</div>
+    <h2 id="closingTitulo">Junio: <span class="ac">más salidas,</span><br/>más eficiencia.</h2>
     <div class="cgrid">
       <div class="cs"><div class="clbl">Total invertido</div><div class="cval mono" id="closingTotal">$125,1 <span class="ac" style="font-size:.6em">M</span></div><div class="csub">TV + Redes sin ADN</div></div>
       <div class="cs"><div class="clbl">Salidas · costo/salida</div><div class="cval mono"><span class="ac" id="closingSalidas">109</span> · <span class="ac" style="font-size:.65em" id="closingCostoSalida">$0,93M</span></div><div class="csub" id="closingCostoSub">34% más eficiente que mayo</div></div>
@@ -1030,7 +1030,7 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
     </div>
     <div class="csig">
       <svg viewBox="0 0 140 76" width="40" height="22"><rect x="2" y="2" width="64" height="72" rx="2" fill="#E63946"/><rect x="74" y="2" width="64" height="72" rx="2" fill="#1FAFE0"/><text x="34" y="55" text-anchor="middle" font-family="Arial" font-weight="800" font-size="50" fill="#fff">F</text><text x="106" y="55" text-anchor="middle" font-family="Arial" font-weight="800" font-size="50" fill="#fff">P</text></svg>
-      Framingham Pharma · Marketing · Junio 2026
+      <span id="closingSig">Framingham Pharma · Marketing · Junio 2026</span>
     </div>
   </div>
 </section>
@@ -1040,7 +1040,7 @@ footer b{font-family:'Manrope';font-weight:800;font-size:max(16px,.65vw);letter-
     <svg viewBox="0 0 140 76" width="40" height="22"><rect x="2" y="2" width="64" height="72" rx="2" fill="#E63946"/><rect x="74" y="2" width="64" height="72" rx="2" fill="#1FAFE0"/><text x="34" y="55" text-anchor="middle" font-family="Arial" font-weight="800" font-size="50" fill="#fff">F</text><text x="106" y="55" text-anchor="middle" font-family="Arial" font-weight="800" font-size="50" fill="#fff">P</text></svg>
     <b>Framingham Pharma</b>
   </div>
-  <div>Informe Ejecutivo de Marketing · Junio 2026</div>
+  <div id="footerLine">Informe Ejecutivo de Marketing · Junio 2026</div>
 </footer>
 
 <script>
@@ -1083,8 +1083,19 @@ const parseNumber=(v)=>{
   if(v===null||v===undefined||v==='')return 0;
   const s=String(v).trim();
   if(!s)return 0;
-  if(/k$/i.test(s))return(parseFloat(s.slice(0,-1).replace(/\./g,'').replace(',','.'))||0)*1e3;
-  if(/m$/i.test(s))return(parseFloat(s.slice(0,-1).replace(/\./g,'').replace(',','.'))||0)*1e6;
+  // Sufijo K/M: el CSV de métricas mezcla formatos ("35,9K" argentino con
+  // "560.9k" o "2.5K" con punto decimal). Se toma como decimal el último
+  // separador si lo siguen 1 o 2 dígitos; cualquier otro separador es de miles.
+  const conSufijo=(txt,factor)=>{
+    const num=txt.slice(0,-1).trim();
+    const dec=num.match(/[.,](\d{1,2})$/);
+    const norm=dec
+      ? num.slice(0,num.length-dec[0].length).replace(/[.,]/g,'')+'.'+dec[1]
+      : num.replace(/[.,]/g,'');
+    return (parseFloat(norm)||0)*factor;
+  };
+  if(/k$/i.test(s))return conSufijo(s,1e3);
+  if(/m$/i.test(s))return conSufijo(s,1e6);
   const clean=s.replace(/[^0-9.,\-]/g,'');
   if(!clean)return 0;
   const dotCount=(clean.match(/\./g)||[]).length;
@@ -1100,21 +1111,137 @@ const parseNumber=(v)=>{
   // Caso restante → decimal US (1471568.78, 960409.4199999999)
   return Number(clean.replace(/,/g,''))||0;
 };
-const monthToken=(name)=>String(name||'').trim().toLowerCase().slice(0,3);
+// La columna "Mes" del CSV de presupuesto viene con abreviatura inglesa
+// ("Jun 2026 - Grilla ..."), pero el config usa el mes en español. Se comparan
+// ambos tokens porque "ago"≠"aug", "ene"≠"jan", "abr"≠"apr", "dic"≠"dec".
+const MES_EN={enero:'jan',febrero:'feb',marzo:'mar',abril:'apr',mayo:'may',junio:'jun',julio:'jul',agosto:'aug',septiembre:'sep',setiembre:'sep',octubre:'oct',noviembre:'nov',diciembre:'dec'};
+const monthTokens=(name)=>{
+  const n=String(name||'').trim().toLowerCase();
+  const es=n.slice(0,3);
+  const en=MES_EN[n];
+  return (en && en!==es) ? [es,en] : [es];
+};
+const matchesMonth=(mesCol,name,year)=>{
+  const mes=String(mesCol||'').toLowerCase();
+  return mes.includes(String(year)) && monthTokens(name).some(t=>t && mes.includes(t));
+};
 
 const allCharts=[];
 function mkChart(id,cfg){const c=new Chart(document.getElementById(id),cfg);allCharts.push(c);return c;}
 
 let currentData={};
 
+// ─── Resolución de archivos por prefijo ───────────────────────────────────
+// Los CSVs de Meta traen la fecha de exportación en el nombre y el de métricas
+// trae los meses, así que no se pueden fijar. En vez del nombre exacto se
+// guarda en config.json el trozo estable del principio ("el nombre hasta un
+// punto"): el archivo que empiece así es el que se usa en ese lugar.
+const PREFIJOS_DEFAULT={
+  tv:'Presupuesto TV',
+  meta_actual:'meta_por_cuenta_30_días',
+  meta_anterior:'meta_por_cuenta_Mes_pasado',
+  metricas:'Metricas'
+};
+const RANURAS=[
+  ['tv','presupuesto de TV'],
+  ['meta_actual','Meta del mes'],
+  ['meta_anterior','Meta del mes anterior'],
+  ['metricas','métricas de redes']
+];
+
+// Los acentos ("días") pueden venir en NFC o NFD según quién creó el archivo.
+const normNombre = s => String(s||'').normalize('NFC').trim().toLowerCase();
+
+// Vía 1 — índice de directorio del server estático (python -m http.server,
+// Live Server). Es lo que funciona mientras probás en local.
+async function listarDesdeIndice(){
+  const res = await fetch('./data/');
+  if(!res.ok) return null;
+  const html = await res.text();
+  const nombres = [...html.matchAll(/href="([^"]+)"/gi)]
+    .map(m=>{ try{ return decodeURIComponent(m[1]); }catch(_){ return m[1]; } })
+    .map(n=>n.split(/[/?#]/).filter(Boolean).pop() || '')
+    .filter(n=>/\.csv$/i.test(n));
+  return nombres.length ? [...new Set(nombres)] : null;
+}
+
+// Vía 2 — API de GitHub. GitHub Pages no sirve índices de directorio, así que
+// en el sitio publicado la lista se pide al repo (público, rama por defecto).
+async function listarDesdeGitHub(cfg){
+  const gh = cfg.github || {};
+  const owner = gh.owner || (location.hostname.endsWith('.github.io') ? location.hostname.split('.')[0] : null);
+  const repo  = gh.repo  || location.pathname.split('/').filter(Boolean)[0] || null;
+  const path  = gh.path  || 'docs/data';
+  if(!owner || !repo) return null;
+  const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`);
+  if(!res.ok) return null;
+  const json = await res.json();
+  return Array.isArray(json) ? json.filter(f=>/\.csv$/i.test(f.name||'')).map(f=>f.name) : null;
+}
+
+// Si hay más de un archivo con el mismo prefijo hay que desempatar. Ordenar por
+// nombre alcanza para fechas ISO ("...2026-07-31" > "...2026-06-29") pero no
+// para nombres de mes ("Mayo-Junio" ordena después de "Junio-Julio"), así que
+// primero pesa cuál nombre menciona el mes del informe.
+function resolverPorPrefijo(nombres, prefijo, cfg){
+  const p = normNombre(prefijo);
+  if(!p) return {nombre:null, candidatos:[]};
+  const mes = normNombre((cfg||{}).mes);
+  const prev = normNombre((cfg||{}).mesAnterior);
+  const anio = String((cfg||{}).anio || '');
+  const puntaje = (nombre)=>{
+    const n = normNombre(nombre);
+    let s = 0;
+    if(mes && n.includes(mes)) s += 2;
+    if(mes && prev && n.includes(mes) && n.includes(prev)) s += 4;
+    if(anio && n.includes(anio)) s += 1;
+    return s;
+  };
+  const candidatos = nombres
+    .filter(n=>normNombre(n).startsWith(p))
+    .sort((a,b)=> (puntaje(b)-puntaje(a)) || b.localeCompare(a,'es'));
+  return {nombre:candidatos[0] || null, candidatos};
+}
+
+async function fetchCsv(nombre, etiqueta){
+  const res = await fetch('./data/'+encodeURIComponent(nombre));
+  if(!res.ok) throw new Error(`No se pudo cargar el CSV de ${etiqueta} ("${nombre}", error ${res.status}).`);
+  return res.text();
+}
+
 async function loadAllData(){
-  const [tvText, metaText, metaPastText, metricasText, config] = await Promise.all([
-    fetch('./data/Presupuesto TV - Comparativo.csv').then(r=>r.text()),
-    fetch('./data/meta_por_cuenta_30_días_2026-06-29.csv').then(r=>r.text()),
-    fetch('./data/meta_por_cuenta_Mes_pasado_2026-06-29.csv').then(r=>r.text()),
-    fetch('./data/Metricas Mayo-Junio - enCSV.csv').then(r=>r.text()),
-    fetch('./data/config.json').then(r=>r.json())
-  ]);
+  const cfgRes = await fetch('./data/config.json');
+  if(!cfgRes.ok) throw new Error(`No se pudo cargar config.json (${cfgRes.status}).`);
+  const config = await cfgRes.json();
+  const prefijos = Object.assign({}, PREFIJOS_DEFAULT, config.prefijos || {});
+
+  let nombres = null;
+  try { nombres = await listarDesdeIndice(); } catch(_){}
+  if(!nombres){ try { nombres = await listarDesdeGitHub(config); } catch(_){} }
+
+  const resueltos = {};
+  for(const [ranura, etiqueta] of RANURAS){
+    let nombre = null, candidatos = [];
+    if(nombres){
+      const r = resolverPorPrefijo(nombres, prefijos[ranura], config);
+      nombre = r.nombre; candidatos = r.candidatos;
+      if(candidatos.length > 1) console.warn(`Varios CSVs empiezan con "${prefijos[ranura]}": uso "${nombre}". Los otros: ${candidatos.slice(1).join(', ')}`);
+    }
+    // Respaldo: nombre exacto en config.archivos (por si no se pudo listar).
+    if(!nombre) nombre = (config.archivos || {})[ranura] || null;
+    if(!nombre){
+      throw new Error(nombres
+        ? `No hay ningún CSV que empiece con "${prefijos[ranura]}" (${etiqueta}) en docs/data. Hay: ${nombres.join(', ') || 'ninguno'}.`
+        : `No se pudo listar docs/data para encontrar el CSV de ${etiqueta}. Serví el informe con un server local o completá config.json → archivos.`);
+    }
+    resueltos[ranura] = nombre;
+  }
+  console.info('CSVs resueltos por prefijo:', resueltos);
+  config._archivosResueltos = resueltos;
+
+  const [tvText, metaText, metaPastText, metricasText] = await Promise.all(
+    RANURAS.map(([ranura, etiqueta])=>fetchCsv(resueltos[ranura], etiqueta))
+  );
   return buildDataModel(tvText, metaText, metaPastText, metricasText, config);
 }
 
@@ -1123,18 +1250,11 @@ function buildDataModel(tvText, metaText, metaPastText, metricasText, config){
   // Se cuenta toda la pauta comprometida del mes (columna Mes/Año), esté o no
   // ya subido el video: "Tomado" solo indica si el video ya se subió a YouTube,
   // no si la inversión fue realizada.
-  const tvRows = allTvParsed.filter(row=>{
-    const mes = String(row.Mes||'').toLowerCase();
-    const year = String(config.anio || '2026');
-    const target = monthToken(config.mes);
-    return mes.includes(target) && mes.includes(year);
-  });
-  const prevTarget = monthToken(config.mesAnterior || 'Mayo');
-  const prevTvRows = allTvParsed.filter(row=>{
-    const mes = String(row.Mes||'').toLowerCase();
-    const year = String(config.anio || '2026');
-    return mes.includes(prevTarget) && mes.includes(year);
-  });
+  const year = String(config.anio || '2026');
+  const tvRows = allTvParsed.filter(row=>matchesMonth(row.Mes, config.mes, year));
+  const prevTvRows = allTvParsed.filter(row=>matchesMonth(row.Mes, config.mesAnterior, year));
+  if(!tvRows.length) throw new Error(`El CSV de TV no tiene filas de ${config.mes} ${year}. Revisá la columna "Mes" o el campo "mes" de config.json.`);
+  if(!prevTvRows.length) console.warn(`Sin filas de ${config.mesAnterior} ${year} en el CSV de TV: el comparativo va a quedar en cero.`);
   let prevProgramInv=0, prevApoyo=0, prevEditedCount=0;
   prevTvRows.forEach(row=>{
     prevProgramInv += parseNumber(row['Valor Programa']);
@@ -1240,21 +1360,29 @@ function buildDataModel(tvText, metaText, metaPastText, metricasText, config){
   const pautaProd = productosMeta.slice(0,9).map((row,i)=>({name:row.Cuenta, val:parseNumber(row.Gasto_ARS), pct: i===0?100:Math.round((parseNumber(row.Gasto_ARS)/parseNumber(productosMeta[0].Gasto_ARS))*100)}));
 
   const social = {};
+  // El CSV de métricas cambió de columnas en julio 2026. Se aceptan los dos
+  // juegos de nombres para que siga andando con exports viejos.
+  const campo = (row, ...nombres) => { for(const n of nombres){ if(row[n]!==undefined && row[n]!=='') return row[n]; } return ''; };
   metricRows.forEach(row=>{
     const red = String(row['Red Social']||'').trim();
     const cuenta = String(row.Cuenta||'').trim();
     if(!red || !cuenta) return;
-    const videos = parseNumber(row['Cantidad de videos publicados']);
-    const visual = parseNumber(row.Visualizaciones);
-    const prevVideos = parseNumber(row['Mes anterior']);
-    const links = String(row['Link del video']||'').split(/\r?\n/).map(l=>l.trim()).filter(l=>l && l!=='-');
+    const videos = parseNumber(campo(row,'Cantidad de videos publicados'));
+    const visual = parseNumber(campo(row,'Visualizaciones periodo actual','Visualizaciones'));
+    const prevVisual = parseNumber(campo(row,'Visualizaciones periodo anterior'));
+    const prevVideos = parseNumber(campo(row,'Publicados mes anterior','Mes anterior'));
+    // Antes los links venían uno por línea; ahora vienen separados por espacios.
+    const links = String(campo(row,'Enlace','Link del video'))
+      .split(/\s+/).map(l=>l.trim()).filter(l=>/^https?:\/\//i.test(l));
     const deltaPct = prevVideos>0 ? Math.round((videos-prevVideos)/prevVideos*100) : null;
-    if(!social[red]) social[red] = {red, videos:0, visualizaciones:0, cuentas:0, cuentasActivas:0, accounts:[]};
+    const deltaVisualPct = prevVisual>0 ? Math.round((visual-prevVisual)/prevVisual*100) : null;
+    if(!social[red]) social[red] = {red, videos:0, visualizaciones:0, visualizacionesPrev:0, cuentas:0, cuentasActivas:0, accounts:[]};
     social[red].videos += videos;
     social[red].visualizaciones += visual;
+    social[red].visualizacionesPrev += prevVisual;
     social[red].cuentas += 1;
     if(videos>0) social[red].cuentasActivas += 1;
-    social[red].accounts.push({cuenta, visual, videos, prevVideos, deltaPct, links});
+    social[red].accounts.push({cuenta, visual, prevVisual, videos, prevVideos, deltaPct, deltaVisualPct, links});
   });
   Object.values(social).forEach(s=>s.accounts.sort((a,b)=>b.visual-a.visual));
   const igVideos = social.Instagram?.videos || 0;
@@ -1274,11 +1402,59 @@ function buildDataModel(tvText, metaText, metaPastText, metricasText, config){
   };
 }
 
+// Todos los rótulos de mes del informe salen de config.json: no queda ningún
+// nombre de mes escrito a mano en el HTML.
+function applyLabels(cfg){
+  const mes = cfg.mes || '';
+  const prev = cfg.mesAnterior || '';
+  const sig = cfg.mesSiguiente || 'el próximo mes';
+  const anio = cfg.anio || '';
+  const t = cfg.textos || {};
+  const setText = (id, val) => { const el=document.getElementById(id); if(el && val!=null) el.textContent = val; };
+  const setHtml = (id, val) => { const el=document.getElementById(id); if(el && val!=null) el.innerHTML = val; };
+  const low = s => String(s).toLowerCase();
+
+  document.title = `Informe Ejecutivo de Marketing · ${mes} ${anio} · Framingham Pharma`;
+  setHtml('s2Titulo', t.s2Titulo || `Los números que<br/>definen ${low(mes)}.`);
+  setHtml('s3Titulo', t.s3Titulo || `${prev} vs ${mes}:<br/>el comparativo del mes.`);
+  setText('s3ThPrev', prev);
+  setText('s3ThCur', mes);
+  setText('s3LblCostoPrev', `Costo / salida · ${prev}`);
+  setText('s3LblCostoCur', `Costo / salida · ${mes}`);
+  setText('s3MetaTitulo', `100% edición en ${low(sig)}`);
+  setText('s8SinProcesarSub', `Prioridad operativa ${low(sig)}`);
+  setHtml('s10Titulo', `Inversión y salidas<br/>por producto en ${low(mes)}.`);
+  setText('s11Eyebrow', `11 · Diagnóstico · KPIs ${prev} vs ${mes}`);
+  setText('s11CmpTitulo', `KPIs comparativos · ${prev} vs ${mes}`);
+  setText('s11ThPrev', prev);
+  setText('s11ThCur', mes);
+  setText('s12Eyebrow', `12 · Metas · ${sig} ${anio}`);
+  setHtml('s12MetaTitulo', `Llevar el aprovechamiento al <span class="ac">100%</span> en ${low(sig)}`);
+  setText('s13Tema03Texto', t.s13Tema03Texto);
+  setText('s13Tema04Titulo', `Pauta de incentivo a profesionales — lista ${low(mes)}`);
+  setText('closingCline', `Framingham Pharma · Marketing · ${mes} ${anio}`);
+  setHtml('closingTitulo', t.closingTitulo || `${mes}: <span class="ac">el mes</span><br/>en números.`);
+  setText('closingSig', `Framingham Pharma · Marketing · ${mes} ${anio}`);
+  setText('footerLine', `Informe Ejecutivo de Marketing · ${mes} ${anio}`);
+
+  // Listas editoriales de S11: si config.textos.diagnostico las define, mandan
+  // ellas; si no, queda el texto que ya está en el HTML.
+  const diag = t.diagnostico || {};
+  const setList = (id, items) => {
+    const el = document.getElementById(id);
+    if(el && Array.isArray(items) && items.length) el.innerHTML = items.map(li=>`<li>${li}</li>`).join('');
+  };
+  setList('s11ListFunciona', diag.funciona);
+  setList('s11ListBrechas', diag.brechas);
+  setList('s11ListOportunidades', diag.oportunidades);
+}
+
 function renderDashboard(data){
   const cfg = data.config || {};
   const monthLabel = cfg.mes || 'Junio';
   const yearLabel = cfg.anio || '2026';
   const periodLabel = cfg.periodo || `01 — 30 ${monthLabel}, ${yearLabel}`;
+  applyLabels(cfg);
   document.getElementById('heroMonth').textContent = `${monthLabel} · ${yearLabel}`;
   document.getElementById('heroPeriod').textContent = periodLabel;
   document.getElementById('heroInvTv').textContent = moneyShort(data.tv.totalTv);
@@ -1359,10 +1535,10 @@ function renderDashboard(data){
 
   // S3 eficiencia / a mejorar — texto dinámico (antes hardcodeado)
   {
-    const s3CostoMayoEl=document.getElementById('s3CostoMayo');
-    if(s3CostoMayoEl) s3CostoMayoEl.innerHTML = `$${costoM.toFixed(2).replace('.',',')}<span style="font-size:.55em;font-weight:600;color:var(--ink-3)"> M</span>`;
-    const s3CostoJunioEl=document.getElementById('s3CostoJunio');
-    if(s3CostoJunioEl) s3CostoJunioEl.innerHTML = `$${costoJ.toFixed(2).replace('.',',')}<span style="font-size:.55em;font-weight:600"> M</span>`;
+    const s3CostoPrevEl=document.getElementById('s3CostoPrev');
+    if(s3CostoPrevEl) s3CostoPrevEl.innerHTML = `$${costoM.toFixed(2).replace('.',',')}<span style="font-size:.55em;font-weight:600;color:var(--ink-3)"> M</span>`;
+    const s3CostoCurEl=document.getElementById('s3CostoCur');
+    if(s3CostoCurEl) s3CostoCurEl.innerHTML = `$${costoJ.toFixed(2).replace('.',',')}<span style="font-size:.55em;font-weight:600"> M</span>`;
     const s3EficienciaEl=document.getElementById('s3EficienciaTexto');
     if(s3EficienciaEl){
       const mejoro=costoDeltaPct<=0;
@@ -1376,6 +1552,13 @@ function renderDashboard(data){
     }
     const s3MetaSubEl=document.getElementById('s3MetaSub');
     if(s3MetaSubEl) s3MetaSubEl.textContent = `Llevar de ${junioEditPct}% → 100% de aprovechamiento`;
+    const sinProcesar = Math.max(0, data.tv.salidas - data.tv.editedCount);
+    const s12CtxEl=document.getElementById('s12MetaCtx');
+    if(s12CtxEl) s12CtxEl.textContent = (cfg.textos||{}).s12MetaCtx
+      || `${monthLabel} cerró en ${junioEditPct}%. ${cfg.mesAnterior||'El mes anterior'} estaba en ${mayoEditPct}%. La brecha de ${sinProcesar} salidas sin editor es el principal cuello de botella. El objetivo: cero salidas sin procesar.`;
+    const s8TituloEl=document.getElementById('s8Titulo');
+    if(s8TituloEl) s8TituloEl.innerHTML = (cfg.textos||{}).s8Titulo
+      || `${data.tv.salidas} salidas TV.<br/>El balance del mes.`;
   }
 
   // S3 comparativo — programa y apoyo por separado, Mayo desde CSV real
@@ -1431,9 +1614,9 @@ function renderDashboard(data){
   }
 
   document.getElementById('s8Salidas').textContent = String(data.tv.salidas);
-  document.getElementById('s8SalidasSub').textContent = `+${Math.max(0, data.tv.salidas - prevTv.salidas)} vs mayo (${prevTv.salidas} sal.)`;
+  document.getElementById('s8SalidasSub').textContent = `+${Math.max(0, data.tv.salidas - prevTv.salidas)} vs ${(cfg.mesAnterior||'mes ant.').toLowerCase()} (${prevTv.salidas} sal.)`;
   document.getElementById('s8Editados').innerHTML = `${data.tv.editedCount} <span style="font-size:.55em;color:rgba(255,255,255,.6)">(${junioEditPct}%)</span>`;
-  document.getElementById('s8EditadosSub').textContent = `Mayo: ${prevTv.editedCount} editados (${mayoEditPct}%)`;
+  document.getElementById('s8EditadosSub').textContent = `${cfg.mesAnterior||'Mes ant.'}: ${prevTv.editedCount} editados (${mayoEditPct}%)`;
   document.getElementById('s8SinProcesar').textContent = String(Math.max(0, data.tv.salidas - data.tv.editedCount));
   const totalVideosRedes = (data.hero.igVideos||0) + (data.hero.ttVideos||0);
   document.getElementById('s8LogroTexto').textContent = `El 100% de los videos editados fue publicado. ${totalVideosRedes} videos en redes (${data.hero.igVideos||0} IG + ${data.hero.ttVideos||0} TikTok).`;

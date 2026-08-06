@@ -1,10 +1,50 @@
 {
-  "mes": "Junio",
+  "mes": "Julio",
   "anio": 2026,
-  "periodo": "01 — 30 Junio, 2026",
-  "tv_publicados": 109,
-  "mesAnterior": "Mayo",
+  "periodo": "01 — 31 Julio, 2026",
+  "mesAnterior": "Junio",
+  "mesSiguiente": "Agosto",
+
   "presupuesto_tv": 136900000,
   "nota_tv": "Incl. ADN e Iluminadas",
-  "diapositivas_ocultas": []
+
+  "_comentario_prefijos": "No son nombres exactos: es el comienzo del nombre. El CSV de docs/data que empiece así es el que se usa en ese lugar, sin importar la fecha o los meses que traiga después. Si hay más de uno, gana el más nuevo.",
+  "prefijos": {
+    "tv": "Presupuesto TV",
+    "meta_actual": "meta_por_cuenta_30_días",
+    "meta_anterior": "meta_por_cuenta_Mes_pasado",
+    "metricas": "Metricas"
+  },
+
+  "diapositivas_ocultas": [],
+
+  "_comentario_textos": "Textos editoriales: son los únicos que no salen de los CSVs. Revisalos cada mes. Si borrás una clave, el informe genera un texto neutro automático.",
+  "textos": {
+    "s2Titulo": "Los números que<br/>definen julio.",
+    "s3Titulo": "Junio vs Julio:<br/>más volumen, mejor costo.",
+    "s8Titulo": "218 salidas TV.<br/>El mayor volumen del año.",
+    "closingTitulo": "Julio: <span class=\"ac\">más salidas,</span><br/>mejor costo por salida.",
+    "s13Tema03Texto": "Menacor, Serrapep y Satial Food lideran TV en julio pero no tienen Meta activa. Digecaps, Metasitol y Vitamet sí. ¿Conviene sincronizar ambas estrategias?",
+    "diagnostico": {
+      "funciona": [
+        "<strong>218 salidas</strong> — el mayor volumen del año.",
+        "17 programas activos, 9 profesionales.",
+        "171 editados, 0 sin publicar.",
+        "<strong>667 videos</strong> en redes.",
+        "25% menor costo por salida vs junio."
+      ],
+      "brechas": [
+        "<strong>47 salidas</strong> sin editor (22%).",
+        "Edición bajó de 90% a 78%.",
+        "Lapman en el <strong>28%</strong> de las salidas.",
+        "Menacor/Serrapep/Satial sin Meta."
+      ],
+      "oportunidades": [
+        "Asignar editor al grabar la salida.",
+        "Alinear pauta Meta con TV.",
+        "Cada video en 3+ redes.",
+        "Sumar 2 profesionales nuevos."
+      ]
+    }
+  }
 }
